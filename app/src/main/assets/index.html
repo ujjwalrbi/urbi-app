@@ -1,71 +1,61 @@
 <!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>URBI</title>
+<title>URPHONSCOP</title>
 <style>
 :root{--bg:#020a02;--pn:#041a04;--g:#39ff14;--dg:#1c7a0c;--ln:#27b012}
 *{box-sizing:border-box}
 html,body{margin:0;background:var(--bg)}
-body{color:var(--g);font:14px/1.5 monospace;padding:12px 12px 84px;max-width:560px;margin:0 auto}
-a{color:inherit;text-decoration:none}
-.hd{display:flex;gap:12px;align-items:center}
-.lg{flex:none;width:64px;height:64px;border:1px solid var(--g);display:flex;flex-direction:column;align-items:center;justify-content:center;font-weight:bold;font-size:13px;box-shadow:0 0 14px rgba(57,255,20,.35),inset 0 0 12px rgba(57,255,20,.15)}
-.lg span{font-size:26px;line-height:1}
-h1{font-size:24px;margin:0;letter-spacing:1px;text-shadow:0 0 12px rgba(57,255,20,.6)}
+body{color:var(--g);font:14px/1.5 monospace;padding:14px 12px 30px;max-width:560px;margin:0 auto}
+h1{font-size:22px;margin:0;letter-spacing:1px;text-shadow:0 0 12px rgba(57,255,20,.6)}
 .sb{font-size:12px}
-.tb{display:flex;overflow-x:auto;margin-top:10px;border-top:1px solid var(--ln);border-bottom:1px solid var(--ln);white-space:nowrap}
-.tb span{padding:6px 12px;border-right:1px solid var(--ln);font-size:12px}
 .run{height:3px;margin:10px 0 4px;background:linear-gradient(90deg,transparent,var(--g),transparent) -50% 0/40% 100% no-repeat,var(--dg);animation:r 2.6s linear infinite}
 @keyframes r{to{background-position:150% 0,0 0}}
-.p{position:relative;border:1px solid var(--ln);background:var(--pn);margin:20px 0 14px;padding:16px 12px 12px;box-shadow:0 0 14px rgba(57,255,20,.18),inset 0 0 18px rgba(57,255,20,.06)}
+.p{position:relative;border:1px solid var(--ln);background:var(--pn);margin:22px 0 14px;padding:16px 12px 12px;box-shadow:0 0 14px rgba(57,255,20,.18),inset 0 0 18px rgba(57,255,20,.06)}
 .p h3{position:absolute;top:-10px;left:12px;margin:0;background:var(--bg);padding:0 8px;font-size:12px;letter-spacing:1px}
-.on{position:absolute;top:-9px;right:12px;background:var(--bg);padding:0 8px;font-size:11px}
-.on:before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--g);margin-right:6px;animation:b 1.4s infinite}
-@keyframes b{50%{opacity:.25}}
-.cu{display:inline-block;width:9px;height:16px;background:var(--g);vertical-align:-3px;animation:b 1s steps(1) infinite}
-.rg{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.c{border:1px solid var(--ln);padding:8px;display:flex;gap:8px;align-items:center;min-width:0}
-.c circle:last-child{transition:stroke-dashoffset 1.3s ease-out}
-.s{font-size:11px;opacity:.8}
-.v{font-weight:bold;font-size:16px}
-.kv{display:grid;grid-template-columns:90px 1fr;gap:2px 8px;font-size:13px}
-.ap{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
-.ap a,.f{border:1px solid var(--ln);padding:8px 2px;text-align:center;font-size:11px;min-width:0}
-.ap b,.f b{display:block;font-size:15px;margin-bottom:2px}
-.cm{display:grid;grid-template-columns:1fr 1fr;gap:2px 10px;font-size:13px}
-.ft{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-.ban{margin:14px 0;border:1px solid var(--ln);padding:8px;text-align:center;font-size:12px;box-shadow:0 0 12px rgba(57,255,20,.2)}
-nav{position:fixed;left:0;right:0;bottom:0;display:flex;background:var(--bg);border-top:1px solid var(--g);padding:10px 0;overflow-x:auto;box-shadow:0 -4px 16px rgba(57,255,20,.2)}
-nav a{flex:1 0 auto;min-width:58px;text-align:center;font-size:12px;padding:2px 6px}
-nav a:first-child{font-weight:bold;border:1px solid var(--g);margin:0 6px;flex:none}
+.big{font-size:30px;font-weight:bold}
+.bar{height:10px;border:1px solid var(--ln);margin:6px 0 10px}
+.bar i{display:block;height:100%;background:var(--g);box-shadow:0 0 8px var(--g);transition:width 1s}
+.kv{display:grid;grid-template-columns:120px 1fr;gap:2px 8px;font-size:13px}
+.tip{margin-top:10px;border-top:1px dashed var(--ln);padding-top:8px}
+button{background:none;color:var(--g);border:1px solid var(--g);padding:8px 14px;font:inherit}
 </style></head>
-<body id="top">
-<div class="hd"><div class="lg">URBI<span>∞</span></div><div><h1>UJJWALRBI ∞</h1><div class="sb">ALL-ROUNDER • BEYOND INFINITY</div></div></div>
-<div class="tb"><span>STUDY</span><span>CODING</span><span>LINUX</span><span>SECURITY</span><span>SOCIAL</span><span>AI</span><span>MORE...</span></div>
-<div class="run"></div>
-<section class="p"><h3>URBI TERMINAL</h3><div class="on">ALL SYSTEMS ONLINE</div><div id="tl" style="min-height:96px"></div></section>
-<section class="p"><h3>SYSTEM STATS</h3><div class="rg" id="rg"></div></section>
-<section class="p"><h3>DEVICE INFO</h3><div class="kv"><span>Model</span><span>Vivo Y29 5G</span><span>RAM</span><span>8 GB</span><span>Storage</span><span>256 GB</span><span>OS</span><span>Android</span></div></section>
-<section class="p" id="apps"><h3>APPS &amp; SERVICES</h3><div class="ap" id="ap"></div></section>
-<section class="p" id="cmds"><h3>QUICK COMMANDS</h3><div class="cm"><span>pkg update</span><span>ls</span><span>pkg upgrade</span><span>cd</span><span>pkg install &lt;pkg&gt;</span><span>pwd</span><span>python</span><span>nano</span><span>node</span><span>git</span></div></section>
-<section class="p" id="tools"><h3>FEATURES / TOOLS</h3><div class="ft" id="ft"></div></section>
-<div class="ban">∞ ALL ROUNDERS NEVER STOP • URBI ∞</div>
-<nav><a href="#top">URBI</a><a href="#tools">AI</a><a href="#cmds">CODE</a><a href="https://www.google.com">SEARCH</a><a href="#apps">APPS</a><a href="#tools">TOOLS</a><a href="#cmds">FILES</a><a href="#top">MORE</a></nav>
+<body>
+<h1>URPHONSCOP ∞</h1><div class="sb">UR PHONE SCOPE • PHONE KA POORA HAAL</div><div class="run"></div>
+<section class="p"><h3>BATTERY</h3><div class="big" id="bp">--</div><div class="bar"><i id="bb" style="width:0"></i></div><div class="kv" id="bk"></div><div class="tip" id="bt"></div></section>
+<section class="p"><h3>STORAGE</h3><div class="big" id="sp">--</div><div class="bar"><i id="sb" style="width:0"></i></div><div class="kv" id="sk"></div><div class="tip" id="st"></div></section>
+<section class="p"><h3>RAM</h3><div class="big" id="rp">--</div><div class="bar"><i id="rb" style="width:0"></i></div><div class="kv" id="rk"></div><div class="tip" id="rt"></div></section>
+<section class="p"><h3>DEVICE</h3><div class="kv" id="dk"></div></section>
+<section class="p"><h3>JALDI AAYEGA</h3>Apps ki permissions ki jaanch, suspicious apps, faltu files.</section>
+<button onclick="load()">Refresh</button>
 <script>
-var C=[['cpu','CPU','1.80 GHz'],['ram','RAM','3.8 / 8.0 GB'],['sto','STORAGE','158 / 256 GB'],['net','NETWORK','Wi-Fi']];
-document.getElementById('rg').innerHTML=C.map(function(c){return '<div class="c"><svg viewBox="0 0 60 60" width="56" height="56"><circle cx="30" cy="30" r="26" fill="none" stroke="#0e3a08" stroke-width="5"/><circle id="r-'+c[0]+'" cx="30" cy="30" r="26" fill="none" stroke="#39ff14" stroke-width="5" stroke-linecap="round" stroke-dasharray="163.4" stroke-dashoffset="163.4" transform="rotate(-90 30 30)"/></svg><div><div class="s">'+c[1]+'</div><div class="v" id="v-'+c[0]+'">0%</div><div class="s">'+c[2]+'</div></div></div>'}).join('');
-function setR(k,p,t){document.getElementById('r-'+k).style.strokeDashoffset=163.4*(1-p/100);document.getElementById('v-'+k).textContent=t||Math.round(p)+'%'}
-var D={cpu:12,ram:48,sto:62,net:0};
-function rnd(a,b){return a+Math.random()*(b-a)}
-function paint(){setR('cpu',D.cpu);setR('ram',D.ram);setR('sto',D.sto);setR('net',Math.min(100,D.net/2),D.net.toFixed(0)+' KB/s')}
-setTimeout(paint,300);
-setInterval(function(){D.cpu=Math.max(4,Math.min(40,D.cpu+rnd(-4,4)));D.ram=Math.max(40,Math.min(60,D.ram+rnd(-1,1)));D.net=rnd(0,180);paint()},1800);
-var A=[['Go','Google','https://www.google.com'],['YT','YouTube','https://www.youtube.com'],['GPT','ChatGPT','https://chatgpt.com'],['Cl','Claude','https://claude.ai'],['Ge','Gemini','https://gemini.google.com'],['WA','WhatsApp','https://wa.me/'],['Tg','Telegram','https://t.me/'],['IG','Instagram','https://www.instagram.com'],['GH','GitHub','https://github.com'],['PS','Play Store','https://play.google.com/store'],['Mp','Maps','https://maps.google.com'],['X','X','https://x.com']];
-document.getElementById('ap').innerHTML=A.map(function(a){return '<a href="'+a[2]+'"><b>'+a[0]+'</b>'+a[1]+'</a>'}).join('');
-var F=[['STD','Study Hub'],['AI','AI Assistant'],['CODE','Coding IDE'],['SEC','Ethical Hacking'],['CLD','Cloud, DevOps'],['SOC','Social Media'],['TSK','Productivity'],['MED','Multimedia'],['SYS','System Tools'],['GAM','Games'],['DSN','Design'],['HLT','Health']];
-document.getElementById('ft').innerHTML=F.map(function(f){return '<div class="f"><b>'+f[0]+'</b>'+f[1]+'</div>'}).join('');
-var L=['Welcome to UJJWALRBI∞ Terminal','Mode: ALL-ROUNDER','"No Limits - Only Infinity"'],tl=document.getElementById('tl');
-function typeLine(i){if(i>=L.length){tl.insertAdjacentHTML('beforeend','<div style="margin-top:8px">URBI@Infinity ❯ <i class="cu"></i></div>');return}
-var d=document.createElement('div');tl.appendChild(d);var j=0;(function t(){d.textContent=L[i].slice(0,j++);if(j<=L[i].length)setTimeout(t,28);else typeLine(i+1)})()}
-typeLine(0);
+var ST={2:'Charge ho rahi hai',3:'Use ho rahi hai',4:'Charge nahi ho rahi',5:'Full'};
+var HE={2:'Achhi',3:'Overheat',4:'Kharab',5:'Over voltage',7:'Thandi'};
+function gb(n){return (n/1073741824).toFixed(1)+' GB'}
+function row(a,b){return '<span>'+a+'</span><span>'+b+'</span>'}
+function set(id,h){document.getElementById(id).innerHTML=h}
+function bar(id,p){document.getElementById(id).style.width=Math.max(0,Math.min(100,p))+'%'}
+function load(){
+var d;
+try{d=JSON.parse(window.URP.info())}catch(e){d={bat:50,temp:30,volt:4000,status:3,health:2,stoT:256e9,stoF:100e9,ramT:8e9,ramF:3e9,model:'Demo (browser)',andr:'?'}}
+set('bp',d.bat+'%');bar('bb',d.bat);
+var k=row('Status',ST[d.status]||'?')+row('Garmi',d.temp+' °C')+row('Voltage',(d.volt/1000).toFixed(2)+' V')+row('Health',HE[d.health]||'?');
+if(d.cycles>0)k+=row('Cycles',d.cycles);
+set('bk',k);
+var t='Battery theek hai.';
+if(d.temp>=40||d.health==3)t='Phone garam hai ('+d.temp+' °C). Charging band karo aur cover hata do.';
+else if(d.bat<=20&&d.status!=2)t='Battery kam hai, charge lagao.';
+else if(d.bat>=80&&d.status==2)t='80% ho gaya. Battery ki umar ke liye ab charger nikal sakte ho.';
+set('bt',t);
+var su=d.stoT-d.stoF,sp=Math.round(su*100/d.stoT);
+set('sp',sp+'% bhara');bar('sb',sp);
+set('sk',row('Total',gb(d.stoT))+row('Use hua',gb(su))+row('Khali',gb(d.stoF)));
+set('st',sp>=90?'Storage bahut bhara hai. Bade videos, purani files aur kam use ki apps hatao.':sp>=75?'Storage kaafi bhara hai, thodi safai karo.':'Storage theek hai.');
+var ru=d.ramT-d.ramF,rp=Math.round(ru*100/d.ramT);
+set('rp',rp+'% use');bar('rb',rp);
+set('rk',row('Total',gb(d.ramT))+row('Use hua',gb(ru))+row('Khali',gb(d.ramF)));
+set('rt',rp>=85?'RAM bhari hai. Bhaari apps band karo.':'RAM theek hai.');
+set('dk',row('Phone',d.model)+row('Android',d.andr));
+}
+load();setInterval(load,5000);
 </script></body></html>

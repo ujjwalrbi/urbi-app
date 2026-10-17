@@ -3,10 +3,10 @@ android {
     namespace 'com.urbi.app'
     compileSdk 34
     defaultConfig {
-        applicationId 'com.urbi.app'
+        applicationId 'com.urphonscop.app'
         minSdk 24
         targetSdk 34
-        versionCode 1
-        versionName '1.0'
+        versionCode 2
+        versionName '2.0'
     }
 }
