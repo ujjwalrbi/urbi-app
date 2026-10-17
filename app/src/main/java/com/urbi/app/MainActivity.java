@@ -17,12 +17,41 @@ import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.speech.tts.TextToSpeech;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class MainActivity extends Activity {
     WebView w;
+    TextToSpeech tts;
 
     class Bridge {
+        @JavascriptInterface public void say(String s) { try { if (tts != null) tts.speak(s, TextToSpeech.QUEUE_FLUSH, null, "u"); } catch (Exception e) { } }
+        @JavascriptInterface public void openApp(String p) { try { Intent i = new Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse("package:" + p)); i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); startActivity(i); } catch (Exception e) { } }
+        @JavascriptInterface public String apps() {
+            JSONArray r = new JSONArray();
+            try {
+                PackageManager pm = getPackageManager();
+                for (PackageInfo p : pm.getInstalledPackages(PackageManager.GET_PERMISSIONS)) {
+                    ApplicationInfo a = p.applicationInfo;
+                    if (a == null) continue;
+                    if ((a.flags & ApplicationInfo.FLAG_SYSTEM) != 0 && (a.flags & ApplicationInfo.FLAG_UPDATED_SYSTEM_APP) == 0) continue;
+                    JSONObject o = new JSONObject();
+                    o.put("n", pm.getApplicationLabel(a).toString());
+                    o.put("p", p.packageName);
+                    String ins = pm.getInstallerPackageName(p.packageName);
+                    o.put("i", ins == null ? "" : ins);
+                    JSONArray pr = new JSONArray();
+                    if (p.requestedPermissions != null) for (String s : p.requestedPermissions) pr.put(s);
+                    o.put("perms", pr);
+                    r.put(o);
+                }
+            } catch (Exception e) { }
+            return r.toString();
+        }
         @JavascriptInterface public void vib(int ms) { try { ((android.os.Vibrator) getSystemService(Context.VIBRATOR_SERVICE)).vibrate(ms); } catch (Exception e) { } }
         @JavascriptInterface
         public String info() {
@@ -49,6 +78,9 @@ public class MainActivity extends Activity {
                 o.put("ramF", mi.availMem);
                 o.put("model", Build.MANUFACTURER + " " + Build.MODEL);
                 o.put("andr", Build.VERSION.RELEASE);
+                BatteryManager bm = (BatteryManager) getSystemService(Context.BATTERY_SERVICE);
+                o.put("cur", bm.getIntProperty(BatteryManager.BATTERY_PROPERTY_CURRENT_NOW));
+                o.put("chg", bm.getIntProperty(BatteryManager.BATTERY_PROPERTY_CHARGE_COUNTER));
             } catch (Exception e) { }
             return o.toString();
         }
@@ -60,6 +92,7 @@ public class MainActivity extends Activity {
         getWindow().setStatusBarColor(Color.BLACK);
         getWindow().setNavigationBarColor(Color.BLACK);
         w = new WebView(this);
+        tts = new TextToSpeech(this, new TextToSpeech.OnInitListener() { public void onInit(int st) { if (st == TextToSpeech.SUCCESS) tts.setLanguage(java.util.Locale.getDefault()); } });
         w.setBackgroundColor(Color.parseColor("#020a02"));
         WebSettings s = w.getSettings();
         s.setJavaScriptEnabled(true);
