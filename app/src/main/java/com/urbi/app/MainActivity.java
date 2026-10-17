@@ -71,9 +71,21 @@ public class MainActivity extends Activity {
                     o.put("health", b.getIntExtra(BatteryManager.EXTRA_HEALTH, 0));
                     if (Build.VERSION.SDK_INT >= 34) o.put("cycles", b.getIntExtra(BatteryManager.EXTRA_CYCLE_COUNT, -1));
                 }
-                StatFs s = new StatFs(Environment.getDataDirectory().getPath());
-                o.put("stoT", s.getTotalBytes());
-                o.put("stoF", s.getAvailableBytes());
+                long tt = 0, ff = 0;
+                if (Build.VERSION.SDK_INT >= 26) {
+                    try {
+                        android.app.usage.StorageStatsManager sq = (android.app.usage.StorageStatsManager) getSystemService(Context.STORAGE_STATS_SERVICE);
+                        tt = sq.getTotalBytes(android.os.storage.StorageManager.UUID_DEFAULT);
+                        ff = sq.getFreeBytes(android.os.storage.StorageManager.UUID_DEFAULT);
+                    } catch (Exception e) { }
+                }
+                if (tt <= 0) {
+                    StatFs s = new StatFs(Environment.getDataDirectory().getPath());
+                    tt = s.getTotalBytes();
+                    ff = s.getAvailableBytes();
+                }
+                o.put("stoT", tt);
+                o.put("stoF", ff);
                 ActivityManager am = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
                 ActivityManager.MemoryInfo mi = new ActivityManager.MemoryInfo();
                 am.getMemoryInfo(mi);

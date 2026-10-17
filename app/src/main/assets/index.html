@@ -79,7 +79,7 @@ input[type=text]:focus{box-shadow:0 0 20px var(--g)}
 @keyframes rp{to{transform:scale(16);opacity:0}}
 </style></head>
 <body>
-<div id="sp" class="s on c1"><div class="stg"><canvas class="gl" width="320" height="320"></canvas><img src="logo.jpg" alt=""></div><h1 class="neon" style="font-size:30px;margin:4px 0">URPHONSCOP</h1><div>Scan. Understand. Keep your phone healthy.</div><div class="on2" style="margin-top:14px">SYSTEM STARTING</div><div class="sm">Powered by Ujjwal • v3.3</div></div>
+<div id="sp" class="s on c1"><div class="stg"><canvas class="gl" width="320" height="320"></canvas><img src="logo.jpg" alt=""></div><h1 class="neon" style="font-size:30px;margin:4px 0">URPHONSCOP</h1><div>Scan. Understand. Keep your phone healthy.</div><div class="on2" style="margin-top:14px">SYSTEM STARTING</div><div class="sm">Powered by Ujjwal • v3.4</div></div>
 <div id="wl" class="s c1"><h1 class="neon" style="margin:6px 0 0;font-size:24px">Welcome to<br>URPHONSCOP</h1><div class="stg mn"><canvas class="gl" width="320" height="320"></canvas><img src="logo.jpg" alt=""></div><div class="hud" style="margin:10px 0"><div style="font-size:18px">What is your name?</div><input type="text" id="nm" placeholder="Enter your name..." maxlength="24"></div><button class="btn" onclick="go()">Continue &gt;</button><div class="sm">This helps us give you a personal greeting.</div></div>
 <div id="hm" class="s"><div style="display:flex;justify-content:space-between;align-items:center"><div><div id="gt" style="font-size:16px"></div><div class="neon" id="gn" style="font-size:22px"></div><div class="on2">ALL SYSTEMS ONLINE</div></div><button class="ib" onclick="show('st')"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2"/></svg></button></div>
 <div class="rg"><canvas class="gl gb" width="300" height="300"></canvas><div class="orb"></div><svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="52" fill="none" stroke="#0e3a08" stroke-width="9"/><circle id="rc" cx="60" cy="60" r="52" fill="none" stroke="#39ff14" stroke-width="9" stroke-linecap="round" style="transition:stroke-dashoffset 1.2s"/></svg><div class="c"><span class="sm">Phone Health</span><b id="sc">--</b><span class="sm">/ 100</span></div></div>
@@ -94,7 +94,7 @@ input[type=text]:focus{box-shadow:0 0 20px var(--g)}
 <div class="sm" style="margin:8px 0 14px">Music, voice and alerts are saved now and start working in a later part.</div>
 <button class="btn" onclick="chg()">Change my name</button>
 <div class="hud" style="margin-top:18px"><b class="neon">Privacy first</b><div class="sm">Everything stays on your phone. No data is sent to the internet or any server.</div></div>
-<div class="sm c1" style="margin-top:14px">URPHONSCOP v3.3</div></div>
+<div class="sm c1" style="margin-top:14px">URPHONSCOP v3.4</div></div>
 <div id="sn" class="s c1"><h2 class="neon" style="margin:6px 0 0">Scanning...</h2><div class="sm">Checking your phone</div><div class="stg mn"><canvas class="gl" width="320" height="320"></canvas><img src="logo.jpg" alt=""></div><div class="hud" style="text-align:left" id="sl"></div><div style="height:10px;border:1px solid var(--g);margin:14px 0 6px;border-radius:6px;overflow:hidden"><i id="sbr" style="display:block;height:100%;width:0;background:var(--g);box-shadow:0 0 10px var(--g);transition:width .5s"></i></div><div class="sm" id="spc"></div></div>
 <div id="rs" class="s"><h2 class="neon" style="margin:0">Scan Results</h2><div class="on2">COMPLETED</div><div id="rb"></div><button class="btn" onclick="detail(firstBad())">View Details</button></div>
 <div id="dt" class="s"><button class="pill" onclick="goBack()">&lt; Back</button><h2 class="neon" id="dh" style="margin:0 0 6px"></h2><div id="db"></div></div>
@@ -146,7 +146,7 @@ $('s1').checked=ls('urp_m')!=='0';$('s2').checked=ls('urp_v')!=='0';$('s3').chec
 setTimeout(function(){show(ls('urp_name')?'hm':'wl')},3000);
 setInterval(function(){if($('hm').classList.contains('on'))home()},5000);
 var STT={2:'Charging',3:'In use',4:'Not charging',5:'Full'},HE={2:'Good',3:'Overheat',4:'Dead',5:'Over voltage',7:'Cold'},SS=['Battery information','Storage usage','RAM usage','Temperature check'];
-function gbf(n){return (n/1073741824).toFixed(1)+' GB'}
+function gbf(n){return (n/1e9).toFixed(1)+' GB'}
 function ST(){var d=get(),ch=d.status==2,sp=Math.round((d.stoT-d.stoF)*100/d.stoT),rp=Math.round((d.ramT-d.ramF)*100/d.ramT),o={},sc=100;
 if(d.temp>=40)sc-=20;if(sp>=90)sc-=25;else if(sp>=75)sc-=10;if(rp>=85)sc-=10;if(d.bat<=20&&!ch)sc-=10;if(d.health&&d.health!=2)sc-=15;
 o.score=sc;
