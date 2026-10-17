@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>URPHONSCOP</title>
 <style>
 :root{--g:#39ff14;--dg:#1c7a0c;--ln:#27b012;--pn:#031203;--r:#ff3b30;--y:#ffd60a}
@@ -69,28 +69,36 @@ input[type=text]:focus{box-shadow:0 0 20px var(--g)}
 #sp.on,#wl.on{display:flex;flex-direction:column;justify-content:space-evenly;align-items:center}
 .stg{width:min(90vw,44vh)}.stg.mn{width:min(76vw,34vh)}
 #wl .hud{width:100%}
+.s{padding-top:calc(16px + var(--st,0px));padding-bottom:calc(96px + var(--sb,0px))}
+#nv{padding-bottom:calc(10px + var(--sb,0px))}
+#ts{bottom:calc(90px + var(--sb,0px))}
+.btn{animation:pu 2.8s ease-in-out infinite}
+@keyframes pu{50%{box-shadow:0 0 24px rgba(57,255,20,.85),inset 0 0 16px rgba(57,255,20,.35)}}
+.btn,.pill,.ib,#nv button{position:relative;overflow:hidden}
+.rp{position:absolute;width:22px;height:22px;margin:-11px 0 0 -11px;border-radius:50%;background:rgba(57,255,20,.6);transform:scale(0);animation:rp .65s ease-out forwards;pointer-events:none}
+@keyframes rp{to{transform:scale(16);opacity:0}}
 </style></head>
 <body>
-<div id="sp" class="s on c1"><div class="stg"><canvas class="gl" width="320" height="320"></canvas><img src="logo.jpg" alt=""></div><h1 class="neon" style="font-size:30px;margin:4px 0">URPHONSCOP</h1><div>Scan. Understand. Keep your phone healthy.</div><div class="on2" style="margin-top:14px">SYSTEM STARTING</div><div class="sm">Powered by Ujjwal • v3.2</div></div>
+<div id="sp" class="s on c1"><div class="stg"><canvas class="gl" width="320" height="320"></canvas><img src="logo.jpg" alt=""></div><h1 class="neon" style="font-size:30px;margin:4px 0">URPHONSCOP</h1><div>Scan. Understand. Keep your phone healthy.</div><div class="on2" style="margin-top:14px">SYSTEM STARTING</div><div class="sm">Powered by Ujjwal • v3.3</div></div>
 <div id="wl" class="s c1"><h1 class="neon" style="margin:6px 0 0;font-size:24px">Welcome to<br>URPHONSCOP</h1><div class="stg mn"><canvas class="gl" width="320" height="320"></canvas><img src="logo.jpg" alt=""></div><div class="hud" style="margin:10px 0"><div style="font-size:18px">What is your name?</div><input type="text" id="nm" placeholder="Enter your name..." maxlength="24"></div><button class="btn" onclick="go()">Continue &gt;</button><div class="sm">This helps us give you a personal greeting.</div></div>
 <div id="hm" class="s"><div style="display:flex;justify-content:space-between;align-items:center"><div><div id="gt" style="font-size:16px"></div><div class="neon" id="gn" style="font-size:22px"></div><div class="on2">ALL SYSTEMS ONLINE</div></div><button class="ib" onclick="show('st')"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2"/></svg></button></div>
 <div class="rg"><canvas class="gl gb" width="300" height="300"></canvas><div class="orb"></div><svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="52" fill="none" stroke="#0e3a08" stroke-width="9"/><circle id="rc" cx="60" cy="60" r="52" fill="none" stroke="#39ff14" stroke-width="9" stroke-linecap="round" style="transition:stroke-dashoffset 1.2s"/></svg><div class="c"><span class="sm">Phone Health</span><b id="sc">--</b><span class="sm">/ 100</span></div></div>
 <svg class="pl" viewBox="0 0 200 30" preserveAspectRatio="none"><path d="M0 15H70L78 4L88 26L98 8L104 15H200"/></svg>
 <div class="cds" id="cd"></div>
 <button class="btn" onclick="scan()"><svg viewBox="0 0 24 24" style="width:20px;height:20px;vertical-align:-4px;stroke:currentColor;fill:none;stroke-width:2"><circle cx="11" cy="11" r="7"/><path d="M16 16l5 5"/></svg> Scan</button><button class="btn" onclick="apps()">Apps check</button></div>
-<div id="st" class="s"><button class="pill" onclick="show('hm')">&lt; Back</button><h2 class="neon" style="margin:0 0 6px">Settings</h2>
+<div id="st" class="s"><button class="pill" onclick="goBack()">&lt; Back</button><h2 class="neon" style="margin:0 0 6px">Settings</h2>
 <div class="row">Music<label class="sw"><input type="checkbox" id="s1" onchange="sv('m',this.checked)"><i></i></label></div>
 <div class="row">Voice greeting<label class="sw"><input type="checkbox" id="s2" onchange="sv('v',this.checked)"><i></i></label></div>
 <div class="row">Alerts<label class="sw"><input type="checkbox" id="s3" onchange="sv('a',this.checked)"><i></i></label></div>
-<div class="row">Button vibration<label class="sw"><input type="checkbox" id="s4" onchange="sv('b',this.checked)"><i></i></label></div>
+<div class="row">Button sounds<label class="sw"><input type="checkbox" id="s4" onchange="sv('b',this.checked)"><i></i></label></div>
 <div class="sm" style="margin:8px 0 14px">Music, voice and alerts are saved now and start working in a later part.</div>
 <button class="btn" onclick="chg()">Change my name</button>
 <div class="hud" style="margin-top:18px"><b class="neon">Privacy first</b><div class="sm">Everything stays on your phone. No data is sent to the internet or any server.</div></div>
-<div class="sm c1" style="margin-top:14px">URPHONSCOP v3.2</div></div>
+<div class="sm c1" style="margin-top:14px">URPHONSCOP v3.3</div></div>
 <div id="sn" class="s c1"><h2 class="neon" style="margin:6px 0 0">Scanning...</h2><div class="sm">Checking your phone</div><div class="stg mn"><canvas class="gl" width="320" height="320"></canvas><img src="logo.jpg" alt=""></div><div class="hud" style="text-align:left" id="sl"></div><div style="height:10px;border:1px solid var(--g);margin:14px 0 6px;border-radius:6px;overflow:hidden"><i id="sbr" style="display:block;height:100%;width:0;background:var(--g);box-shadow:0 0 10px var(--g);transition:width .5s"></i></div><div class="sm" id="spc"></div></div>
 <div id="rs" class="s"><h2 class="neon" style="margin:0">Scan Results</h2><div class="on2">COMPLETED</div><div id="rb"></div><button class="btn" onclick="detail(firstBad())">View Details</button></div>
-<div id="dt" class="s"><button class="pill" onclick="show('rs')">&lt; Back</button><h2 class="neon" id="dh" style="margin:0 0 6px"></h2><div id="db"></div></div>
-<div id="ap" class="s"><button class="pill" onclick="show('hm')">&lt; Back</button><h2 class="neon" style="margin:0 0 6px">Apps</h2><div class="sm" style="margin-bottom:10px">Risk is an estimate from permissions. It means review, not virus. Tap an app to open its settings.</div><div id="al"></div></div>
+<div id="dt" class="s"><button class="pill" onclick="goBack()">&lt; Back</button><h2 class="neon" id="dh" style="margin:0 0 6px"></h2><div id="db"></div></div>
+<div id="ap" class="s"><button class="pill" onclick="goBack()">&lt; Back</button><h2 class="neon" style="margin:0 0 6px">Apps</h2><div class="sm" style="margin-bottom:10px">Risk is an estimate from permissions. It means review, not virus. Tap an app to open its settings.</div><div id="al"></div></div>
 <div id="nv"><button onclick="show('hm')"><svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8M5 10v10h5v-6h4v6h5V10"/></svg>Home</button><button onclick="scan()"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M16 16l5 5"/></svg>Scan</button><button onclick="show('rs')"><svg viewBox="0 0 24 24"><path d="M5 4h14v16H5zM9 9h6M9 13h6M9 17h3"/></svg>Results</button><button onclick="show('st')"><svg viewBox="0 0 24 24"><circle cx="5" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="19" cy="12" r="1.6"/></svg>More</button></div>
 <div id="ts"></div>
 <script>
@@ -169,4 +177,19 @@ function apps(){show('ap');var L=[];try{L=JSON.parse(window.URP.apps())}catch(e)
 L.forEach(function(a){a.r=0;a.perms.forEach(function(p){a.r+=DP[p.split('.').pop()]||0});if(a.i!=='com.android.vending')a.r+=2});
 L.sort(function(x,y){return y.r-x.r});
 $('al').innerHTML=L.length?L.map(function(a){var t=a.r>=9?['High','r']:a.r>=5?['Medium','y']:['Low','g'];return '<button class="cd" style="margin-bottom:10px" onclick="try{URP.openApp(\''+a.p+'\')}catch(e){}"><span class="tg '+t[1]+'" style="float:right">'+t[0]+'</span><b>'+a.n.replace(/</g,'&lt;')+'</b><div class="sm">'+(a.i==='com.android.vending'?'Play Store':'Outside Play Store')+' • '+a.perms.length+' permissions</div></button>'}).join(''):'<div class="hud">No user apps found, or this phone hides the list.</div>'}
+var HIST=[],CUR='sp',_show=show;
+show=function(i){if(i==='hm'){HIST=[]}else if(CUR!==i&&CUR!=='sp'&&CUR!=='wl'&&CUR!=='sn'){HIST.push(CUR)}CUR=i;_show(i)};
+function goBack(){if(CUR==='hm'||CUR==='wl'||CUR==='sp')return false;var p=HIST.pop()||'hm';CUR=p;_show(p);return true}
+window.setIns=function(t,b){var r=document.documentElement.style;r.setProperty('--st',t+'px');r.setProperty('--sb',b+'px')};
+var CA;function clk(){if(ls('urp_b')==='0')return;try{if(!CA)CA=new(window.AudioContext||window.webkitAudioContext)();CA.resume();var t=CA.currentTime;[[1046.5,0],[1568,.045]].forEach(function(n){var o=CA.createOscillator(),g=CA.createGain();o.type='sine';o.frequency.value=n[0];g.gain.setValueAtTime(0,t+n[1]);g.gain.linearRampToValueAtTime(.12,t+n[1]+.005);g.gain.exponentialRampToValueAtTime(.0001,t+n[1]+.16);o.connect(g);g.connect(CA.destination);o.start(t+n[1]);o.stop(t+n[1]+.2)})}catch(e){}}
+function vib(){clk()}
+document.addEventListener('pointerdown',function(e){var b=e.target.closest('.btn,.pill,.ib,#nv button');if(!b)return;var r=b.getBoundingClientRect(),s=document.createElement('span');s.className='rp';s.style.left=(e.clientX-r.left)+'px';s.style.top=(e.clientY-r.top)+'px';b.appendChild(s);setTimeout(function(){s.remove()},650)});
+var MB,MT=null;
+function mkMus(){AC=new(window.AudioContext||window.webkitAudioContext)();mg=AC.createGain();mg.gain.value=0;var lp=AC.createBiquadFilter();lp.type='lowpass';lp.frequency.value=2200;var bus=AC.createGain(),dl=AC.createDelay(1),fb=AC.createGain();dl.delayTime.value=.45;fb.gain.value=.4;bus.connect(lp);bus.connect(dl);dl.connect(fb);fb.connect(dl);dl.connect(lp);lp.connect(mg);mg.connect(AC.destination);MB=bus}
+function note(f,t,d,v){var o=AC.createOscillator(),g=AC.createGain();o.type='sine';o.frequency.value=f;g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(v,t+.02);g.gain.exponentialRampToValueAtTime(.0001,t+d);o.connect(g);g.connect(MB);o.start(t);o.stop(t+d+.1)}
+function pad(fs,t,d){fs.forEach(function(f){[0,3].forEach(function(c){var o=AC.createOscillator(),g=AC.createGain();o.type='sine';o.frequency.value=f;o.detune.value=c;g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(.05,t+1.5);g.gain.linearRampToValueAtTime(0,t+d);o.connect(g);g.connect(MB);o.start(t);o.stop(t+d+.1)})})}
+var CH=[[220,261.63,329.63],[174.61,220,261.63],[261.63,329.63,392],[196,246.94,293.66]],PN=[440,523.25,587.33,659.25,783.99,880],ci=0;
+function tick(){var t=AC.currentTime+.05;pad(CH[ci%4],t,6.2);for(var k=0;k<6;k++){if(Math.random()<.8)note(PN[Math.floor(Math.random()*PN.length)],t+k+Math.random()*.2,2.2,.07)}ci++}
+function mus(on){try{if(on){if(!MB)mkMus();AC.resume();mg.gain.cancelScheduledValues(AC.currentTime);mg.gain.linearRampToValueAtTime(.55,AC.currentTime+2.5);if(!MT){tick();MT=setInterval(tick,6000)}}else if(mg){mg.gain.cancelScheduledValues(AC.currentTime);mg.gain.linearRampToValueAtTime(0,AC.currentTime+.8);clearInterval(MT);MT=null}}catch(e){}}
+document.addEventListener('visibilitychange',function(){try{if(document.hidden){if(AC)AC.suspend()}else if(AC&&ls('urp_m')!=='0')AC.resume()}catch(e){}});
 </script></body></html>

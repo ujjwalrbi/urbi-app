@@ -27,6 +27,9 @@ import org.json.JSONObject;
 public class MainActivity extends Activity {
     WebView w;
     TextToSpeech tts;
+    long lastBack = 0;
+    int insT = 0, insB = 0;
+    void pushIns() { if (w != null) w.evaluateJavascript("window.setIns&&setIns(" + insT + "," + insB + ")", null); }
 
     class Bridge {
         @JavascriptInterface public void say(String s) { try { if (tts != null) tts.speak(s, TextToSpeech.QUEUE_FLUSH, null, "u"); } catch (Exception e) { } }
@@ -89,16 +92,32 @@ public class MainActivity extends Activity {
     @Override
     protected void onCreate(Bundle b) {
         super.onCreate(b);
-        getWindow().setStatusBarColor(Color.BLACK);
-        getWindow().setNavigationBarColor(Color.BLACK);
+        getWindow().setStatusBarColor(Color.TRANSPARENT);
+        if (Build.VERSION.SDK_INT >= 28) { android.view.WindowManager.LayoutParams lp = getWindow().getAttributes(); lp.layoutInDisplayCutoutMode = android.view.WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES; getWindow().setAttributes(lp); }
+        if (Build.VERSION.SDK_INT >= 30) getWindow().setDecorFitsSystemWindows(false);
+        getWindow().getDecorView().setSystemUiVisibility(android.view.View.SYSTEM_UI_FLAG_LAYOUT_STABLE | android.view.View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | android.view.View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
+        if (Build.VERSION.SDK_INT >= 29) getWindow().setNavigationBarContrastEnforced(false);
+        getWindow().setNavigationBarColor(Color.TRANSPARENT);
         w = new WebView(this);
         tts = new TextToSpeech(this, new TextToSpeech.OnInitListener() { public void onInit(int st) { if (st == TextToSpeech.SUCCESS) tts.setLanguage(java.util.Locale.getDefault()); } });
         w.setBackgroundColor(Color.parseColor("#020a02"));
         WebSettings s = w.getSettings();
         s.setJavaScriptEnabled(true);
         s.setDomStorageEnabled(true);
+        s.setMediaPlaybackRequiresUserGesture(false);
         w.addJavascriptInterface(new Bridge(), "URP");
+        w.setOnApplyWindowInsetsListener(new android.view.View.OnApplyWindowInsetsListener() {
+            public android.view.WindowInsets onApplyWindowInsets(android.view.View v, android.view.WindowInsets in) {
+                float d = getResources().getDisplayMetrics().density;
+                int t = in.getSystemWindowInsetTop(), b = in.getSystemWindowInsetBottom();
+                if (Build.VERSION.SDK_INT >= 28 && in.getDisplayCutout() != null) t = Math.max(t, in.getDisplayCutout().getSafeInsetTop());
+                insT = (int) (t / d); insB = (int) (b / d);
+                pushIns();
+                return in;
+            }
+        });
         w.setWebViewClient(new WebViewClient() {
+            @Override public void onPageFinished(WebView v, String u) { pushIns(); }
             @Override
             public boolean shouldOverrideUrlLoading(WebView v, WebResourceRequest r) {
                 Uri u = r.getUrl();
@@ -113,6 +132,13 @@ public class MainActivity extends Activity {
 
     @Override
     public void onBackPressed() {
-        if (w.canGoBack()) w.goBack(); else super.onBackPressed();
+        w.evaluateJavascript("(window.goBack?goBack():false)", new android.webkit.ValueCallback<String>() {
+            public void onReceiveValue(String v) {
+                if ("true".equals(v)) return;
+                long n = System.currentTimeMillis();
+                if (n - lastBack < 2000) finish();
+                else { lastBack = n; android.widget.Toast.makeText(MainActivity.this, "Press back again to exit", android.widget.Toast.LENGTH_SHORT).show(); }
+            }
+        });
     }
 }
