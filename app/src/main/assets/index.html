@@ -67,13 +67,13 @@ input[type=text]:focus{box-shadow:0 0 20px var(--g)}
 #ts{position:fixed;left:50%;bottom:90px;transform:translateX(-50%);background:var(--g);color:#000;padding:8px 14px;border-radius:20px;opacity:0;transition:opacity .3s;font-weight:bold;white-space:nowrap}
 </style></head>
 <body>
-<div id="sp" class="s on c1"><div class="stg"><canvas class="gl" width="320" height="320"></canvas><img src="logo.jpg" alt=""></div><h1 class="neon" style="font-size:30px;margin:4px 0">URPHONSCOP</h1><div>Scan. Understand. Keep your phone healthy.</div><div class="on2" style="margin-top:14px">SYSTEM STARTING</div><div class="sm">Powered by Ujjwal • v3.0</div></div>
+<div id="sp" class="s on c1"><div class="stg"><canvas class="gl" width="320" height="320"></canvas><img src="logo.jpg" alt=""></div><h1 class="neon" style="font-size:30px;margin:4px 0">URPHONSCOP</h1><div>Scan. Understand. Keep your phone healthy.</div><div class="on2" style="margin-top:14px">SYSTEM STARTING</div><div class="sm">Powered by Ujjwal • v3.1</div></div>
 <div id="wl" class="s c1"><h1 class="neon" style="margin:6px 0 0;font-size:24px">Welcome to<br>URPHONSCOP</h1><div class="stg mn"><canvas class="gl" width="320" height="320"></canvas><img src="logo.jpg" alt=""></div><div class="hud" style="margin:10px 0"><div style="font-size:18px">What is your name?</div><input type="text" id="nm" placeholder="Enter your name..." maxlength="24"></div><button class="btn" onclick="go()">Continue &gt;</button><div class="sm">This helps us give you a personal greeting.</div></div>
 <div id="hm" class="s"><div style="display:flex;justify-content:space-between;align-items:center"><div><div id="gt" style="font-size:16px"></div><div class="neon" id="gn" style="font-size:22px"></div><div class="on2">ALL SYSTEMS ONLINE</div></div><button class="ib" onclick="show('st')"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2"/></svg></button></div>
 <div class="rg"><canvas class="gl gb" width="300" height="300"></canvas><div class="orb"></div><svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="52" fill="none" stroke="#0e3a08" stroke-width="9"/><circle id="rc" cx="60" cy="60" r="52" fill="none" stroke="#39ff14" stroke-width="9" stroke-linecap="round" style="transition:stroke-dashoffset 1.2s"/></svg><div class="c"><span class="sm">Phone Health</span><b id="sc">--</b><span class="sm">/ 100</span></div></div>
 <svg class="pl" viewBox="0 0 200 30" preserveAspectRatio="none"><path d="M0 15H70L78 4L88 26L98 8L104 15H200"/></svg>
 <div class="cds" id="cd"></div>
-<button class="btn" onclick="soon()"><svg viewBox="0 0 24 24" style="width:20px;height:20px;vertical-align:-4px;stroke:currentColor;fill:none;stroke-width:2"><circle cx="11" cy="11" r="7"/><path d="M16 16l5 5"/></svg> Scan</button></div>
+<button class="btn" onclick="scan()"><svg viewBox="0 0 24 24" style="width:20px;height:20px;vertical-align:-4px;stroke:currentColor;fill:none;stroke-width:2"><circle cx="11" cy="11" r="7"/><path d="M16 16l5 5"/></svg> Scan</button></div>
 <div id="st" class="s"><button class="pill" onclick="show('hm')">&lt; Back</button><h2 class="neon" style="margin:0 0 6px">Settings</h2>
 <div class="row">Music<label class="sw"><input type="checkbox" id="s1" onchange="sv('m',this.checked)"><i></i></label></div>
 <div class="row">Voice greeting<label class="sw"><input type="checkbox" id="s2" onchange="sv('v',this.checked)"><i></i></label></div>
@@ -82,8 +82,11 @@ input[type=text]:focus{box-shadow:0 0 20px var(--g)}
 <div class="sm" style="margin:8px 0 14px">Music, voice and alerts are saved now and start working in a later part.</div>
 <button class="btn" onclick="chg()">Change my name</button>
 <div class="hud" style="margin-top:18px"><b class="neon">Privacy first</b><div class="sm">Everything stays on your phone. No data is sent to the internet or any server.</div></div>
-<div class="sm c1" style="margin-top:14px">URPHONSCOP v3.0</div></div>
-<div id="nv"><button onclick="show('hm')"><svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8M5 10v10h5v-6h4v6h5V10"/></svg>Home</button><button onclick="soon()"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M16 16l5 5"/></svg>Scan</button><button onclick="soon()"><svg viewBox="0 0 24 24"><path d="M5 4h14v16H5zM9 9h6M9 13h6M9 17h3"/></svg>Results</button><button onclick="show('st')"><svg viewBox="0 0 24 24"><circle cx="5" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="19" cy="12" r="1.6"/></svg>More</button></div>
+<div class="sm c1" style="margin-top:14px">URPHONSCOP v3.1</div></div>
+<div id="sn" class="s c1"><h2 class="neon" style="margin:6px 0 0">Scanning...</h2><div class="sm">Checking your phone</div><div class="stg mn"><canvas class="gl" width="320" height="320"></canvas><img src="logo.jpg" alt=""></div><div class="hud" style="text-align:left" id="sl"></div><div style="height:10px;border:1px solid var(--g);margin:14px 0 6px;border-radius:6px;overflow:hidden"><i id="sbr" style="display:block;height:100%;width:0;background:var(--g);box-shadow:0 0 10px var(--g);transition:width .5s"></i></div><div class="sm" id="spc"></div></div>
+<div id="rs" class="s"><h2 class="neon" style="margin:0">Scan Results</h2><div class="on2">COMPLETED</div><div id="rb"></div><button class="btn" onclick="detail(firstBad())">View Details</button></div>
+<div id="dt" class="s"><button class="pill" onclick="show('rs')">&lt; Back</button><h2 class="neon" id="dh" style="margin:0 0 6px"></h2><div id="db"></div></div>
+<div id="nv"><button onclick="show('hm')"><svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8M5 10v10h5v-6h4v6h5V10"/></svg>Home</button><button onclick="scan()"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M16 16l5 5"/></svg>Scan</button><button onclick="show('rs')"><svg viewBox="0 0 24 24"><path d="M5 4h14v16H5zM9 9h6M9 13h6M9 17h3"/></svg>Results</button><button onclick="show('st')"><svg viewBox="0 0 24 24"><circle cx="5" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="19" cy="12" r="1.6"/></svg>More</button></div>
 <div id="ts"></div>
 <script>
 var $=function(i){return document.getElementById(i)};
@@ -96,7 +99,7 @@ function drawG(c){var x=c.getContext('2d'),w=c.width,R=w*.42,s=Math.sin(ang),k=M
 for(var i=0;i<N;i++){var p=P[i],cx=p[0]*k+p[2]*s,cz=-p[0]*s+p[2]*k;if(cz<-.1)continue;x.fillStyle='rgba(57,255,20,'+(.25+.75*cz)+')';x.fillRect(w/2+cx*R,w/2+p[1]*R,2.4,2.4)}}
 function loop(){ang+=.006;document.querySelectorAll('.s.on canvas.gl').forEach(drawG);requestAnimationFrame(loop)}
 loop();
-function show(i){document.querySelectorAll('.s').forEach(function(e){e.classList.remove('on')});$(i).classList.add('on');$('nv').style.display=(i=='hm'||i=='st')?'flex':'none';document.querySelectorAll('#nv button').forEach(function(b,x){b.classList.toggle('act',(i=='hm'&&x==0)||(i=='st'&&x==3))});if(i=='hm')home()}
+function show(i){document.querySelectorAll('.s').forEach(function(e){e.classList.remove('on')});$(i).classList.add('on');$('nv').style.display=(i=='sp'||i=='wl')?'none':'flex';var m={hm:0,sn:1,rs:2,dt:2,st:3}[i];document.querySelectorAll('#nv button').forEach(function(b,x){b.classList.toggle('act',x===m)});if(i=='hm')home();if(i=='rs')results()}
 function toast(t){var d=$('ts');d.textContent=t;d.style.opacity=1;setTimeout(function(){d.style.opacity=0},2200)}
 function soon(){toast('Coming in the next part')}
 function get(){try{return JSON.parse(window.URP.info())}catch(e){return{bat:72,temp:32,volt:4100,status:2,health:2,stoT:257e9,stoF:82e9,ramT:8e9,ramF:3e9}}}
@@ -124,9 +127,29 @@ var C=326.7,r=$('rc');
 r.style.strokeDasharray=C;r.style.strokeDashoffset=C*(1-sc/100);
 r.style.stroke=sc>=80?'#39ff14':sc>=60?'#ffd60a':'#ff3b30';
 var L=[['Battery',d.bat+'%',bt,'b'],['Storage',sp+'%',st,'s'],['RAM',rp+'%',rt,'r'],['Battery temp',d.temp+' °C',tt,'t']];
-$('cd').innerHTML=L.map(function(x){return '<button class="cd" onclick="soon()">'+IC[x[3]]+'<div class="sm">'+x[0]+'</div><div class="v">'+x[1]+'</div><div class="tg '+x[2][1]+'">'+x[2][0]+'</div></button>'}).join('');
+$('cd').innerHTML=L.map(function(x){return '<button class="cd" onclick="detail(\''+x[3]+'\')">'+IC[x[3]]+'<div class="sm">'+x[0]+'</div><div class="v">'+x[1]+'</div><div class="tg '+x[2][1]+'">'+x[2][0]+'</div></button>'}).join('');
 }
 $('s1').checked=ls('urp_m')!=='0';$('s2').checked=ls('urp_v')!=='0';$('s3').checked=ls('urp_a')!=='0';$('s4').checked=ls('urp_b')!=='0';
 setTimeout(function(){show(ls('urp_name')?'hm':'wl')},3000);
 setInterval(function(){if($('hm').classList.contains('on'))home()},5000);
+var STT={2:'Charging',3:'In use',4:'Not charging',5:'Full'},HE={2:'Good',3:'Overheat',4:'Dead',5:'Over voltage',7:'Cold'},SS=['Battery information','Storage usage','RAM usage','Temperature check'];
+function gbf(n){return (n/1073741824).toFixed(1)+' GB'}
+function ST(){var d=get(),ch=d.status==2,sp=Math.round((d.stoT-d.stoF)*100/d.stoT),rp=Math.round((d.ramT-d.ramF)*100/d.ramT),o={},sc=100;
+if(d.temp>=40)sc-=20;if(sp>=90)sc-=25;else if(sp>=75)sc-=10;if(rp>=85)sc-=10;if(d.bat<=20&&!ch)sc-=10;if(d.health&&d.health!=2)sc-=15;
+o.score=sc;
+o.b={n:'Battery',v:d.bat+'%',p:d.bat,sub:'charge',t:(d.bat<=20&&!ch)?['Warning','r']:['Good','g'],rows:[['Status',STT[d.status]||'Unknown'],['Temperature',d.temp+' °C'],['Voltage',(d.volt/1000).toFixed(2)+' V'],['Health',HE[d.health]||'Unknown'],['Charge cycles',d.cycles>0?d.cycles:'Not available']],a:d.temp>=40?'Battery is hot. Unplug the charger and take off the cover.':(d.bat<=20&&!ch)?'Battery is low. Please charge your phone.':(d.bat>=80&&ch)?'At 80% or more while charging, consider unplugging to keep the battery healthy.':'Battery looks fine.'};
+o.s={n:'Storage',v:sp+'%',p:sp,sub:'used',t:sp>=90?['Warning','r']:sp>=75?['Check','y']:['Good','g'],rows:[['Used',gbf(d.stoT-d.stoF)],['Free',gbf(d.stoF)],['Total',gbf(d.stoT)]],a:sp>=90?'Storage is too full. Remove big videos, old files and apps you do not use.':sp>=75?'Storage is getting full. A small cleanup will help.':'Less than 75% is good. You are in a safe range.'};
+o.r={n:'RAM',v:rp+'%',p:rp,sub:'in use',t:rp>=85?['Warning','r']:['Good','g'],rows:[['Used',gbf(d.ramT-d.ramF)],['Free',gbf(d.ramF)],['Total',gbf(d.ramT)]],a:rp>=85?'RAM usage is high. Close heavy apps.':'RAM usage is normal.'};
+o.t={n:'Battery temp',v:d.temp+'°C',p:Math.min(100,d.temp*100/60),sub:'now',t:d.temp>=40?['Warning','r']:['Normal','g'],rows:[['Battery temperature',d.temp+' °C'],['Warning level','40 °C']],a:d.temp>=40?'Phone is too hot. Stop charging, close heavy apps and keep it out of the sun.':'Temperature is normal.'};
+return o}
+function ringH(p,v,sub,col){var C=326.7;return '<div class="rg" style="width:170px;height:170px;margin:14px auto"><svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="52" fill="none" stroke="#0e3a08" stroke-width="9"/><circle cx="60" cy="60" r="52" fill="none" stroke="'+col+'" stroke-width="9" stroke-linecap="round" stroke-dasharray="'+C+'" stroke-dashoffset="'+(C*(1-Math.max(0,Math.min(100,p))/100))+'"/></svg><div class="c"><b style="font-size:34px">'+v+'</b><span class="sm">'+sub+'</span></div></div>'}
+function detail(k){var x=ST()[k],c={g:'#39ff14',y:'#ffd60a',r:'#ff3b30'}[x.t[1]];$('dh').textContent=x.n;
+$('db').innerHTML=ringH(x.p,x.v,x.sub,c)+'<div class="c1 tg '+x.t[1]+'" style="font-size:16px;margin-bottom:12px">'+x.t[0]+'</div><div class="hud" style="margin-bottom:14px">'+x.rows.map(function(r){return '<div class="row" style="padding:10px 4px"><span>'+r[0]+'</span><b>'+r[1]+'</b></div>'}).join('')+'</div><div class="hud"><b class="neon">Advice</b><div style="margin-top:6px">'+x.a+'</div></div>';show('dt')}
+function firstBad(){var o=ST(),a=['b','s','r','t'];for(var i=0;i<4;i++)if(o[a[i]].t[1]!='g')return a[i];return 'b'}
+function results(){var o=ST(),bad=0,h='<div class="hud" style="margin-bottom:14px"><span class="sm">Phone Health Score</span><div class="neon" style="font-size:34px">'+o.score+' <span class="sm">/ 100</span></div></div>';
+['b','s','r','t'].forEach(function(k){var x=o[k];if(x.t[1]!='g')bad++;h+='<button class="cd" onclick="detail(\''+k+'\')" style="margin-bottom:12px"><span class="tg '+x.t[1]+'" style="float:right;font-size:13px">'+x.t[0]+' &gt;</span><b>'+x.n+'</b><div class="v">'+x.v+'</div></button>'});
+h+='<div class="hud" style="margin:6px 0 4px">'+(bad?'Some items need your attention. Check the details for advice.':'Everything looks good. Keep it up!')+'</div>';$('rb').innerHTML=h}
+function scan(){show('sn');$('sl').innerHTML=SS.map(function(s,i){return '<div class="row" style="padding:10px 2px"><span>'+s+'</span><span id="sk'+i+'" class="sm">...</span></div>'}).join('');$('sbr').style.width='0';$('spc').textContent='Scanning... 0%';
+SS.forEach(function(s,i){setTimeout(function(){var e=$('sk'+i);if(!e)return;e.textContent='✓';e.className='';e.style.color='#39ff14';e.style.fontWeight='bold';var p=Math.round((i+1)*100/SS.length);$('sbr').style.width=p+'%';$('spc').textContent=(p<100?'Scanning... ':'Done ')+p+'%'},700*(i+1))});
+setTimeout(function(){if($('sn').classList.contains('on')){results();show('rs')}},700*SS.length+800)}
 </script></body></html>
