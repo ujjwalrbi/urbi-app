@@ -3,66 +3,99 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>URPHONSCOP</title>
 <style>
-:root{--g:#39ff14;--dg:#1c7a0c;--ln:#27b012;--pn:#041a04;--r:#ff3b30;--y:#ffd60a}
-*{box-sizing:border-box}
+:root{--g:#39ff14;--dg:#1c7a0c;--ln:#27b012;--pn:#031203;--r:#ff3b30;--y:#ffd60a}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{margin:0;min-height:100%;background:#000}
-body{color:#e8ffe8;font:14px/1.5 sans-serif;max-width:560px;margin:0 auto}
-.s{display:none;min-height:100vh;padding:16px 14px 90px}
-.s.on{display:block}
-.neon{font-family:monospace;color:var(--g);text-shadow:0 0 12px rgba(57,255,20,.7);font-weight:bold;letter-spacing:2px}
-h1.neon{font-size:26px;margin:10px 0 4px}
-.sm{font-size:12px;opacity:.7}
+body{color:#e8ffe8;font:14px/1.5 sans-serif;max-width:560px;margin:0 auto;background:radial-gradient(circle at 50% 0,#07260c 0,#000 60%) no-repeat}
+.s{display:none;min-height:100vh;padding:16px 14px 96px}
+.s.on{display:block;animation:fi .5s}
+@keyframes fi{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.neon{font-family:monospace;color:var(--g);text-shadow:0 0 10px var(--g),0 0 22px rgba(57,255,20,.6);font-weight:bold;letter-spacing:2px}
+.sm{font-size:12px;opacity:.75}
 .c1{text-align:center}
-.gr{font-size:18px}
-.rg{position:relative;width:170px;height:170px;margin:16px auto}
-.rg svg{width:100%;height:100%;transform:rotate(-90deg)}
+.hud{position:relative;border:1px solid var(--ln);background:var(--pn);padding:12px;box-shadow:0 0 14px rgba(57,255,20,.2),inset 0 0 20px rgba(57,255,20,.07)}
+.hud:before,.hud:after{content:"";position:absolute;width:16px;height:16px;border:3px solid var(--g)}
+.hud:before{top:-2px;left:-2px;border-right:0;border-bottom:0}
+.hud:after{bottom:-2px;right:-2px;border-left:0;border-top:0}
+.btn{display:block;width:100%;padding:14px;margin:14px 0;background:rgba(57,255,20,.12);border:2px solid var(--g);color:var(--g);font:bold 17px monospace;letter-spacing:1px;border-radius:30px;text-shadow:0 0 8px var(--g);box-shadow:0 0 14px rgba(57,255,20,.55),inset 0 0 12px rgba(57,255,20,.25);transition:all .15s}
+.btn.lit,.btn:active{background:var(--g);color:#000;text-shadow:none;box-shadow:0 0 28px var(--g),0 0 60px rgba(57,255,20,.7);transform:scale(.97)}
+.pill{background:rgba(57,255,20,.1);border:2px solid var(--g);color:var(--g);font:bold 14px monospace;border-radius:20px;padding:6px 16px;box-shadow:0 0 12px rgba(57,255,20,.5);margin-bottom:12px}
+.ib{width:44px;height:44px;border-radius:50%;background:rgba(57,255,20,.1);border:2px solid var(--g);box-shadow:0 0 12px rgba(57,255,20,.5);padding:9px}
+.ib svg{width:100%;height:100%;stroke:var(--g);fill:none;stroke-width:2}
+.pill.lit,.ib.lit{background:var(--g);box-shadow:0 0 26px var(--g)}
+.ib.lit svg{stroke:#000}
+.pill.lit{color:#000}
+.pi{animation:br 3s ease-in-out infinite}
+@keyframes br{50%{transform:scale(1.03);filter:drop-shadow(0 0 18px var(--g))}}
+.rg{position:relative;width:180px;height:180px;margin:18px auto 8px}
+.rg svg{width:100%;height:100%;transform:rotate(-90deg);filter:drop-shadow(0 0 8px var(--g))}
 .rg .c{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
-.rg .c b{font:bold 38px monospace;color:var(--g)}
-.cds{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.cd{border:1px solid var(--ln);background:var(--pn);padding:10px;box-shadow:0 0 12px rgba(57,255,20,.15)}
+.rg .c b{font:bold 44px monospace;color:var(--g);text-shadow:0 0 12px var(--g)}
+.orb{position:absolute;inset:-9px;border:1px dashed var(--ln);border-radius:50%;animation:sp 14s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+.pl{display:block;width:100%;height:30px;margin-bottom:10px}
+.pl path{stroke:var(--g);fill:none;stroke-width:2;stroke-dasharray:300;animation:pd 2.6s linear infinite;filter:drop-shadow(0 0 4px var(--g))}
+@keyframes pd{from{stroke-dashoffset:300}to{stroke-dashoffset:-300}}
+.cds{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.cd{display:block;width:100%;text-align:left;color:#e8ffe8;font:inherit;background:var(--pn);border:1px solid var(--ln);padding:10px;border-radius:12px;box-shadow:0 0 12px rgba(57,255,20,.25),inset 0 0 14px rgba(57,255,20,.08);transition:all .15s}
+.cd.lit,.cd:active{box-shadow:0 0 24px var(--g),inset 0 0 22px rgba(57,255,20,.4);transform:scale(.97)}
+.cd svg{width:26px;height:26px;stroke:var(--g);fill:none;stroke-width:1.8;float:right;filter:drop-shadow(0 0 4px var(--g))}
 .cd .v{font:bold 22px monospace}
 .tg{font-size:12px;font-weight:bold}
 .tg.g{color:var(--g)}.tg.y{color:var(--y)}.tg.r{color:var(--r)}
-.big{display:block;width:100%;margin:16px 0;padding:14px;background:none;border:2px solid var(--g);color:var(--g);font:bold 18px monospace;border-radius:30px;box-shadow:0 0 14px rgba(57,255,20,.5)}
-input[type=text]{width:100%;padding:12px;background:#000;border:1px solid var(--g);color:#fff;font-size:16px;border-radius:8px;margin:12px 0}
+input[type=text]{width:100%;padding:13px;background:#000;border:1px solid var(--g);color:#fff;font-size:16px;border-radius:10px;margin:12px 0;outline:0;box-shadow:0 0 10px rgba(57,255,20,.3)}
+input[type=text]:focus{box-shadow:0 0 20px var(--g)}
 .row{display:flex;justify-content:space-between;align-items:center;padding:14px 4px;border-bottom:1px solid var(--dg)}
-input[type=checkbox]{accent-color:#39ff14;width:24px;height:24px}
-.bk{background:none;border:0;color:var(--g);font:bold 16px monospace;padding:0 0 12px}
-#nv{position:fixed;left:0;right:0;bottom:0;max-width:560px;margin:0 auto;display:none;background:#000;border-top:1px solid var(--g)}
-#nv button{flex:1;background:none;border:0;color:var(--g);padding:14px 0;font:13px monospace}
-#ts{position:fixed;left:50%;bottom:80px;transform:translateX(-50%);background:var(--g);color:#000;padding:8px 14px;border-radius:20px;opacity:0;transition:opacity .3s;font-weight:bold;white-space:nowrap}
+.sw{position:relative;width:52px;height:28px;flex:none}
+.sw input{display:none}
+.sw i{position:absolute;inset:0;border:2px solid var(--g);border-radius:20px;box-shadow:0 0 10px rgba(57,255,20,.4);transition:.2s}
+.sw i:after{content:"";position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:var(--dg);transition:.2s}
+.sw input:checked+i{background:rgba(57,255,20,.25);box-shadow:0 0 16px var(--g)}
+.sw input:checked+i:after{left:27px;background:var(--g);box-shadow:0 0 10px var(--g)}
+#nv{position:fixed;left:0;right:0;bottom:0;max-width:560px;margin:0 auto;display:none;background:rgba(0,0,0,.94);border-top:1px solid var(--g);box-shadow:0 -4px 18px rgba(57,255,20,.25);padding:6px 4px}
+#nv button{flex:1;margin:0 3px;background:none;border:1px solid transparent;border-radius:12px;color:var(--g);padding:9px 0;font:12px monospace}
+#nv button.act{border-color:var(--g);background:rgba(57,255,20,.12);box-shadow:0 0 12px rgba(57,255,20,.5)}
+#nv button.lit{background:var(--g);color:#000}
+#ts{position:fixed;left:50%;bottom:84px;transform:translateX(-50%);background:var(--g);color:#000;padding:8px 14px;border-radius:20px;opacity:0;transition:opacity .3s;font-weight:bold;white-space:nowrap}
 </style></head>
 <body>
-<div id="sp" class="s on c1"><img src="splash.jpg" alt="" style="width:100%;max-width:420px"><h1 class="neon">URPHONSCOP</h1><div>Scan. Understand. Keep your phone healthy.</div><div class="sm" style="margin-top:14px">Powered by Ujjwal</div></div>
-<div id="wl" class="s c1"><h1 class="neon" style="margin-top:60px">Welcome to<br>URPHONSCOP</h1><div>Scan. Understand. Keep your phone healthy.</div><div style="margin-top:50px;font-size:18px">What is your name?</div><input type="text" id="nm" placeholder="Enter your name..." maxlength="24"><button class="big" onclick="go()">Continue</button><div class="sm">This helps us give you a personal greeting.</div></div>
-<div id="hm" class="s"><div class="gr"><b id="gt"></b> <span class="neon" id="gn"></span></div><div class="sm">Have a great day!</div>
-<div class="rg"><svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="52" fill="none" stroke="#0e3a08" stroke-width="9"/><circle id="rc" cx="60" cy="60" r="52" fill="none" stroke="#39ff14" stroke-width="9" stroke-linecap="round" style="transition:stroke-dashoffset 1.2s"/></svg><div class="c"><span class="sm">Phone Health</span><b id="sc">--</b><span class="sm">/ 100</span></div></div>
-<div class="cds" id="cd"></div><button class="big" onclick="soon()">Scan</button></div>
-<div id="st" class="s"><button class="bk" onclick="show('hm')">&lt; Settings</button>
-<label class="row">Music<input type="checkbox" id="s1" onchange="sv('m',this.checked)"></label>
-<label class="row">Voice greeting<input type="checkbox" id="s2" onchange="sv('v',this.checked)"></label>
-<label class="row">Alerts<input type="checkbox" id="s3" onchange="sv('a',this.checked)"></label>
-<div class="sm" style="margin:8px 0 16px">These switches are saved now and start working in a later part.</div>
-<button class="big" onclick="chg()">Change my name</button>
-<div class="sm c1">URPHONSCOP 2.0 • Everything stays on your phone</div></div>
+<div id="sp" class="s on c1"><img class="pi" src="splash.jpg" alt="" style="width:100%;max-width:400px"><h1 class="neon" style="font-size:30px;margin:6px 0">URPHONSCOP</h1><div>Scan. Understand. Keep your phone healthy.</div><div class="sm" style="margin-top:12px">Powered by Ujjwal • v2.1</div></div>
+<div id="wl" class="s c1"><h1 class="neon" style="margin-top:30px;font-size:24px">Welcome to<br>URPHONSCOP</h1><div class="hud" style="margin:16px 0"><img src="splash.jpg" alt="" style="width:62%"><div style="font-size:18px;margin-top:8px">What is your name?</div><input type="text" id="nm" placeholder="Enter your name..." maxlength="24"></div><button class="btn" onclick="go()">Continue &gt;</button><div class="sm">This helps us give you a personal greeting.</div></div>
+<div id="hm" class="s"><div style="display:flex;justify-content:space-between;align-items:center"><div><div id="gt" style="font-size:16px"></div><div class="neon" id="gn" style="font-size:22px"></div></div><button class="ib" onclick="show('st')"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2"/></svg></button></div>
+<div class="rg"><div class="orb"></div><svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="52" fill="none" stroke="#0e3a08" stroke-width="9"/><circle id="rc" cx="60" cy="60" r="52" fill="none" stroke="#39ff14" stroke-width="9" stroke-linecap="round" style="transition:stroke-dashoffset 1.2s"/></svg><div class="c"><span class="sm">Phone Health</span><b id="sc">--</b><span class="sm">/ 100</span></div></div>
+<svg class="pl" viewBox="0 0 200 30" preserveAspectRatio="none"><path d="M0 15H70L78 4L88 26L98 8L104 15H200"/></svg>
+<div class="cds" id="cd"></div>
+<button class="btn" onclick="soon()"><svg viewBox="0 0 24 24" style="width:20px;height:20px;vertical-align:-4px;stroke:currentColor;fill:none;stroke-width:2"><circle cx="11" cy="11" r="7"/><path d="M16 16l5 5"/></svg> Scan</button></div>
+<div id="st" class="s"><button class="pill" onclick="show('hm')">&lt; Back</button><h2 class="neon" style="margin:0 0 6px">Settings</h2>
+<div class="row">Music<label class="sw"><input type="checkbox" id="s1" onchange="sv('m',this.checked)"><i></i></label></div>
+<div class="row">Voice greeting<label class="sw"><input type="checkbox" id="s2" onchange="sv('v',this.checked)"><i></i></label></div>
+<div class="row">Alerts<label class="sw"><input type="checkbox" id="s3" onchange="sv('a',this.checked)"><i></i></label></div>
+<div class="row">Button vibration<label class="sw"><input type="checkbox" id="s4" onchange="sv('b',this.checked)"><i></i></label></div>
+<div class="sm" style="margin:8px 0 14px">Music, voice and alerts are saved now and start working in a later part.</div>
+<button class="btn" onclick="chg()">Change my name</button>
+<div class="hud" style="margin-top:18px"><b class="neon">Privacy first</b><div class="sm">Everything stays on your phone. No data is sent to the internet or any server.</div></div>
+<div class="sm c1" style="margin-top:14px">URPHONSCOP • Look upgrade v2.1</div></div>
 <div id="nv"><button onclick="show('hm')">Home</button><button onclick="soon()">Scan</button><button onclick="soon()">Results</button><button onclick="show('st')">More</button></div>
 <div id="ts"></div>
 <script>
 var $=function(i){return document.getElementById(i)};
 function ls(k,v){try{if(v===undefined)return localStorage.getItem(k);if(v===null)localStorage.removeItem(k);else localStorage.setItem(k,v)}catch(e){}return null}
-function show(i){document.querySelectorAll('.s').forEach(function(e){e.classList.remove('on')});$(i).classList.add('on');$('nv').style.display=(i=='hm'||i=='st')?'flex':'none';if(i=='hm')home()}
+function vib(){if(ls('urp_b')!=='0'){try{window.URP.vib(18)}catch(e){}}}
+document.addEventListener('pointerdown',function(e){var b=e.target.closest('button');if(!b)return;b.classList.add('lit');vib();setTimeout(function(){b.classList.remove('lit')},280)});
+function show(i){document.querySelectorAll('.s').forEach(function(e){e.classList.remove('on')});$(i).classList.add('on');$('nv').style.display=(i=='hm'||i=='st')?'flex':'none';document.querySelectorAll('#nv button').forEach(function(b,x){b.classList.toggle('act',(i=='hm'&&x==0)||(i=='st'&&x==3))});if(i=='hm')home()}
 function toast(t){var d=$('ts');d.textContent=t;d.style.opacity=1;setTimeout(function(){d.style.opacity=0},2200)}
 function soon(){toast('Coming in the next part')}
 function get(){try{return JSON.parse(window.URP.info())}catch(e){return{bat:72,temp:32,volt:4100,status:2,health:2,stoT:257e9,stoF:82e9,ramT:8e9,ramF:3e9}}}
 function go(){var n=$('nm').value.trim();if(!n){toast('Please enter your name');return}ls('urp_name',n);show('hm')}
 function chg(){ls('urp_name',null);$('nm').value='';show('wl')}
 function sv(k,v){ls('urp_'+k,v?'1':'0')}
+var IC={b:'<svg viewBox="0 0 24 24"><rect x="3" y="7" width="15" height="10" rx="2"/><path d="M21 10v4M8 12h5"/></svg>',s:'<svg viewBox="0 0 24 24"><ellipse cx="12" cy="6" rx="7" ry="3"/><path d="M5 6v12c0 1.7 3 3 7 3s7-1.3 7-3V6M5 12c0 1.7 3 3 7 3s7-1.3 7-3"/></svg>',r:'<svg viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="1"/><path d="M9 3v3M15 3v3M9 18v3M15 18v3M3 9h3M3 15h3M18 9h3M18 15h3"/></svg>',t:'<svg viewBox="0 0 24 24"><path d="M10 14V5a2 2 0 014 0v9a4 4 0 11-4 0z"/></svg>'};
 function home(){
-var d=get(),h=new Date().getHours(),chg=d.status==2;
+var d=get(),h=new Date().getHours(),ch=d.status==2;
 $('gt').textContent=h<12?'Good Morning,':h<17?'Good Afternoon,':h<21?'Good Evening,':'Good Night,';
 $('gn').textContent=(ls('urp_name')||'')+'!';
 var sp=Math.round((d.stoT-d.stoF)*100/d.stoT),rp=Math.round((d.ramT-d.ramF)*100/d.ramT);
-var bt=d.bat<=20&&!chg?['Warning','r']:['Good','g'];
+var bt=d.bat<=20&&!ch?['Warning','r']:['Good','g'];
 var tt=d.temp>=40?['Warning','r']:['Normal','g'];
 var st=sp>=90?['Warning','r']:sp>=75?['Check','y']:['Good','g'];
 var rt=rp>=85?['Warning','r']:['Good','g'];
@@ -70,16 +103,16 @@ var sc=100;
 if(d.temp>=40)sc-=20;
 if(sp>=90)sc-=25;else if(sp>=75)sc-=10;
 if(rp>=85)sc-=10;
-if(d.bat<=20&&!chg)sc-=10;
+if(d.bat<=20&&!ch)sc-=10;
 if(d.health&&d.health!=2)sc-=15;
 $('sc').textContent=sc;
 var C=326.7,r=$('rc');
 r.style.strokeDasharray=C;r.style.strokeDashoffset=C*(1-sc/100);
 r.style.stroke=sc>=80?'#39ff14':sc>=60?'#ffd60a':'#ff3b30';
-var L=[['Battery',d.bat+'%',bt],['Storage',sp+'%',st],['RAM',rp+'%',rt],['Battery temp',d.temp+' °C',tt]];
-$('cd').innerHTML=L.map(function(x){return '<div class="cd"><div class="sm">'+x[0]+'</div><div class="v">'+x[1]+'</div><div class="tg '+x[2][1]+'">'+x[2][0]+'</div></div>'}).join('');
+var L=[['Battery',d.bat+'%',bt,'b'],['Storage',sp+'%',st,'s'],['RAM',rp+'%',rt,'r'],['Battery temp',d.temp+' °C',tt,'t']];
+$('cd').innerHTML=L.map(function(x){return '<button class="cd" onclick="soon()">'+IC[x[3]]+'<div class="sm">'+x[0]+'</div><div class="v">'+x[1]+'</div><div class="tg '+x[2][1]+'">'+x[2][0]+'</div></button>'}).join('');
 }
-$('s1').checked=ls('urp_m')!=='0';$('s2').checked=ls('urp_v')!=='0';$('s3').checked=ls('urp_a')!=='0';
+$('s1').checked=ls('urp_m')!=='0';$('s2').checked=ls('urp_v')!=='0';$('s3').checked=ls('urp_a')!=='0';$('s4').checked=ls('urp_b')!=='0';
 setTimeout(function(){show(ls('urp_name')?'hm':'wl')},2400);
 setInterval(function(){if($('hm').classList.contains('on'))home()},5000);
 </script></body></html>

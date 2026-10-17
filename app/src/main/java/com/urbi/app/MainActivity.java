@@ -23,6 +23,7 @@ public class MainActivity extends Activity {
     WebView w;
 
     class Bridge {
+        @JavascriptInterface public void vib(int ms) { try { ((android.os.Vibrator) getSystemService(Context.VIBRATOR_SERVICE)).vibrate(ms); } catch (Exception e) { } }
         @JavascriptInterface
         public String info() {
             JSONObject o = new JSONObject();
