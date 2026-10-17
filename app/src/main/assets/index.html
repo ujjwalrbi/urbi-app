@@ -5,45 +5,52 @@
 <style>
 :root{--g:#39ff14;--dg:#1c7a0c;--ln:#27b012;--pn:#031203;--r:#ff3b30;--y:#ffd60a}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{margin:0;min-height:100%;background:#000}
+html,body{margin:0;min-height:100%;background:#000;overflow-x:hidden}
 body{color:#e8ffe8;font:14px/1.5 sans-serif;max-width:560px;margin:0 auto;background:radial-gradient(circle at 50% 0,#07260c 0,#000 60%) no-repeat}
 .s{display:none;min-height:100vh;padding:16px 14px 96px}
 .s.on{display:block;animation:fi .5s}
 @keyframes fi{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 .neon{font-family:monospace;color:var(--g);text-shadow:0 0 10px var(--g),0 0 22px rgba(57,255,20,.6);font-weight:bold;letter-spacing:2px}
-.sm{font-size:12px;opacity:.75}
-.c1{text-align:center}
-.hud{position:relative;border:1px solid var(--ln);background:var(--pn);padding:12px;box-shadow:0 0 14px rgba(57,255,20,.2),inset 0 0 20px rgba(57,255,20,.07)}
-.hud:before,.hud:after{content:"";position:absolute;width:16px;height:16px;border:3px solid var(--g)}
-.hud:before{top:-2px;left:-2px;border-right:0;border-bottom:0}
-.hud:after{bottom:-2px;right:-2px;border-left:0;border-top:0}
+.sm{font-size:12px;opacity:.75}.c1{text-align:center}
+.stg{position:relative;width:min(88vw,380px);aspect-ratio:1;margin:8px auto 0}
+.stg.mn{width:min(70vw,270px)}
+.stg canvas,.stg img{position:absolute;inset:0;width:100%;height:100%}
+.stg canvas{filter:drop-shadow(0 0 10px rgba(57,255,20,.6))}
+.stg img{mix-blend-mode:screen;object-fit:contain;animation:br 3s ease-in-out infinite}
+@keyframes br{50%{transform:scale(1.03)}}
+.on2{display:inline-block;margin:6px 0 12px;padding:3px 12px;border:1px solid var(--g);border-radius:14px;font:11px monospace;color:var(--g);box-shadow:0 0 10px rgba(57,255,20,.4)}
+.on2:before{content:"";display:inline-block;width:7px;height:7px;margin-right:6px;border-radius:50%;background:var(--g);animation:bk 1.2s infinite}
+@keyframes bk{50%{opacity:.2}}
+.hud,.cd{position:relative}
+.hud{border:1px solid var(--ln);background:var(--pn);padding:12px;box-shadow:0 0 14px rgba(57,255,20,.2),inset 0 0 20px rgba(57,255,20,.07)}
+.hud:before,.hud:after,.cd:before,.cd:after{content:"";position:absolute;width:14px;height:14px;border:3px solid var(--g);pointer-events:none}
+.hud:before,.cd:before{top:-2px;left:-2px;border-right:0;border-bottom:0}
+.hud:after,.cd:after{bottom:-2px;right:-2px;border-left:0;border-top:0}
 .btn{display:block;width:100%;padding:14px;margin:14px 0;background:rgba(57,255,20,.12);border:2px solid var(--g);color:var(--g);font:bold 17px monospace;letter-spacing:1px;border-radius:30px;text-shadow:0 0 8px var(--g);box-shadow:0 0 14px rgba(57,255,20,.55),inset 0 0 12px rgba(57,255,20,.25);transition:all .15s}
 .btn.lit,.btn:active{background:var(--g);color:#000;text-shadow:none;box-shadow:0 0 28px var(--g),0 0 60px rgba(57,255,20,.7);transform:scale(.97)}
 .pill{background:rgba(57,255,20,.1);border:2px solid var(--g);color:var(--g);font:bold 14px monospace;border-radius:20px;padding:6px 16px;box-shadow:0 0 12px rgba(57,255,20,.5);margin-bottom:12px}
 .ib{width:44px;height:44px;border-radius:50%;background:rgba(57,255,20,.1);border:2px solid var(--g);box-shadow:0 0 12px rgba(57,255,20,.5);padding:9px}
 .ib svg{width:100%;height:100%;stroke:var(--g);fill:none;stroke-width:2}
-.pill.lit,.ib.lit{background:var(--g);box-shadow:0 0 26px var(--g)}
+.pill.lit,.ib.lit{background:var(--g);box-shadow:0 0 26px var(--g);color:#000}
 .ib.lit svg{stroke:#000}
-.pill.lit{color:#000}
-.pi{animation:br 3s ease-in-out infinite}
-@keyframes br{50%{transform:scale(1.03);filter:drop-shadow(0 0 18px var(--g))}}
-.rg{position:relative;width:180px;height:180px;margin:18px auto 8px}
-.rg svg{width:100%;height:100%;transform:rotate(-90deg);filter:drop-shadow(0 0 8px var(--g))}
+.rg{position:relative;width:190px;height:190px;margin:30px auto 14px}
+.rg svg{position:relative;width:100%;height:100%;transform:rotate(-90deg);filter:drop-shadow(0 0 8px var(--g))}
+.rg .gb{position:absolute;left:-26%;top:-26%;width:152%;height:152%;opacity:.5}
 .rg .c{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
-.rg .c b{font:bold 44px monospace;color:var(--g);text-shadow:0 0 12px var(--g)}
-.orb{position:absolute;inset:-9px;border:1px dashed var(--ln);border-radius:50%;animation:sp 14s linear infinite}
+.rg .c b{font:bold 46px monospace;color:var(--g);text-shadow:0 0 12px var(--g)}
+.orb{position:absolute;inset:-10px;border:1px dashed var(--ln);border-radius:50%;animation:sp 14s linear infinite}
 @keyframes sp{to{transform:rotate(360deg)}}
-.pl{display:block;width:100%;height:30px;margin-bottom:10px}
+.pl{display:block;width:100%;height:30px;margin-bottom:12px}
 .pl path{stroke:var(--g);fill:none;stroke-width:2;stroke-dasharray:300;animation:pd 2.6s linear infinite;filter:drop-shadow(0 0 4px var(--g))}
 @keyframes pd{from{stroke-dashoffset:300}to{stroke-dashoffset:-300}}
-.cds{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.cd{display:block;width:100%;text-align:left;color:#e8ffe8;font:inherit;background:var(--pn);border:1px solid var(--ln);padding:10px;border-radius:12px;box-shadow:0 0 12px rgba(57,255,20,.25),inset 0 0 14px rgba(57,255,20,.08);transition:all .15s}
+.cds{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.cd{display:block;width:100%;text-align:left;color:#e8ffe8;font:inherit;background:var(--pn);border:1px solid var(--ln);padding:10px;border-radius:4px;box-shadow:0 0 12px rgba(57,255,20,.25),inset 0 0 14px rgba(57,255,20,.08);transition:all .15s}
 .cd.lit,.cd:active{box-shadow:0 0 24px var(--g),inset 0 0 22px rgba(57,255,20,.4);transform:scale(.97)}
 .cd svg{width:26px;height:26px;stroke:var(--g);fill:none;stroke-width:1.8;float:right;filter:drop-shadow(0 0 4px var(--g))}
 .cd .v{font:bold 22px monospace}
 .tg{font-size:12px;font-weight:bold}
 .tg.g{color:var(--g)}.tg.y{color:var(--y)}.tg.r{color:var(--r)}
-input[type=text]{width:100%;padding:13px;background:#000;border:1px solid var(--g);color:#fff;font-size:16px;border-radius:10px;margin:12px 0;outline:0;box-shadow:0 0 10px rgba(57,255,20,.3)}
+input[type=text]{width:100%;padding:13px;background:#000;border:1px solid var(--g);color:#fff;font-size:16px;border-radius:10px;margin:12px 0 4px;outline:0;box-shadow:0 0 10px rgba(57,255,20,.3)}
 input[type=text]:focus{box-shadow:0 0 20px var(--g)}
 .row{display:flex;justify-content:space-between;align-items:center;padding:14px 4px;border-bottom:1px solid var(--dg)}
 .sw{position:relative;width:52px;height:28px;flex:none}
@@ -57,13 +64,13 @@ input[type=text]:focus{box-shadow:0 0 20px var(--g)}
 #nv button svg{display:block;width:22px;height:22px;margin:0 auto 2px;stroke:currentColor;fill:none;stroke-width:2}
 #nv button.act{background:rgba(57,255,20,.3);box-shadow:0 0 18px var(--g)}
 #nv button.lit{background:var(--g);color:#000;text-shadow:none;box-shadow:0 0 26px var(--g)}
-#ts{position:fixed;left:50%;bottom:84px;transform:translateX(-50%);background:var(--g);color:#000;padding:8px 14px;border-radius:20px;opacity:0;transition:opacity .3s;font-weight:bold;white-space:nowrap}
+#ts{position:fixed;left:50%;bottom:90px;transform:translateX(-50%);background:var(--g);color:#000;padding:8px 14px;border-radius:20px;opacity:0;transition:opacity .3s;font-weight:bold;white-space:nowrap}
 </style></head>
 <body>
-<div id="sp" class="s on c1"><img class="pi" src="splash.jpg" alt="" style="width:100%;max-width:400px"><h1 class="neon" style="font-size:30px;margin:6px 0">URPHONSCOP</h1><div>Scan. Understand. Keep your phone healthy.</div><div class="sm" style="margin-top:12px">Powered by Ujjwal • v2.2</div></div>
-<div id="wl" class="s c1"><h1 class="neon" style="margin-top:30px;font-size:24px">Welcome to<br>URPHONSCOP</h1><div class="hud" style="margin:16px 0"><img src="splash.jpg" alt="" style="width:62%"><div style="font-size:18px;margin-top:8px">What is your name?</div><input type="text" id="nm" placeholder="Enter your name..." maxlength="24"></div><button class="btn" onclick="go()">Continue &gt;</button><div class="sm">This helps us give you a personal greeting.</div></div>
-<div id="hm" class="s"><div style="display:flex;justify-content:space-between;align-items:center"><div><div id="gt" style="font-size:16px"></div><div class="neon" id="gn" style="font-size:22px"></div></div><button class="ib" onclick="show('st')"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2"/></svg></button></div>
-<div class="rg"><div class="orb"></div><svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="52" fill="none" stroke="#0e3a08" stroke-width="9"/><circle id="rc" cx="60" cy="60" r="52" fill="none" stroke="#39ff14" stroke-width="9" stroke-linecap="round" style="transition:stroke-dashoffset 1.2s"/></svg><div class="c"><span class="sm">Phone Health</span><b id="sc">--</b><span class="sm">/ 100</span></div></div>
+<div id="sp" class="s on c1"><div class="stg"><canvas class="gl" width="320" height="320"></canvas><img src="logo.jpg" alt=""></div><h1 class="neon" style="font-size:30px;margin:4px 0">URPHONSCOP</h1><div>Scan. Understand. Keep your phone healthy.</div><div class="on2" style="margin-top:14px">SYSTEM STARTING</div><div class="sm">Powered by Ujjwal • v3.0</div></div>
+<div id="wl" class="s c1"><h1 class="neon" style="margin:6px 0 0;font-size:24px">Welcome to<br>URPHONSCOP</h1><div class="stg mn"><canvas class="gl" width="320" height="320"></canvas><img src="logo.jpg" alt=""></div><div class="hud" style="margin:10px 0"><div style="font-size:18px">What is your name?</div><input type="text" id="nm" placeholder="Enter your name..." maxlength="24"></div><button class="btn" onclick="go()">Continue &gt;</button><div class="sm">This helps us give you a personal greeting.</div></div>
+<div id="hm" class="s"><div style="display:flex;justify-content:space-between;align-items:center"><div><div id="gt" style="font-size:16px"></div><div class="neon" id="gn" style="font-size:22px"></div><div class="on2">ALL SYSTEMS ONLINE</div></div><button class="ib" onclick="show('st')"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2"/></svg></button></div>
+<div class="rg"><canvas class="gl gb" width="300" height="300"></canvas><div class="orb"></div><svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="52" fill="none" stroke="#0e3a08" stroke-width="9"/><circle id="rc" cx="60" cy="60" r="52" fill="none" stroke="#39ff14" stroke-width="9" stroke-linecap="round" style="transition:stroke-dashoffset 1.2s"/></svg><div class="c"><span class="sm">Phone Health</span><b id="sc">--</b><span class="sm">/ 100</span></div></div>
 <svg class="pl" viewBox="0 0 200 30" preserveAspectRatio="none"><path d="M0 15H70L78 4L88 26L98 8L104 15H200"/></svg>
 <div class="cds" id="cd"></div>
 <button class="btn" onclick="soon()"><svg viewBox="0 0 24 24" style="width:20px;height:20px;vertical-align:-4px;stroke:currentColor;fill:none;stroke-width:2"><circle cx="11" cy="11" r="7"/><path d="M16 16l5 5"/></svg> Scan</button></div>
@@ -75,7 +82,7 @@ input[type=text]:focus{box-shadow:0 0 20px var(--g)}
 <div class="sm" style="margin:8px 0 14px">Music, voice and alerts are saved now and start working in a later part.</div>
 <button class="btn" onclick="chg()">Change my name</button>
 <div class="hud" style="margin-top:18px"><b class="neon">Privacy first</b><div class="sm">Everything stays on your phone. No data is sent to the internet or any server.</div></div>
-<div class="sm c1" style="margin-top:14px">URPHONSCOP • Look upgrade v2.2</div></div>
+<div class="sm c1" style="margin-top:14px">URPHONSCOP v3.0</div></div>
 <div id="nv"><button onclick="show('hm')"><svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8M5 10v10h5v-6h4v6h5V10"/></svg>Home</button><button onclick="soon()"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M16 16l5 5"/></svg>Scan</button><button onclick="soon()"><svg viewBox="0 0 24 24"><path d="M5 4h14v16H5zM9 9h6M9 13h6M9 17h3"/></svg>Results</button><button onclick="show('st')"><svg viewBox="0 0 24 24"><circle cx="5" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="19" cy="12" r="1.6"/></svg>More</button></div>
 <div id="ts"></div>
 <script>
@@ -83,6 +90,12 @@ var $=function(i){return document.getElementById(i)};
 function ls(k,v){try{if(v===undefined)return localStorage.getItem(k);if(v===null)localStorage.removeItem(k);else localStorage.setItem(k,v)}catch(e){}return null}
 function vib(){if(ls('urp_b')!=='0'){try{window.URP.vib(18)}catch(e){}}}
 document.addEventListener('pointerdown',function(e){var b=e.target.closest('button');if(!b)return;b.classList.add('lit');vib();setTimeout(function(){b.classList.remove('lit')},280)});
+var P=[],N=520,ang=0;
+for(var i=0;i<N;i++){var y=1-2*(i+.5)/N,r=Math.sqrt(1-y*y),a=i*2.39996;P.push([Math.cos(a)*r,y,Math.sin(a)*r])}
+function drawG(c){var x=c.getContext('2d'),w=c.width,R=w*.42,s=Math.sin(ang),k=Math.cos(ang);x.clearRect(0,0,w,w);x.strokeStyle='rgba(57,255,20,.4)';x.lineWidth=1.5;x.beginPath();x.arc(w/2,w/2,R,0,7);x.stroke();
+for(var i=0;i<N;i++){var p=P[i],cx=p[0]*k+p[2]*s,cz=-p[0]*s+p[2]*k;if(cz<-.1)continue;x.fillStyle='rgba(57,255,20,'+(.25+.75*cz)+')';x.fillRect(w/2+cx*R,w/2+p[1]*R,2.4,2.4)}}
+function loop(){ang+=.006;document.querySelectorAll('.s.on canvas.gl').forEach(drawG);requestAnimationFrame(loop)}
+loop();
 function show(i){document.querySelectorAll('.s').forEach(function(e){e.classList.remove('on')});$(i).classList.add('on');$('nv').style.display=(i=='hm'||i=='st')?'flex':'none';document.querySelectorAll('#nv button').forEach(function(b,x){b.classList.toggle('act',(i=='hm'&&x==0)||(i=='st'&&x==3))});if(i=='hm')home()}
 function toast(t){var d=$('ts');d.textContent=t;d.style.opacity=1;setTimeout(function(){d.style.opacity=0},2200)}
 function soon(){toast('Coming in the next part')}
@@ -114,6 +127,6 @@ var L=[['Battery',d.bat+'%',bt,'b'],['Storage',sp+'%',st,'s'],['RAM',rp+'%',rt,'
 $('cd').innerHTML=L.map(function(x){return '<button class="cd" onclick="soon()">'+IC[x[3]]+'<div class="sm">'+x[0]+'</div><div class="v">'+x[1]+'</div><div class="tg '+x[2][1]+'">'+x[2][0]+'</div></button>'}).join('');
 }
 $('s1').checked=ls('urp_m')!=='0';$('s2').checked=ls('urp_v')!=='0';$('s3').checked=ls('urp_a')!=='0';$('s4').checked=ls('urp_b')!=='0';
-setTimeout(function(){show(ls('urp_name')?'hm':'wl')},2400);
+setTimeout(function(){show(ls('urp_name')?'hm':'wl')},3000);
 setInterval(function(){if($('hm').classList.contains('on'))home()},5000);
 </script></body></html>
