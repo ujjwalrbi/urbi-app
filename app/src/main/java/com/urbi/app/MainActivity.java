@@ -34,6 +34,29 @@ public class MainActivity extends Activity {
     class Bridge {
         @JavascriptInterface public void say(String s) { try { if (tts != null) tts.speak(s, TextToSpeech.QUEUE_FLUSH, null, "u"); } catch (Exception e) { } }
         @JavascriptInterface public void openApp(String p) { try { Intent i = new Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse("package:" + p)); i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); startActivity(i); } catch (Exception e) { } }
+        @JavascriptInterface public String openByName(String q) {
+            try {
+                PackageManager pm = getPackageManager();
+                Intent main = new Intent(Intent.ACTION_MAIN);
+                main.addCategory(Intent.CATEGORY_LAUNCHER);
+                String best = null, bestPkg = null;
+                int bs = 0;
+                q = q.toLowerCase().replace(" ", "").trim();
+                for (android.content.pm.ResolveInfo ri : pm.queryIntentActivities(main, 0)) {
+                    String l = ri.loadLabel(pm).toString();
+                    String ll = l.toLowerCase().replace(" ", "");
+                    int sc = 0;
+                    if (ll.equals(q)) sc = 4; else if (ll.startsWith(q)) sc = 3; else if (ll.contains(q)) sc = 2; else if (q.contains(ll) && ll.length() > 2) sc = 1;
+                    if (sc > bs) { bs = sc; best = l; bestPkg = ri.activityInfo.packageName; }
+                }
+                if (bestPkg == null) return "";
+                Intent li = pm.getLaunchIntentForPackage(bestPkg);
+                if (li == null) return "";
+                li.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(li);
+                return best;
+            } catch (Exception e) { return ""; }
+        }
         @JavascriptInterface public String apps() {
             JSONArray r = new JSONArray();
             try {
