@@ -29,11 +29,98 @@ public class MainActivity extends Activity {
     TextToSpeech tts;
     long lastBack = 0;
     int insT = 0, insB = 0;
+    android.speech.SpeechRecognizer sr;
+    android.media.MediaPlayer mp;
+    @Override protected void onPause() { try { w.evaluateJavascript("window.bgStop&&bgStop()", null); w.onPause(); } catch (Exception e) { } super.onPause(); }
+    @Override protected void onResume() { super.onResume(); try { w.onResume(); w.evaluateJavascript("window.bgStart&&bgStart()", null); pushIns(); } catch (Exception e) { } }
+    @Override protected void onDestroy() { try { if (mp != null) mp.release(); if (sr != null) sr.destroy(); } catch (Exception e) { } super.onDestroy(); }
     void pushIns() { if (w != null) w.evaluateJavascript("window.setIns&&setIns(" + insT + "," + insB + ")", null); }
 
     class Bridge {
         @JavascriptInterface public void say(String s) { try { if (tts != null) tts.speak(s, TextToSpeech.QUEUE_FLUSH, null, "u"); } catch (Exception e) { } }
         @JavascriptInterface public void openApp(String p) { try { Intent i = new Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse("package:" + p)); i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); startActivity(i); } catch (Exception e) { } }
+        @JavascriptInterface public void startVoice() {
+            runOnUiThread(new Runnable() { public void run() {
+                try {
+                    if (checkSelfPermission(android.Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
+                        requestPermissions(new String[]{android.Manifest.permission.RECORD_AUDIO}, 7);
+                        w.evaluateJavascript("onVoiceErr('Allow the microphone, then tap the orb again.')", null);
+                        return;
+                    }
+                    if (!android.speech.SpeechRecognizer.isRecognitionAvailable(MainActivity.this)) {
+                        w.evaluateJavascript("onVoiceErr('Speech service is not available on this phone.')", null);
+                        return;
+                    }
+                    if (sr == null) {
+                        sr = android.speech.SpeechRecognizer.createSpeechRecognizer(MainActivity.this);
+                        sr.setRecognitionListener(new android.speech.RecognitionListener() {
+                            public void onReadyForSpeech(Bundle b) { }
+                            public void onBeginningOfSpeech() { }
+                            public void onRmsChanged(float v) { }
+                            public void onBufferReceived(byte[] b) { }
+                            public void onEndOfSpeech() { }
+                            public void onError(int e) { w.evaluateJavascript("onVoiceErr('Could not hear that. Try again.')", null); }
+                            public void onResults(Bundle b) {
+                                java.util.ArrayList<String> l = b.getStringArrayList(android.speech.SpeechRecognizer.RESULTS_RECOGNITION);
+                                String t = (l != null && l.size() > 0) ? l.get(0) : "";
+                                w.evaluateJavascript("onVoice(" + JSONObject.quote(t) + ")", null);
+                            }
+                            public void onPartialResults(Bundle b) { }
+                            public void onEvent(int t, Bundle b) { }
+                        });
+                    }
+                    Intent i = new Intent(android.speech.RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+                    i.putExtra(android.speech.RecognizerIntent.EXTRA_LANGUAGE_MODEL, android.speech.RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+                    i.putExtra(android.speech.RecognizerIntent.EXTRA_PREFER_OFFLINE, true);
+                    i.putExtra(android.speech.RecognizerIntent.EXTRA_LANGUAGE, "en-IN");
+                    sr.startListening(i);
+                } catch (Exception e) { w.evaluateJavascript("onVoiceErr('Voice could not start.')", null); }
+            } });
+        }
+        @JavascriptInterface public String songs() {
+            try {
+                final String pm2 = Build.VERSION.SDK_INT >= 33 ? android.Manifest.permission.READ_MEDIA_AUDIO : android.Manifest.permission.READ_EXTERNAL_STORAGE;
+                if (checkSelfPermission(pm2) != PackageManager.PERMISSION_GRANTED) {
+                    runOnUiThread(new Runnable() { public void run() { requestPermissions(new String[]{pm2}, 8); } });
+                    return "NOPERM";
+                }
+                JSONArray r = new JSONArray();
+                android.database.Cursor c = getContentResolver().query(android.provider.MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, new String[]{android.provider.MediaStore.Audio.Media._ID, android.provider.MediaStore.Audio.Media.TITLE, android.provider.MediaStore.Audio.Media.ARTIST}, android.provider.MediaStore.Audio.Media.IS_MUSIC + "!=0", null, android.provider.MediaStore.Audio.Media.TITLE + " ASC");
+                if (c != null) {
+                    int n = 0;
+                    while (c.moveToNext() && n < 500) {
+                        JSONObject o = new JSONObject();
+                        o.put("id", c.getLong(0));
+                        o.put("t", c.getString(1));
+                        o.put("a", c.getString(2));
+                        r.put(o);
+                        n++;
+                    }
+                    c.close();
+                }
+                return r.toString();
+            } catch (Exception e) { return "[]"; }
+        }
+        @JavascriptInterface public void play(final long id) {
+            runOnUiThread(new Runnable() { public void run() {
+                try {
+                    if (mp != null) mp.release();
+                    mp = new android.media.MediaPlayer();
+                    mp.setDataSource(MainActivity.this, android.content.ContentUris.withAppendedId(android.provider.MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, id));
+                    mp.prepare();
+                    mp.start();
+                    mp.setOnCompletionListener(new android.media.MediaPlayer.OnCompletionListener() { public void onCompletion(android.media.MediaPlayer m) { w.evaluateJavascript("nxt()", null); } });
+                } catch (Exception e) { }
+            } });
+        }
+        @JavascriptInterface public boolean toggle() {
+            try {
+                if (mp == null) return false;
+                if (mp.isPlaying()) { mp.pause(); return false; }
+                mp.start();
+                return true;
+            } catch (Exception e) { return false; }
+        }
         @JavascriptInterface public String openByName(String q) {
             try {
                 PackageManager pm = getPackageManager();
@@ -134,7 +221,21 @@ public class MainActivity extends Activity {
         if (Build.VERSION.SDK_INT >= 29) getWindow().setNavigationBarContrastEnforced(false);
         getWindow().setNavigationBarColor(Color.TRANSPARENT);
         w = new WebView(this);
-        tts = new TextToSpeech(this, new TextToSpeech.OnInitListener() { public void onInit(int st) { if (st == TextToSpeech.SUCCESS) tts.setLanguage(java.util.Locale.getDefault()); } });
+        tts = new TextToSpeech(this, new TextToSpeech.OnInitListener() { public void onInit(int st) { if (st == TextToSpeech.SUCCESS) {
+            int lr = tts.setLanguage(new java.util.Locale("en", "IN"));
+            if (lr == TextToSpeech.LANG_MISSING_DATA || lr == TextToSpeech.LANG_NOT_SUPPORTED) tts.setLanguage(java.util.Locale.getDefault());
+            tts.setSpeechRate(0.92f);
+            tts.setPitch(1.05f);
+            try {
+                android.speech.tts.Voice pick = null;
+                for (android.speech.tts.Voice v : tts.getVoices()) {
+                    if (v.getLocale().getLanguage().equals("en") && "IN".equals(v.getLocale().getCountry()) && !v.isNetworkConnectionRequired()) {
+                        if (pick == null || v.getQuality() > pick.getQuality()) pick = v;
+                    }
+                }
+                if (pick != null) tts.setVoice(pick);
+            } catch (Exception e) { }
+        } } });
         w.setBackgroundColor(Color.parseColor("#020a02"));
         WebSettings s = w.getSettings();
         s.setJavaScriptEnabled(true);

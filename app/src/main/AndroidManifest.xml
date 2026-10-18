@@ -2,7 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <uses-permission android:name="android.permission.VIBRATE"/>
     <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES"/>
-    <queries><intent><action android:name="android.intent.action.TTS_SERVICE"/></intent></queries>
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+    <uses-permission android:name="android.permission.READ_MEDIA_AUDIO"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" android:maxSdkVersion="32"/>
+    <queries><intent><action android:name="android.intent.action.TTS_SERVICE"/></intent>
+        <intent><action android:name="android.speech.RecognitionService"/></intent></queries>
     <application android:label="URPHONSCOP" android:icon="@drawable/ic_launcher" android:theme="@android:style/Theme.DeviceDefault.NoActionBar">
         <activity android:name=".MainActivity" android:exported="true" android:configChanges="orientation|screenSize|keyboardHidden">
             <intent-filter>
