@@ -28,12 +28,13 @@ public class MainActivity extends Activity {
     WebView w;
     TextToSpeech tts;
     long lastBack = 0;
+    android.media.MediaPlayer bgm; boolean musicWanted = false; android.media.SoundPool sp; int clickId;
     int insT = 0, insB = 0;
     android.speech.SpeechRecognizer sr;
     android.media.MediaPlayer mp;
-    @Override protected void onPause() { try { w.evaluateJavascript("window.bgStop&&bgStop()", null); w.onPause(); } catch (Exception e) { } super.onPause(); }
-    @Override protected void onResume() { super.onResume(); try { w.onResume(); w.evaluateJavascript("window.bgStart&&bgStart()", null); pushIns(); } catch (Exception e) { } }
-    @Override protected void onDestroy() { try { if (mp != null) mp.release(); if (sr != null) sr.destroy(); } catch (Exception e) { } super.onDestroy(); }
+    @Override protected void onPause() { try { if (bgm != null && bgm.isPlaying()) bgm.pause(); w.onPause(); } catch (Exception e) { } super.onPause(); }
+    @Override protected void onResume() { super.onResume(); try { w.onResume(); if (musicWanted && bgm != null) bgm.start(); pushIns(); } catch (Exception e) { } }
+    @Override protected void onDestroy() { try { if (mp != null) mp.release(); if (sr != null) sr.destroy(); if (bgm != null) bgm.release(); } catch (Exception e) { } super.onDestroy(); }
     void pushIns() { if (w != null) w.evaluateJavascript("window.setIns&&setIns(" + insT + "," + insB + ")", null); }
 
     class Bridge {
@@ -120,6 +121,81 @@ public class MainActivity extends Activity {
                 mp.start();
                 return true;
             } catch (Exception e) { return false; }
+        }
+        @JavascriptInterface public void bg(final boolean on) {
+            runOnUiThread(new Runnable() { public void run() {
+                musicWanted = on;
+                try {
+                    if (on) {
+                        if (bgm == null) { bgm = android.media.MediaPlayer.create(MainActivity.this, R.raw.ambient); bgm.setLooping(true); bgm.setVolume(0.55f, 0.55f); }
+                        bgm.start();
+                    } else if (bgm != null && bgm.isPlaying()) bgm.pause();
+                } catch (Exception e) { }
+            } });
+        }
+        @JavascriptInterface public void click() { try { if (sp != null) sp.play(clickId, 0.8f, 0.8f, 1, 0, 1f); } catch (Exception e) { } }
+        @JavascriptInterface public boolean hasPerm(String k) {
+            try {
+                if (k.equals("mic")) return checkSelfPermission(android.Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED;
+                if (k.equals("audio")) return checkSelfPermission(Build.VERSION.SDK_INT >= 33 ? android.Manifest.permission.READ_MEDIA_AUDIO : android.Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
+                if (k.equals("notif")) return Build.VERSION.SDK_INT < 33 || checkSelfPermission("android.permission.POST_NOTIFICATIONS") == PackageManager.PERMISSION_GRANTED;
+            } catch (Exception e) { }
+            return false;
+        }
+        @JavascriptInterface public void askPerm(final String k) {
+            runOnUiThread(new Runnable() { public void run() { try {
+                if (k.equals("mic")) requestPermissions(new String[]{android.Manifest.permission.RECORD_AUDIO}, 7);
+                else if (k.equals("audio")) requestPermissions(new String[]{Build.VERSION.SDK_INT >= 33 ? android.Manifest.permission.READ_MEDIA_AUDIO : android.Manifest.permission.READ_EXTERNAL_STORAGE}, 8);
+                else if (k.equals("notif") && Build.VERSION.SDK_INT >= 33) requestPermissions(new String[]{"android.permission.POST_NOTIFICATIONS"}, 9);
+            } catch (Exception e) { } } });
+        }
+        @JavascriptInterface public void notify(String t, String m) {
+            try {
+                android.app.NotificationManager nm = (android.app.NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+                android.app.Notification.Builder b;
+                if (Build.VERSION.SDK_INT >= 26) { nm.createNotificationChannel(new android.app.NotificationChannel("urp", "URPHONSCOP alerts", android.app.NotificationManager.IMPORTANCE_DEFAULT)); b = new android.app.Notification.Builder(MainActivity.this, "urp"); }
+                else b = new android.app.Notification.Builder(MainActivity.this);
+                b.setContentTitle(t).setContentText(m).setSmallIcon(android.R.drawable.stat_sys_warning).setAutoCancel(true);
+                nm.notify((int) (System.currentTimeMillis() % 100000), b.build());
+            } catch (Exception e) { }
+        }
+        @JavascriptInterface public String act(String t, String a) {
+            try {
+                Intent i = null;
+                if (t.equals("torch")) {
+                    android.hardware.camera2.CameraManager cm = (android.hardware.camera2.CameraManager) getSystemService(Context.CAMERA_SERVICE);
+                    for (String id : cm.getCameraIdList()) {
+                        Boolean f = cm.getCameraCharacteristics(id).get(android.hardware.camera2.CameraCharacteristics.FLASH_INFO_AVAILABLE);
+                        if (f != null && f) { cm.setTorchMode(id, a.equals("on")); return "ok:Torch " + a; }
+                    }
+                    return "err:No torch found on this phone";
+                }
+                if (t.equals("vol")) {
+                    android.media.AudioManager am = (android.media.AudioManager) getSystemService(Context.AUDIO_SERVICE);
+                    int dr = a.equals("up") ? android.media.AudioManager.ADJUST_RAISE : a.equals("down") ? android.media.AudioManager.ADJUST_LOWER : android.media.AudioManager.ADJUST_MUTE;
+                    am.adjustStreamVolume(android.media.AudioManager.STREAM_MUSIC, dr, android.media.AudioManager.FLAG_SHOW_UI);
+                    return "ok:Volume " + a;
+                }
+                if (t.equals("alarm")) { String[] p = a.split(":"); i = new Intent(android.provider.AlarmClock.ACTION_SET_ALARM).putExtra(android.provider.AlarmClock.EXTRA_HOUR, Integer.parseInt(p[0])).putExtra(android.provider.AlarmClock.EXTRA_MINUTES, Integer.parseInt(p[1])); }
+                else if (t.equals("timer")) i = new Intent(android.provider.AlarmClock.ACTION_SET_TIMER).putExtra(android.provider.AlarmClock.EXTRA_LENGTH, Integer.parseInt(a));
+                else if (t.equals("dial")) i = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + a));
+                else if (t.equals("search")) i = new Intent(Intent.ACTION_WEB_SEARCH).putExtra(android.app.SearchManager.QUERY, a);
+                else if (t.equals("set")) {
+                    String s = android.provider.Settings.ACTION_SETTINGS;
+                    if (a.equals("wifi")) s = android.provider.Settings.ACTION_WIFI_SETTINGS;
+                    else if (a.equals("bluetooth")) s = android.provider.Settings.ACTION_BLUETOOTH_SETTINGS;
+                    else if (a.equals("display")) s = android.provider.Settings.ACTION_DISPLAY_SETTINGS;
+                    else if (a.equals("storage")) s = android.provider.Settings.ACTION_INTERNAL_STORAGE_SETTINGS;
+                    else if (a.equals("location")) s = android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS;
+                    else if (a.equals("airplane")) s = android.provider.Settings.ACTION_AIRPLANE_MODE_SETTINGS;
+                    else if (a.equals("access")) s = android.provider.Settings.ACTION_ACCESSIBILITY_SETTINGS;
+                    i = new Intent(s);
+                }
+                if (i == null) return "err:Not supported";
+                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(i);
+                return "ok:Done";
+            } catch (Exception e) { return "err:Could not do that on this phone"; }
         }
         @JavascriptInterface public String openByName(String q) {
             try {
@@ -220,6 +296,8 @@ public class MainActivity extends Activity {
         getWindow().getDecorView().setSystemUiVisibility(android.view.View.SYSTEM_UI_FLAG_LAYOUT_STABLE | android.view.View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | android.view.View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
         if (Build.VERSION.SDK_INT >= 29) getWindow().setNavigationBarContrastEnforced(false);
         getWindow().setNavigationBarColor(Color.TRANSPARENT);
+        sp = new android.media.SoundPool.Builder().setMaxStreams(4).build();
+        clickId = sp.load(this, R.raw.click, 1);
         w = new WebView(this);
         tts = new TextToSpeech(this, new TextToSpeech.OnInitListener() { public void onInit(int st) { if (st == TextToSpeech.SUCCESS) {
             int lr = tts.setLanguage(new java.util.Locale("en", "IN"));

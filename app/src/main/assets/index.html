@@ -87,12 +87,21 @@ input[type=text]:focus{box-shadow:0 0 20px var(--g)}
 @keyframes vr{from{transform:scale(.9);opacity:.7}to{transform:scale(1.5);opacity:0}}
 .vorb.lis{background:var(--g)}
 .vorb.lis svg{stroke:#000}
+.hrow{display:flex;align-items:center;justify-content:space-between;margin:6px 0 0}
+.hrow .rg{margin:22px 0;flex:none;width:170px;height:170px}
+.ob{width:66px;text-align:center;flex:none}
+.ob b{display:block;font:bold 9.5px monospace;color:var(--g);line-height:1.2}
+.orb3{position:relative;width:58px;height:58px;border-radius:50%;background:radial-gradient(circle at 50% 35%,#0f5a0f,#031203);border:2px solid var(--g);box-shadow:0 0 16px var(--g);padding:0;margin-bottom:8px}
+.orb3 svg{width:26px;height:26px;stroke:var(--g);fill:none;stroke-width:1.8}
+.orb3 i{position:absolute;inset:-8px -10px;border:1.5px solid var(--g);border-radius:50%;transform:rotate(-25deg) rotateX(60deg);animation:o3 4s linear infinite;pointer-events:none}
+@keyframes o3{to{transform:rotate(335deg) rotateX(60deg)}}
+.stg canvas,.pl path,.cd svg{filter:none!important}
 </style></head>
 <body>
-<div id="sp" class="s on c1"><div class="stg"><canvas class="gl" width="320" height="320"></canvas><img src="logo.jpg" alt=""></div><h1 class="neon" style="font-size:30px;margin:4px 0">URPHONSCOP</h1><div>Scan. Understand. Keep your phone healthy.</div><div class="on2" style="margin-top:14px">SYSTEM STARTING</div><div class="sm">Powered by Ujjwal • v3.6</div></div>
-<div id="wl" class="s c1"><h1 class="neon" style="margin:6px 0 0;font-size:24px">Welcome to<br>URPHONSCOP</h1><div class="stg mn"><canvas class="gl" width="320" height="320"></canvas><img src="logo.jpg" alt=""></div><div class="hud" style="margin:10px 0"><div style="font-size:18px">What is your name?</div><input type="text" id="nm" placeholder="Enter your name..." maxlength="24"></div><button class="btn" onclick="go()">Continue &gt;</button><div class="sm">This helps us give you a personal greeting.</div></div>
+<div id="sp" class="s on c1"><div class="stg"><canvas class="gl" width="320" height="320"></canvas><img src="logo.jpg" alt=""></div><h1 class="neon" style="font-size:30px;margin:4px 0">URPHONSCOP</h1><div>Scan. Understand. Keep your phone healthy.</div><div class="on2" style="margin-top:14px">SYSTEM STARTING</div><div class="neon" style="font-size:18px;margin-top:8px">Powered by Ujjwal</div><div class="sm">v3.7</div></div>
+<div id="wl" class="s c1"><h1 class="neon" style="margin:6px 0 0;font-size:24px">Welcome to<br>URPHONSCOP</h1><div class="stg mn"><canvas class="gl" width="320" height="320"></canvas><img src="logo.jpg" alt=""></div><div class="hud" style="margin:10px 0"><div style="font-size:18px">What is your name?</div><input type="text" id="nm" placeholder="Enter your name..." maxlength="24"></div><button class="btn" onclick="go()">Continue &gt;</button><div class="sm">This helps us give you a personal greeting.</div><div class="neon" style="font-size:16px;margin-top:18px">Powered by Ujjwal</div></div>
 <div id="hm" class="s"><div style="display:flex;justify-content:space-between;align-items:center"><div><div id="gt" style="font-size:16px"></div><div class="neon" id="gn" style="font-size:22px"></div><div class="on2">ALL SYSTEMS ONLINE</div></div><button class="ib" onclick="show('st')"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2"/></svg></button></div>
-<div class="rg"><canvas class="gl gb" width="300" height="300"></canvas><div class="orb"></div><svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="52" fill="none" stroke="#0e3a08" stroke-width="9"/><circle id="rc" cx="60" cy="60" r="52" fill="none" stroke="#39ff14" stroke-width="9" stroke-linecap="round" style="transition:stroke-dashoffset 1.2s"/></svg><div class="c"><span class="sm">Phone Health</span><b id="sc">--</b><span class="sm">/ 100</span></div></div>
+<div class="rg"><canvas class="gl gb" width="300" height="300"></canvas><div class="orb"></div><svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="52" fill="none" stroke="#0e3a08" stroke-width="9"/><circle id="rc" cx="60" cy="60" r="52" fill="none" stroke="#39ff14" stroke-width="9" stroke-linecap="round" style="transition:stroke-dashoffset 1.2s"/></svg><div class="c"><span class="sm">Status score</span><b id="sc">--</b><span class="sm">/ 100</span></div></div>
 <svg class="pl" viewBox="0 0 200 30" preserveAspectRatio="none"><path d="M0 15H70L78 4L88 26L98 8L104 15H200"/></svg>
 <div class="cds" id="cd"></div>
 <button class="btn" onclick="scan()"><svg viewBox="0 0 24 24" style="width:20px;height:20px;vertical-align:-4px;stroke:currentColor;fill:none;stroke-width:2"><circle cx="11" cy="11" r="7"/><path d="M16 16l5 5"/></svg> Scan</button><button class="btn" onclick="apps()">Apps check</button><button class="btn" onclick="musicOpen()">Music player</button></div>
@@ -101,39 +110,40 @@ input[type=text]:focus{box-shadow:0 0 20px var(--g)}
 <div class="row">Voice greeting<label class="sw"><input type="checkbox" id="s2" onchange="sv('v',this.checked)"><i></i></label></div>
 <div class="row">Alerts<label class="sw"><input type="checkbox" id="s3" onchange="sv('a',this.checked)"><i></i></label></div>
 <div class="row">Button sounds<label class="sw"><input type="checkbox" id="s4" onchange="sv('b',this.checked)"><i></i></label></div>
-<div class="sm" style="margin:8px 0 14px">Music, voice and alerts are saved now and start working in a later part.</div>
+<div class="sm" style="margin:8px 0 14px">Alerts work while the app is open or was used recently. Turning Alerts on asks for notification permission.</div>
 <button class="btn" onclick="chg()">Change my name</button>
 <div class="hud" style="margin-top:18px"><b class="neon">Privacy first</b><div class="sm">The app itself never sends your data anywhere. Voice commands use the Android speech service, which may use the internet.</div></div>
-<div class="sm c1" style="margin-top:14px">URPHONSCOP v3.6</div></div>
+<div class="sm c1" style="margin-top:14px">URPHONSCOP v3.7</div></div>
 <div id="sn" class="s c1"><h2 class="neon" style="margin:6px 0 0">Scanning...</h2><div class="sm">Checking your phone</div><div class="stg mn"><canvas class="gl" width="320" height="320"></canvas><img src="logo.jpg" alt=""></div><div class="hud" style="text-align:left" id="sl"></div><div style="height:10px;border:1px solid var(--g);margin:14px 0 6px;border-radius:6px;overflow:hidden"><i id="sbr" style="display:block;height:100%;width:0;background:var(--g);box-shadow:0 0 10px var(--g);transition:width .5s"></i></div><div class="sm" id="spc"></div></div>
 <div id="rs" class="s"><h2 class="neon" style="margin:0">Scan Results</h2><div class="on2">COMPLETED</div><div id="rb"></div><button class="btn" onclick="detail(firstBad())">View Details</button></div>
 <div id="dt" class="s"><button class="pill" onclick="goBack()">&lt; Back</button><h2 class="neon" id="dh" style="margin:0 0 6px"></h2><div id="db"></div></div>
 <div id="ap" class="s"><button class="pill" onclick="goBack()">&lt; Back</button><h2 class="neon" style="margin:0 0 6px">Apps</h2><div class="sm" style="margin-bottom:10px">Risk is an estimate from permissions. It means review, not virus. Tap an app to open its settings.</div><div id="al"></div></div>
-<div id="as" class="s c1"><button class="pill" onclick="goBack()" style="float:left">&lt; Back</button><h2 class="neon" style="margin:0 0 4px;clear:both">Ujjwal Assist</h2><div class="sm">Tap the orb and speak, or type below</div>
+<div id="as" class="s c1"><button class="pill" onclick="goBack()" style="float:left">&lt; Back</button><h2 class="neon" style="margin:0 0 4px;clear:both"><span id="ct">URAPPCONTROLR</span></h2><div class="sm">Tap the orb and speak, or type below</div>
 <button id="orbv" class="vorb" onclick="listen()"><i></i><i></i><svg viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0014 0M12 18v3"/></svg></button>
 <div class="sm" id="vst">Tap to speak</div>
 <div class="hud" style="margin-top:12px"><input type="text" id="ai" placeholder="open whatsapp" autocomplete="off"><button class="btn" onclick="ask()">Do it</button></div>
-<div class="sm" style="margin:6px 0">Try: open whatsapp, scan, battery, storage, play music, music on, music off</div>
+<div class="sm" style="margin:6px 0"><span id="ch"></span></div>
 <div id="ao" style="margin-top:12px;text-align:left"></div>
 <div class="sm" style="margin-top:8px">Typed commands stay on your phone. Voice uses the Android speech service, which may use the internet if no offline voice pack is installed.</div></div>
 <div id="mp" class="s"><button class="pill" onclick="goBack()">&lt; Back</button><h2 class="neon" style="margin:0 0 6px">Music</h2>
 <div class="hud" style="margin-bottom:12px"><input type="text" id="mq" placeholder="Search a song online..." autocomplete="off"><button class="btn" onclick="srch()">Search online</button><div class="sm">Opens YouTube with your search. Songs on your phone are listed below.</div></div>
 <div class="hud" style="margin-bottom:12px"><b class="neon" id="mt">Nothing playing</b><div style="display:flex;gap:10px;margin-top:8px"><button class="btn" id="mpp" onclick="tgl()" style="margin:0">Play</button><button class="btn" onclick="nxt()" style="margin:0">Next</button></div></div>
 <div id="ml"></div></div>
-<div id="nv"><button onclick="show('hm')"><svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8M5 10v10h5v-6h4v6h5V10"/></svg>Home</button><button onclick="scan()"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M16 16l5 5"/></svg>Scan</button><button class="orb2" onclick="show('as')"><svg viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0014 0M12 18v3"/></svg><span>Assist</span></button><button onclick="show('rs')"><svg viewBox="0 0 24 24"><path d="M5 4h14v16H5zM9 9h6M9 13h6M9 17h3"/></svg>Results</button><button onclick="show('st')"><svg viewBox="0 0 24 24"><circle cx="5" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="19" cy="12" r="1.6"/></svg>More</button></div>
+<div id="wy" class="s"><button class="pill" onclick="goBack()">&lt; Back</button><h2 class="neon" style="margin:0 0 8px">Why this score</h2><div id="wb"></div></div>
+<div id="nv"><button onclick="show('hm')"><svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8M5 10v10h5v-6h4v6h5V10"/></svg>Home</button><button onclick="scan()"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M16 16l5 5"/></svg>Scan</button><button onclick="show('rs')"><svg viewBox="0 0 24 24"><path d="M5 4h14v16H5zM9 9h6M9 13h6M9 17h3"/></svg>Results</button><button onclick="show('st')"><svg viewBox="0 0 24 24"><circle cx="5" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="19" cy="12" r="1.6"/></svg>More</button></div>
 <div id="ts"></div>
 <script>
 var $=function(i){return document.getElementById(i)};
 function ls(k,v){try{if(v===undefined)return localStorage.getItem(k);if(v===null)localStorage.removeItem(k);else localStorage.setItem(k,v)}catch(e){}return null}
 function vib(){if(ls('urp_b')!=='0'){try{window.URP.vib(18)}catch(e){}}}
 document.addEventListener('pointerdown',function(e){var b=e.target.closest('button');if(!b)return;b.classList.add('lit');vib();setTimeout(function(){b.classList.remove('lit')},280)});
-var P=[],N=520,ang=0;
+var P=[],N=260,ang=0;
 for(var i=0;i<N;i++){var y=1-2*(i+.5)/N,r=Math.sqrt(1-y*y),a=i*2.39996;P.push([Math.cos(a)*r,y,Math.sin(a)*r])}
 function drawG(c){var x=c.getContext('2d'),w=c.width,R=w*.42,s=Math.sin(ang),k=Math.cos(ang);x.clearRect(0,0,w,w);x.strokeStyle='rgba(57,255,20,.4)';x.lineWidth=1.5;x.beginPath();x.arc(w/2,w/2,R,0,7);x.stroke();
 for(var i=0;i<N;i++){var p=P[i],cx=p[0]*k+p[2]*s,cz=-p[0]*s+p[2]*k;if(cz<-.1)continue;x.fillStyle='rgba(57,255,20,'+(.25+.75*cz)+')';x.fillRect(w/2+cx*R,w/2+p[1]*R,2.4,2.4)}}
-function loop(){ang+=.006;document.querySelectorAll('.s.on canvas.gl').forEach(drawG);requestAnimationFrame(loop)}
+var LT=0;function loop(t){if(t-LT>33){LT=t;ang+=.012;document.querySelectorAll('.s.on canvas.gl').forEach(drawG)}requestAnimationFrame(loop)}
 loop();
-function show(i){document.querySelectorAll('.s').forEach(function(e){e.classList.remove('on')});$(i).classList.add('on');$('nv').style.display=(i=='sp'||i=='wl')?'none':'flex';var m={hm:0,sn:1,as:2,rs:3,dt:3,st:4,mp:4,ap:4}[i];document.querySelectorAll('#nv button').forEach(function(b,x){b.classList.toggle('act',x===m)});if(i=='hm')home();if(i=='rs')results()}
+function show(i){document.querySelectorAll('.s').forEach(function(e){e.classList.remove('on')});$(i).classList.add('on');$('nv').style.display=(i=='sp'||i=='wl')?'none':'flex';var m={hm:0,sn:1,rs:2,dt:2,wy:2,st:3,as:3,mp:3,ap:3}[i];document.querySelectorAll('#nv button').forEach(function(b,x){b.classList.toggle('act',x===m)});if(i=='hm')home();if(i=='rs')results()}
 function toast(t){var d=$('ts');d.textContent=t;d.style.opacity=1;setTimeout(function(){d.style.opacity=0},2200)}
 function soon(){toast('Coming in the next part')}
 function get(){try{return JSON.parse(window.URP.info())}catch(e){return{bat:72,temp:32,volt:4100,status:2,health:2,stoT:257e9,stoF:82e9,ramT:8e9,ramF:3e9}}}
@@ -156,7 +166,7 @@ if(sp>=90)sc-=25;else if(sp>=75)sc-=10;
 if(rp>=85)sc-=10;
 if(d.bat<=20&&!ch)sc-=10;
 if(d.health&&d.health!=2)sc-=15;
-$('sc').textContent=sc;
+var SXr=scoreX(d,sp,rp,ch);sc=SXr.s;$('sc').textContent=sc;alertsTick(d,sp);
 var C=326.7,r=$('rc');
 r.style.strokeDasharray=C;r.style.strokeDashoffset=C*(1-sc/100);
 r.style.stroke=sc>=80?'#39ff14':sc>=60?'#ffd60a':'#ff3b30';
@@ -170,7 +180,7 @@ var STT={2:'Charging',3:'In use',4:'Not charging',5:'Full'},HE={2:'Good',3:'Over
 function gbf(n){return (n/1e9).toFixed(1)+' GB'}
 function ST(){var d=get(),ch=d.status==2,sp=Math.round((d.stoT-d.stoF)*100/d.stoT),rp=Math.round((d.ramT-d.ramF)*100/d.ramT),o={},sc=100;
 if(d.temp>=40)sc-=20;if(sp>=90)sc-=25;else if(sp>=75)sc-=10;if(rp>=85)sc-=10;if(d.bat<=20&&!ch)sc-=10;if(d.health&&d.health!=2)sc-=15;
-o.score=sc;
+o.score=scoreX(d,sp,rp,ch).s;
 o.b={n:'Battery',v:d.bat+'%',p:d.bat,sub:'charge',t:(d.bat<=20&&!ch)?['Warning','r']:['Good','g'],rows:[['Status',STT[d.status]||'Unknown'],['Temperature',d.temp+' °C ('+(d.temp+273.15).toFixed(1)+' K)'],['Voltage',(d.volt/1000).toFixed(2)+' V'],['Health',HE[d.health]||'Unknown'],['Charge cycles',d.cycles>0?d.cycles:'Not available'],['Current',cur(d)],['Power',pw(d)],['Charge left',chgT(d)]],a:d.temp>=40?'Battery is hot. Unplug the charger and take off the cover.':(d.bat<=20&&!ch)?'Battery is low. Please charge your phone.':(d.bat>=80&&ch)?'At 80% or more while charging, consider unplugging to keep the battery healthy.':'Battery looks fine.'};
 o.s={n:'Storage',v:sp+'%',p:sp,sub:'used',t:sp>=90?['Warning','r']:sp>=75?['Check','y']:['Good','g'],rows:[['Used',gbf(d.stoT-d.stoF)],['Free',gbf(d.stoF)],['Total',gbf(d.stoT)]],a:sp>=90?'Storage is too full. Remove big videos, old files and apps you do not use.':sp>=75?'Storage is getting full. A small cleanup will help.':'Less than 75% is good. You are in a safe range.'};
 o.r={n:'RAM',v:rp+'%',p:rp,sub:'in use',t:rp>=85?['Warning','r']:['Good','g'],rows:[['Used',gbf(d.ramT-d.ramF)],['Free',gbf(d.ramF)],['Total',gbf(d.ramT)]],a:rp>=85?'RAM usage is high. Close heavy apps.':'RAM usage is normal.'};
@@ -180,7 +190,7 @@ function ringH(p,v,sub,col){var C=326.7;return '<div class="rg" style="width:170
 function detail(k){var x=ST()[k],c={g:'#39ff14',y:'#ffd60a',r:'#ff3b30'}[x.t[1]];$('dh').textContent=x.n;
 $('db').innerHTML=ringH(x.p,x.v,x.sub,c)+'<div class="c1 tg '+x.t[1]+'" style="font-size:16px;margin-bottom:12px">'+x.t[0]+'</div><div class="hud" style="margin-bottom:14px">'+x.rows.map(function(r){return '<div class="row" style="padding:10px 4px"><span>'+r[0]+'</span><b>'+r[1]+'</b></div>'}).join('')+'</div><div class="hud"><b class="neon">Advice</b><div style="margin-top:6px">'+x.a+'</div></div>';show('dt')}
 function firstBad(){var o=ST(),a=['b','s','r','t'];for(var i=0;i<4;i++)if(o[a[i]].t[1]!='g')return a[i];return 'b'}
-function results(){var o=ST(),bad=0,h='<div class="hud" style="margin-bottom:14px"><span class="sm">Phone Health Score</span><div class="neon" style="font-size:34px">'+o.score+' <span class="sm">/ 100</span></div></div>';
+function results(){var o=ST(),bad=0,h='<div class="hud" style="margin-bottom:14px"><span class="sm">Status score</span><div class="neon" style="font-size:34px">'+o.score+' <span class="sm">/ 100</span></div></div>';
 ['b','s','r','t'].forEach(function(k){var x=o[k];if(x.t[1]!='g')bad++;h+='<button class="cd" onclick="detail(\''+k+'\')" style="margin-bottom:12px"><span class="tg '+x.t[1]+'" style="float:right;font-size:13px">'+x.t[0]+' &gt;</span><b>'+x.n+'</b><div class="v">'+x.v+'</div></button>'});
 h+='<div class="hud" style="margin:6px 0 4px">'+(bad?'Some items need your attention. Check the details for advice.':'Everything looks good. Keep it up!')+'</div>';$('rb').innerHTML=h}
 function scan(){show('sn');$('sl').innerHTML=SS.map(function(s,i){return '<div class="row" style="padding:10px 2px"><span>'+s+'</span><span id="sk'+i+'" class="sm">...</span></div>'}).join('');$('sbr').style.width='0';$('spc').textContent='Scanning... 0%';
@@ -241,4 +251,59 @@ function playS(i){CURS=i;SGP=1;mus(false);try{window.URP.play(SG[i].id)}catch(e)
 function tgl(){try{var p=window.URP.toggle();$('mpp').textContent=p?'Pause':'Play'}catch(e){}}
 function nxt(){if(!SG.length)return;playS((CURS+1)%SG.length)}
 function srch(){var q=$('mq').value.trim();if(!q)return;window.location.href='https://www.youtube.com/results?search_query='+encodeURIComponent(q)}
+function nrm(s){return s.toLowerCase().replace(/[^a-z0-9: ]/g,' ').replace(/\s+/g,' ').trim()}
+function lev(a,b){var m=[],i,j;for(i=0;i<=a.length;i++)m[i]=[i];for(j=1;j<=b.length;j++)m[0][j]=j;for(i=1;i<=a.length;i++)for(j=1;j<=b.length;j++)m[i][j]=Math.min(m[i-1][j]+1,m[i][j-1]+1,m[i-1][j-1]+(a[i-1]==b[j-1]?0:1));return m[a.length][b.length]}
+function has(t,ws){for(var i=0;i<t.length;i++)for(var j=0;j<ws.length;j++){var w=ws[j],x=t[i];if(x===w||(w.length>=5&&x.length>=5&&lev(x,w)<=1))return true}return false}
+function dlg(msg,ok){var d=document.createElement('div');d.style.cssText='position:fixed;inset:0;z-index:99;background:rgba(0,0,0,.85);display:flex;align-items:center;padding:24px';d.innerHTML='<div class="hud" style="width:100%"><b class="neon">Permission</b><div style="margin:10px 0">'+msg+'</div><button class="btn" id="dy">Allow</button><button class="btn" id="dn" style="margin-top:0">Not now</button></div>';document.body.appendChild(d);$('dy').onclick=function(){d.remove();ok()};$('dn').onclick=function(){d.remove()}}
+function need(k,why,go){var h=false;try{h=URP.hasPerm(k)}catch(e){}if(h){go();return}dlg(why,function(){try{URP.askPerm(k)}catch(e){}})}
+function mus(on){try{window.URP.bg(!!on)}catch(e){}}
+function bgStop(){}function bgStart(){}
+function clk(){if(ls('urp_b')==='0')return;try{window.URP.click()}catch(e){}}
+function sv(k,v){ls('urp_'+k,v?'1':'0');if(k=='m')mus(v);if(k=='a'&&v)need('notif','To warn you when the phone is too hot, the battery is low or storage is full, URPHONSCOP needs permission to show notifications. It shows only these alerts.',function(){})}
+var AL={};
+function alertsTick(d,sp){if(ls('urp_a')==='0')return;var n=Date.now();function f(k,t,m){if(n-(AL[k]||0)<1800000)return;AL[k]=n;try{if(URP.hasPerm('notif'))URP.notify(t,m)}catch(e){}}
+if(d.temp>=40)f('t','Phone is hot','Battery temperature is '+d.temp+' °C. Stop charging and close heavy apps.');
+if(d.bat<=20&&d.status!=2)f('b','Battery low','Battery is at '+d.bat+'%. Please charge your phone.');
+if(sp>=90)f('s','Storage almost full','Storage is '+sp+'% full. Remove files you do not need.')}
+function scoreX(d,sp,rp,ch){var it=[['Battery temperature below 40 °C',d.temp<40,20],['Storage less than 75% used',sp<75,sp>=90?25:10],['At least 10 GB free',d.stoF/1e9>=10,10],['RAM below 85% used',rp<85,10],['Battery above 20% or charging',!(d.bat<=20&&!ch),10],['Battery health reported good',!d.health||d.health==2,15],['Battery cycles below 500',!(d.cycles>=500),10]],s=100;it.forEach(function(x){if(!x[1])s-=x[2]});return{s:Math.max(0,s),it:it}}
+function why(){var d=get(),sp=Math.round((d.stoT-d.stoF)*100/d.stoT),rp=Math.round((d.ramT-d.ramF)*100/d.ramT),r=scoreX(d,sp,rp,d.status==2);$('wb').innerHTML='<div class="hud" style="margin-bottom:12px"><span class="sm">Status score</span><div class="neon" style="font-size:34px">'+r.s+' <span class="sm">/ 100</span></div></div>'+r.it.map(function(x){return '<div class="row" style="padding:10px 4px"><span>'+x[0]+'</span><b style="color:'+(x[1]?'#39ff14':'#ff3b30')+'">'+(x[1]?'Pass':'-'+x[2])+'</b></div>'}).join('')+'<div class="hud" style="margin-top:12px"><b class="neon">Not checked</b><div class="sm">Battery wear in mAh, processor temperature, speed tests and virus scanning. This score uses only the checks above, so 100 means these checks passed, not that nothing can be wrong.</div></div>';show('wy')}
+function listen(){need('mic','The microphone is used only to hear your command while you tap the orb. This app does not save your voice.',function(){try{window.URP.startVoice();$('orbv').classList.add('lis');$('vst').textContent='Listening...'}catch(e){say2('Voice is not available here.','#ffd60a')}})}
+function musicOpen(){need('audio','The music player needs access to the songs on your phone, only to list and play them. Nothing is uploaded.',function(){show('mp');loadSongs()})}
+var MODE='a';
+function openCtl(m){MODE=m;$('ct').textContent=m==='p'?'URPHONCONTROLR':'URAPPCONTROLR';$('ch').textContent=m==='p'?'Say or type anything: youtube kholo, torch on, volume kam karo, 7 baje ka alarm, wifi settings, camera':'Say or type anything: scan karo, battery dikhao, storage, music chalu, why score, settings';$('ao').innerHTML='';show('as')}
+function ask(){var raw=$('ai').value.trim();if(!raw)return;$('ai').value='';var t=nrm(raw).split(' ');if(MODE==='p')phoneCmd(raw,t);else appCmd(raw,t)}
+function appCmd(raw,t){var h=function(w){return has(t,w)},ok=function(m,f){say2('Okay: '+m);f()};
+var off=h(['off','band','stop','mute','chup','pause']),on=h(['on','chalu','start','play','chalao','shuru']);
+if(h(['music','gaana','gana','song','songs','dhun'])){if(off){sv('m',false);$('s1').checked=false;return say2('Music off')}if(h(['player','list','gaane','playlist'])&&!on)return ok('Music player',musicOpen);sv('m',true);$('s1').checked=true;return say2('Music on')}
+if(h(['why','kyun','reason']))return ok('Why this score',why);
+if(h(['battery','charge','charging','bijli']))return ok('Battery',function(){detail('b')});
+if(h(['storage','jagah','space','disk']))return ok('Storage',function(){detail('s')});
+if(h(['ram']))return ok('RAM',function(){detail('r')});
+if(h(['temp','temperature','garmi','heat','hot','garam']))return ok('Temperature',function(){detail('t')});
+if(h(['apps','app','permission','permissions','risk']))return ok('Apps check',apps);
+if(h(['result','results','report','score','natija']))return ok('Results',function(){show('rs')});
+if(h(['setting','settings']))return ok('Settings',function(){show('st')});
+if(h(['scan','jaanch','janch','check','test']))return ok('Scan',scan);
+if(h(['home','main','wapas','back']))return ok('Home',function(){show('hm')});
+say2('I did not get that. Try: scan, battery, storage, music on, settings, why score.','#ffd60a')}
+function phoneCmd(raw,t){var h=function(w){return has(t,w)},q=nrm(raw),off=h(['off','band','bujhao','stop']);
+function run(ty,a,m){var r='';try{r=URP.act(ty,a||'')}catch(e){r='err:Not available'}var g=r.indexOf('ok:')===0;say2(g?(r.slice(3)||m):r.slice(4),g?'':'#ffd60a')}
+function net(){if(navigator.onLine===false){say2('This needs internet. Please turn on Wi-Fi or mobile data.','#ffd60a');return false}return true}
+var dg=q.replace(/ /g,'').match(/\d{6,}/);
+if(h(['torch','flashlight','flash','tourch','batti']))return run('torch',off?'off':'on');
+if(h(['volume','awaz','awaaz']))return run('vol',h(['mute','silent','chup'])?'mute':h(['down','kam','ghatao','decrease','low','dheema','halka'])?'down':'up');
+if(h(['timer','countdown'])){var m=q.match(/(\d+)\s*([a-z]*)/),n=m?+m[1]:0,u=m?m[2]:'',s=/^s/.test(u)?n:/^(h|g)/.test(u)?n*3600:n*60;return s?run('timer',String(s),'Timer started'):say2('Tell me how long, like: timer 5 minutes','#ffd60a')}
+if(h(['alarm','jagao','uthao','wake'])){var m2=q.match(/(\d{1,2})(?:\s*:?\s*(\d{2}))?/);if(!m2)return say2('Tell me the time, like: alarm 7:30','#ffd60a');var hr=+m2[1],mi=+(m2[2]||0);if(/\bpm\b|sham|shaam|evening|raat|night|dopahar/.test(q)&&hr<12)hr+=12;if(/\bam\b|subah|morning/.test(q)&&hr===12)hr=0;return run('alarm',hr+':'+mi,'Alarm set for '+hr+':'+(mi<10?'0':'')+mi)}
+if(dg&&h(['call','dial','phone','ring','lagao']))return run('dial',dg[0]);
+var SE=[['wifi',['wifi']],['bluetooth',['bluetooth']],['display',['display','brightness']],['storage',['storage']],['location',['location','gps']],['airplane',['airplane','flight']],['access',['accessibility']],['main',['settings','setting']]];
+for(var i=0;i<SE.length;i++)if(h(SE[i][1]))return run('set',SE[i][0]);
+var mm=q.match(/^(?:search|google|dhundo|find|dhoondo)\s+(.+)$/);if(mm){if(!net())return;return run('search',mm[1],'Searching...')}
+var AS={yt:'youtube',insta:'instagram',fb:'facebook',wa:'whatsapp',whatsap:'whatsapp',watsapp:'whatsapp',tg:'telegram'},FI=['open','kholo','khol','karo','kar','do','dena','please','mujhe','ko','launch','start','chalao','chalu','app','the','my','mera','meri','ka','ki','ke','zara','jara','jaldi','na','plz'];
+var c=t.filter(function(w){return FI.indexOf(w)<0}).map(function(w){return AS[w]||w}).join(' ');
+if(!c)return say2('Which app? Try: open youtube','#ffd60a');
+var r2='';try{r2=URP.openByName(c)}catch(e){}
+if(!r2&&c.indexOf(' ')>0){var ws=c.split(' ');for(var k=0;k<ws.length&&!r2;k++){try{r2=URP.openByName(ws[k])}catch(e){}}}
+if(r2)return say2('Opening <b>'+r2+'</b>');
+say2('I could not find "'+c+'" on this phone.','#ffd60a')}
+(function(){var rg=document.querySelector('#hm .rg');if(!rg)return;var row=document.createElement('div');row.className='hrow';rg.parentNode.insertBefore(row,rg);function orb(m,a,b){var x=document.createElement('div');x.className='ob';x.innerHTML='<button class="orb3" onclick="openCtl(\''+m+'\')"><i></i><svg viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0014 0M12 18v3"/></svg></button><b>'+a+'</b><b>'+b+'</b>';return x}row.appendChild(orb('p','URPHON','CONTROLR'));row.appendChild(rg);row.appendChild(orb('a','URAPP','CONTROLR'));var w=document.createElement('button');w.className='pill';w.textContent='Why this score >';w.setAttribute('onclick','why()');w.style.cssText='display:block;margin:0 auto 10px';row.parentNode.insertBefore(w,row.nextSibling)})();
 </script></body></html>
