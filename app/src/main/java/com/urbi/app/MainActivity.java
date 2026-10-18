@@ -28,6 +28,8 @@ public class MainActivity extends Activity {
     WebView w;
     TextToSpeech tts;
     long lastBack = 0;
+    void sysVoice() { try { Intent i = new Intent(android.speech.RecognizerIntent.ACTION_RECOGNIZE_SPEECH); i.putExtra(android.speech.RecognizerIntent.EXTRA_LANGUAGE_MODEL, android.speech.RecognizerIntent.LANGUAGE_MODEL_FREE_FORM); startActivityForResult(i, 5); } catch (Exception e) { w.evaluateJavascript("onVoiceErr('No voice service on this phone. Please type.')", null); } }
+    @Override protected void onActivityResult(int rq, int rs, Intent d) { super.onActivityResult(rq, rs, d); if (rq == 5) { String t = ""; if (rs == RESULT_OK && d != null) { java.util.ArrayList<String> l = d.getStringArrayListExtra(android.speech.RecognizerIntent.EXTRA_RESULTS); if (l != null && l.size() > 0) t = l.get(0); } w.evaluateJavascript("onVoice(" + JSONObject.quote(t) + ")", null); } }
     android.media.MediaPlayer bgm; boolean musicWanted = false; android.media.SoundPool sp; int clickId;
     int insT = 0, insB = 0;
     android.speech.SpeechRecognizer sr;
@@ -60,7 +62,7 @@ public class MainActivity extends Activity {
                             public void onRmsChanged(float v) { }
                             public void onBufferReceived(byte[] b) { }
                             public void onEndOfSpeech() { }
-                            public void onError(int e) { w.evaluateJavascript("onVoiceErr('Could not hear that. Try again.')", null); }
+                            public void onError(int e) { if (e == 7 || e == 6) w.evaluateJavascript("onVoiceErr('I did not hear anything. Tap the orb and speak clearly.')", null); else { w.evaluateJavascript("onVoiceErr('Opening the system voice window (code " + e + ")')", null); sysVoice(); } }
                             public void onResults(Bundle b) {
                                 java.util.ArrayList<String> l = b.getStringArrayList(android.speech.SpeechRecognizer.RESULTS_RECOGNITION);
                                 String t = (l != null && l.size() > 0) ? l.get(0) : "";
@@ -72,8 +74,8 @@ public class MainActivity extends Activity {
                     }
                     Intent i = new Intent(android.speech.RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
                     i.putExtra(android.speech.RecognizerIntent.EXTRA_LANGUAGE_MODEL, android.speech.RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
-                    i.putExtra(android.speech.RecognizerIntent.EXTRA_PREFER_OFFLINE, true);
-                    i.putExtra(android.speech.RecognizerIntent.EXTRA_LANGUAGE, "en-IN");
+                    
+                    
                     sr.startListening(i);
                 } catch (Exception e) { w.evaluateJavascript("onVoiceErr('Voice could not start.')", null); }
             } });
@@ -197,6 +199,7 @@ public class MainActivity extends Activity {
                 return "ok:Done";
             } catch (Exception e) { return "err:Could not do that on this phone"; }
         }
+        @JavascriptInterface public void uninstall(String p) { try { Intent i = new Intent(Intent.ACTION_DELETE, Uri.parse("package:" + p)); i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); startActivity(i); } catch (Exception e) { } }
         @JavascriptInterface public String openByName(String q) {
             try {
                 PackageManager pm = getPackageManager();
@@ -231,6 +234,7 @@ public class MainActivity extends Activity {
                     JSONObject o = new JSONObject();
                     o.put("n", pm.getApplicationLabel(a).toString());
                     o.put("p", p.packageName);
+                    o.put("t", p.firstInstallTime);
                     String ins = pm.getInstallerPackageName(p.packageName);
                     o.put("i", ins == null ? "" : ins);
                     JSONArray pr = new JSONArray();
