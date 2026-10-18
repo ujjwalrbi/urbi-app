@@ -329,6 +329,7 @@ public class MainActivity extends Activity {
             int lr = tts.setLanguage(new java.util.Locale("en", "IN"));
             if (lr == TextToSpeech.LANG_MISSING_DATA || lr == TextToSpeech.LANG_NOT_SUPPORTED) tts.setLanguage(java.util.Locale.getDefault());
             tts.setSpeechRate(0.92f);
+            tts.setOnUtteranceProgressListener(new android.speech.tts.UtteranceProgressListener() { public void onStart(String id) { } public void onError(String id) { } public void onDone(String id) { runOnUiThread(new Runnable() { public void run() { w.evaluateJavascript("window.onSpeakDone&&onSpeakDone()", null); } }); } });
             tts.setPitch(1.05f);
             try {
                 android.speech.tts.Voice pick = null;
