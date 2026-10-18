@@ -138,6 +138,7 @@ public class MainActivity extends Activity {
         @JavascriptInterface public void click() { try { if (sp != null) sp.play(clickId, 0.8f, 0.8f, 1, 0, 1f); } catch (Exception e) { } }
         @JavascriptInterface public boolean hasPerm(String k) {
             try {
+                if (k.equals("usage")) return ((android.app.AppOpsManager) getSystemService(Context.APP_OPS_SERVICE)).checkOpNoThrow("android:get_usage_stats", android.os.Process.myUid(), getPackageName()) == android.app.AppOpsManager.MODE_ALLOWED;
                 if (k.equals("mic")) return checkSelfPermission(android.Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED;
                 if (k.equals("audio")) return checkSelfPermission(Build.VERSION.SDK_INT >= 33 ? android.Manifest.permission.READ_MEDIA_AUDIO : android.Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
                 if (k.equals("notif")) return Build.VERSION.SDK_INT < 33 || checkSelfPermission("android.permission.POST_NOTIFICATIONS") == PackageManager.PERMISSION_GRANTED;
@@ -146,7 +147,7 @@ public class MainActivity extends Activity {
         }
         @JavascriptInterface public void askPerm(final String k) {
             runOnUiThread(new Runnable() { public void run() { try {
-                if (k.equals("mic")) requestPermissions(new String[]{android.Manifest.permission.RECORD_AUDIO}, 7);
+                if (k.equals("usage")) { Intent u = new Intent(android.provider.Settings.ACTION_USAGE_ACCESS_SETTINGS); u.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); startActivity(u); } else if (k.equals("mic")) requestPermissions(new String[]{android.Manifest.permission.RECORD_AUDIO}, 7);
                 else if (k.equals("audio")) requestPermissions(new String[]{Build.VERSION.SDK_INT >= 33 ? android.Manifest.permission.READ_MEDIA_AUDIO : android.Manifest.permission.READ_EXTERNAL_STORAGE}, 8);
                 else if (k.equals("notif") && Build.VERSION.SDK_INT >= 33) requestPermissions(new String[]{"android.permission.POST_NOTIFICATIONS"}, 9);
             } catch (Exception e) { } } });
@@ -200,6 +201,27 @@ public class MainActivity extends Activity {
             } catch (Exception e) { return "err:Could not do that on this phone"; }
         }
         @JavascriptInterface public void uninstall(String p) { try { Intent i = new Intent(Intent.ACTION_DELETE, Uri.parse("package:" + p)); i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); startActivity(i); } catch (Exception e) { } }
+        @JavascriptInterface public String storageUse() {
+            try {
+                android.app.usage.StorageStatsManager sm = (android.app.usage.StorageStatsManager) getSystemService(Context.STORAGE_STATS_SERVICE);
+                JSONObject o = new JSONObject();
+                try {
+                    android.app.usage.ExternalStorageStats es = sm.queryExternalStatsForUser(android.os.storage.StorageManager.UUID_DEFAULT, android.os.Process.myUserHandle());
+                    o.put("img", es.getImageBytes()); o.put("vid", es.getVideoBytes()); o.put("aud", es.getAudioBytes()); o.put("app", es.getAppBytes());
+                } catch (Exception e) { }
+                JSONArray r = new JSONArray();
+                PackageManager pm = getPackageManager();
+                for (ApplicationInfo a : pm.getInstalledApplications(0)) {
+                    try {
+                        android.app.usage.StorageStats st = sm.queryStatsForPackage(android.os.storage.StorageManager.UUID_DEFAULT, a.packageName, android.os.Process.myUserHandle());
+                        long b = st.getAppBytes() + st.getDataBytes() + st.getCacheBytes();
+                        if (b > 0) { JSONObject x = new JSONObject(); x.put("n", pm.getApplicationLabel(a).toString()); x.put("p", a.packageName); x.put("b", b); r.put(x); }
+                    } catch (Exception e) { }
+                }
+                o.put("apps", r);
+                return o.toString();
+            } catch (Exception e) { return "{}"; }
+        }
         @JavascriptInterface public String openByName(String q) {
             try {
                 PackageManager pm = getPackageManager();
