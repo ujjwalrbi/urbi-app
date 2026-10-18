@@ -223,7 +223,7 @@ public class MainActivity extends Activity {
             } catch (Exception e) { return "{}"; }
         }
         @JavascriptInterface public void http(final String url, final String body, final String cb) {
-            if (!(url.startsWith("https://generativelanguage.googleapis.com/") || url.startsWith("https://en.wikipedia.org/"))) return;
+            if (!(url.startsWith("https://generativelanguage.googleapis.com/") || url.startsWith("https://en.wikipedia.org/") || url.startsWith("https://raw.githubusercontent.com/ujjwalrbi/"))) return;
             new Thread(new Runnable() { public void run() {
                 String out;
                 try {
@@ -242,6 +242,12 @@ public class MainActivity extends Activity {
             } }).start();
         }
         @JavascriptInterface public String edition() { return BuildConfig.EDITION; }
+        @JavascriptInterface public void storageAsync(final String cb) {
+            new Thread(new Runnable() { public void run() {
+                final String r = storageUse();
+                runOnUiThread(new Runnable() { public void run() { w.evaluateJavascript(cb + "(" + r + ")", null); } });
+            } }).start();
+        }
         @JavascriptInterface public String openByName(String q) {
             try {
                 PackageManager pm = getPackageManager();
@@ -328,6 +334,7 @@ public class MainActivity extends Activity {
                 BatteryManager bm = (BatteryManager) getSystemService(Context.BATTERY_SERVICE);
                 o.put("cur", bm.getIntProperty(BatteryManager.BATTERY_PROPERTY_CURRENT_NOW));
                 o.put("chg", bm.getIntProperty(BatteryManager.BATTERY_PROPERTY_CHARGE_COUNTER));
+                if (Build.VERSION.SDK_INT >= 28) o.put("ctr", bm.computeChargeTimeRemaining());
             } catch (Exception e) { }
             return o.toString();
         }
