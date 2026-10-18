@@ -2,6 +2,12 @@ plugins { id 'com.android.application' }
 android {
     namespace 'com.urbi.app'
     compileSdk 34
+    buildFeatures { buildConfig true }
+    flavorDimensions 'ed'
+    productFlavors {
+        mine { dimension 'ed'; applicationId 'com.urphonscop.owner'; resValue 'string', 'app_name', 'URPHONSCOP Owner'; buildConfigField 'String', 'EDITION', '"mine"' }
+        pub { dimension 'ed'; applicationId 'com.urphonscop.app'; resValue 'string', 'app_name', 'URPHONSCOP'; buildConfigField 'String', 'EDITION', '"pub"' }
+    }
     defaultConfig {
         applicationId 'com.urphonscop.app'
         minSdk 24

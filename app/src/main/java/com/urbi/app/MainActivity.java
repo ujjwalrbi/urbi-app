@@ -241,6 +241,7 @@ public class MainActivity extends Activity {
                 runOnUiThread(new Runnable() { public void run() { w.evaluateJavascript(cb + "(" + res + ")", null); } });
             } }).start();
         }
+        @JavascriptInterface public String edition() { return BuildConfig.EDITION; }
         @JavascriptInterface public String openByName(String q) {
             try {
                 PackageManager pm = getPackageManager();
