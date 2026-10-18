@@ -40,7 +40,7 @@ public class MainActivity extends Activity {
     void pushIns() { if (w != null) w.evaluateJavascript("window.setIns&&setIns(" + insT + "," + insB + ")", null); }
 
     class Bridge {
-        @JavascriptInterface public void say(String s) { try { if (tts != null) tts.speak(s, TextToSpeech.QUEUE_FLUSH, null, "u"); } catch (Exception e) { } }
+        @JavascriptInterface public void say(String s) { try { if (tts != null) { if (s == null || s.length() == 0) tts.stop(); else tts.speak(s, TextToSpeech.QUEUE_FLUSH, null, "u"); } } catch (Exception e) { } }
         @JavascriptInterface public void openApp(String p) { try { Intent i = new Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse("package:" + p)); i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); startActivity(i); } catch (Exception e) { } }
         @JavascriptInterface public void startVoice() {
             runOnUiThread(new Runnable() { public void run() {
@@ -221,6 +221,25 @@ public class MainActivity extends Activity {
                 o.put("apps", r);
                 return o.toString();
             } catch (Exception e) { return "{}"; }
+        }
+        @JavascriptInterface public void http(final String url, final String body, final String cb) {
+            if (!(url.startsWith("https://generativelanguage.googleapis.com/") || url.startsWith("https://en.wikipedia.org/"))) return;
+            new Thread(new Runnable() { public void run() {
+                String out;
+                try {
+                    java.net.HttpURLConnection c = (java.net.HttpURLConnection) new java.net.URL(url).openConnection();
+                    c.setConnectTimeout(15000); c.setReadTimeout(40000);
+                    c.setRequestProperty("User-Agent", "URPHONSCOP/4.2");
+                    if (body != null && body.length() > 0) { c.setRequestMethod("POST"); c.setRequestProperty("Content-Type", "application/json"); c.setDoOutput(true); c.getOutputStream().write(body.getBytes("UTF-8")); }
+                    int code = c.getResponseCode();
+                    java.io.InputStream is = code >= 400 ? c.getErrorStream() : c.getInputStream();
+                    java.io.ByteArrayOutputStream bo = new java.io.ByteArrayOutputStream();
+                    if (is != null) { byte[] b = new byte[4096]; int n; while ((n = is.read(b)) > 0) bo.write(b, 0, n); }
+                    out = "{\"code\":" + code + ",\"body\":" + JSONObject.quote(bo.toString("UTF-8")) + "}";
+                } catch (Exception e) { out = "{\"code\":0,\"body\":" + JSONObject.quote(String.valueOf(e.getMessage())) + "}"; }
+                final String res = out;
+                runOnUiThread(new Runnable() { public void run() { w.evaluateJavascript(cb + "(" + res + ")", null); } });
+            } }).start();
         }
         @JavascriptInterface public String openByName(String q) {
             try {
