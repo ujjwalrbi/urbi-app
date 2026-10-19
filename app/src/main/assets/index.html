@@ -119,9 +119,13 @@ input::placeholder{color:#1c7a0c}
 .ld{display:block;height:100%;width:35%;background:var(--g);box-shadow:0 0 10px var(--g);animation:ldm 1.1s ease-in-out infinite alternate}
 @keyframes ldm{to{transform:translateX(185%)}}
 body.talk .mcs .mo{animation:mt .25s infinite alternate}
+#mc{display:none!important}
+.pl{display:none!important}
+#mc2{width:54px;height:54px;border:0;background:none;padding:0;box-shadow:none;border-radius:0}
+#mc2 .mcs{width:54px;height:54px}
 </style></head>
 <body>
-<div id="sp" class="s on c1"><div class="stg"><canvas class="gl" width="320" height="320"></canvas><img src="logo.jpg" alt=""></div><h1 class="neon" style="font-size:30px;margin:4px 0">URPHONSCOP</h1><div>Scan. Understand. Keep your phone healthy.</div><div class="on2" style="margin-top:14px">SYSTEM STARTING</div><div class="neon" style="font-size:18px;margin-top:8px">Powered by Ujjwal Raj</div><div class="sm">v5.3</div></div>
+<div id="sp" class="s on c1"><div class="stg"><canvas class="gl" width="320" height="320"></canvas><img src="logo.jpg" alt=""></div><h1 class="neon" style="font-size:30px;margin:4px 0">URPHONSCOP</h1><div>Scan. Understand. Keep your phone healthy.</div><div class="on2" style="margin-top:14px">SYSTEM STARTING</div><div class="neon" style="font-size:18px;margin-top:8px">Powered by Ujjwal Raj</div><div class="sm">v5.5</div></div>
 <div id="wl" class="s c1"><h1 class="neon" style="margin:6px 0 0;font-size:24px">Welcome to<br>URPHONSCOP</h1><div class="stg mn"><canvas class="gl" width="320" height="320"></canvas><img src="logo.jpg" alt=""></div><div class="hud" style="margin:10px 0"><div style="font-size:18px">What is your name?</div><input type="text" id="nm" placeholder="Enter your name..." maxlength="24"></div><button class="btn" onclick="go()">Continue &gt;</button><div class="sm">This helps us give you a personal greeting.</div><div class="neon" style="font-size:16px;margin-top:18px">Powered by Ujjwal Raj</div></div>
 <div id="hm" class="s"><div style="display:flex;justify-content:space-between;align-items:center"><div><div id="gt" style="font-size:16px"></div><div class="neon" id="gn" style="font-size:22px"></div><div class="on2">ALL SYSTEMS ONLINE</div></div><button class="ib" onclick="show('st')"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2"/></svg></button></div>
 <div class="rg"><canvas class="gl gb" width="300" height="300"></canvas><div class="orb"></div><svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="52" fill="none" stroke="#0e3a08" stroke-width="9"/><circle id="rc" cx="60" cy="60" r="52" fill="none" stroke="#39ff14" stroke-width="9" stroke-linecap="round" style="transition:stroke-dashoffset 1.2s"/></svg><div class="c"><span class="sm">Status score</span><b id="sc">--</b><span class="sm">/ 100</span></div></div>
@@ -136,7 +140,7 @@ body.talk .mcs .mo{animation:mt .25s infinite alternate}
 <div class="sm" style="margin:8px 0 14px">Alerts work while the app is open or was used recently. Turning Alerts on asks for notification permission.</div>
 <button class="btn" onclick="chg()">Change my name</button>
 <div class="hud" style="margin-top:18px"><b class="neon">Privacy first</b><div class="sm">The app itself never sends your data anywhere. Voice commands use the Android speech service, which may use the internet. URAI online answers, photos and AI images use the internet only when you ask.</div></div>
-<div class="sm c1" style="margin-top:14px">URPHONSCOP v5.3</div></div>
+<div class="sm c1" style="margin-top:14px">URPHONSCOP v5.5</div></div>
 <div id="sn" class="s c1"><h2 class="neon" style="margin:6px 0 0">Scanning...</h2><div class="sm">Checking your phone</div><div class="stg mn"><canvas class="gl" width="320" height="320"></canvas><img src="logo.jpg" alt=""></div><div class="hud" style="text-align:left" id="sl"></div><div style="height:10px;border:1px solid var(--g);margin:14px 0 6px;border-radius:6px;overflow:hidden"><i id="sbr" style="display:block;height:100%;width:0;background:var(--g);box-shadow:0 0 10px var(--g);transition:width .5s"></i></div><div class="sm" id="spc"></div></div>
 <div id="rs" class="s"><h2 class="neon" style="margin:0">Scan Results</h2><div class="on2">COMPLETED</div><div id="rb"></div><button class="btn" onclick="detail(firstBad())">View Details</button></div>
 <div id="dt" class="s"><button class="pill" onclick="goBack()">&lt; Back</button><h2 class="neon" id="dh" style="margin:0 0 6px"></h2><div id="db"></div></div>
@@ -297,7 +301,7 @@ function why(){var d=get(),sp=Math.round((d.stoT-d.stoF)*100/d.stoT),rp=Math.rou
 function listen(){need('mic','The microphone is used only to hear your command while you tap the orb. This app does not save your voice.',function(){try{window.URP.startVoice();$('orbv').classList.add('lis');$('vst').textContent='Listening...'}catch(e){say2('Voice is not available here.','#ffd60a')}})}
 function musicOpen(){need('audio','The music player needs access to the songs on your phone, only to list and play them. Nothing is uploaded.',function(){show('mp');loadSongs()})}
 var MODE='a';
-function openCtl(m){MODE=m;$('ct').textContent=m==='p'?'URPHONCONTROLR':'URAPPCONTROLR';$('ch').textContent=m==='p'?'Say or type anything: youtube kholo, torch on, volume kam karo, 7 baje ka alarm, wifi settings, camera':'Say or type anything: scan karo, battery dikhao, storage, music chalu, why score, settings';$('ao').innerHTML='';show('as')}
+function openCtl(m){MODE=m;$('ct').textContent=m==='p'?'URPHONCONTROLR':'URAPPCONTROLR';$('ch').textContent=m==='p'?(ED==='mine'?'Say or type anything: youtube kholo, torch on, volume kam karo, 7 baje ka alarm, wifi settings, camera':'Say or type: youtube kholo, whatsapp kholo, wifi settings, display settings'):'Say or type anything: scan karo, battery dikhao, storage, music chalu, why score, settings';$('ao').innerHTML='';show('as')}
 function ask(){var raw=$('ai').value.trim();if(!raw)return;$('ai').value='';var t=nrm(raw).split(' ');if(MODE==='p')phoneCmd(raw,t);else appCmd(raw,t)}
 function appCmd(raw,t){var h=function(w){return has(t,w)},ok=function(m,f){say2('Okay: '+m);f()};
 var off=h(['off','band','stop','mute','chup','pause']),on=h(['on','chalu','start','play','chalao','shuru']);
@@ -316,7 +320,7 @@ if(h(['scan','jaanch','janch','check','test']))return ok('Scan',scan);
 if(h(['home','main','wapas','back']))return ok('Home',function(){show('hm')});
 say2('I did not get that. Try: scan, battery, storage, music on, settings, why score.','#ffd60a')}
 function phoneCmd(raw,t){var h=function(w){return has(t,w)},q=nrm(raw),off=h(['off','band','bujhao','stop']);
-function run(ty,a,m){var r='';try{r=URP.act(ty,a||'')}catch(e){r='err:Not available'}var g=r.indexOf('ok:')===0;say2(g?(r.slice(3)||m):r.slice(4),g?'':'#ffd60a')}
+function run(ty,a,m){if(ED!=='mine'&&(ty!=='set'||a==='access')){say2('This command works only in the Owner app. Public can open apps and settings screens.','#ffd60a');return}var r='';try{r=URP.act(ty,a||'')}catch(e){r='err:Not available'}var g=r.indexOf('ok:')===0;say2(g?(r.slice(3)||m):r.slice(4),g?'':'#ffd60a')}
 function net(){if(navigator.onLine===false){say2('This needs internet. Please turn on Wi-Fi or mobile data.','#ffd60a');return false}return true}
 var dg=q.replace(/ /g,'').match(/\d{6,}/);
 if(h(['torch','flashlight','flash','tourch','batti']))return run('torch',off?'off':'on');
@@ -444,8 +448,8 @@ var m=(j.error&&j.error.message)||String(r.body).slice(0,100);last=r.code+' '+m.
 function aiErr(a){var c=+a.slice(4,7);return (c===429?'AI ka quota abhi nahi mil raha.':c===400||c===403?'AI key galat ya band lagti hai.':c===0?'Internet nahi mil raha.':'AI se jawab nahi aaya.')+' Details: '+a.slice(4,170)}
 (function(){var b=$('kb');if(!b||$('kt'))return;var t=document.createElement('button');t.className='btn';t.id='kt';t.textContent='Test AI';t.onclick=function(){$('km').textContent='Testing...';aiAsk('Say hello in one short sentence.',function(a){$('km').textContent=a.indexOf('ERR:')===0?'Failed: '+a.slice(4):'Working with '+MODEL+': '+clean(a)})};b.parentNode.insertBefore(t,$('km'))})();
 var ED='pub';try{ED=URP.edition()}catch(e){}
-if(ED!=='mine'){var po=document.querySelector('#hm .ob');if(po)po.remove();var kk=$('ky');if(kk)kk.parentNode.remove()}
-document.querySelectorAll('.sm').forEach(function(e){if(e.textContent.indexOf('v5.3')>=0)e.textContent+=(ED==='mine'?' • Owner':' • Public')});
+if(ED!=='mine'){var po=document.querySelector('#hm .ob');var kk=$('ky');if(kk)kk.parentNode.remove()}
+document.querySelectorAll('.sm').forEach(function(e){if(e.textContent.indexOf('v5.5')>=0)e.textContent+=(ED==='mine'?' • Owner':' • Public')});
 var VN=5.3;
 function hex2rgb(h){var n=parseInt(h.replace('#',''),16);return [n>>16&255,n>>8&255,n&255]}
 var CF={acc:'#39ff14',hide:[]};try{var _c=JSON.parse(ls('urp_cfg')||'null');if(_c)CF=_c}catch(e){}
@@ -524,4 +528,5 @@ var KB=[
 function kbAll(){var x=[];try{x=JSON.parse(ls('urp_rc')||'{}').kb||[]}catch(e){}return KB.concat(x.map(function(e){return [e.k,e.a,e.s]}))}
 function kbAsk(q){var t=nrm(q).split(' '),best=null,bs=0;kbAll().forEach(function(e){var s=0;e[0].split(' ').forEach(function(k){if(k&&has(t,[k]))s++});if(s>bs){bs=s;best=e}});return best&&(bs>=2||(bs>=1&&best[2]))?best[1]:''}
 function doUpdate(c){var u=c.apk||'https://github.com/ujjwalrbi/urbi-app/releases/download/latest/app-pub-debug.apk',b=$('ub'),id='u'+Date.now();window[id]=function(r){if(r.p>=0&&r.p<100)b.textContent='Downloading '+r.p+'%';else if(r.p===100)b.textContent='Opening installer...';else b.textContent='Failed: '+(r.e||'try again')};b.textContent='Starting...';try{URP.installUpdate(u,id)}catch(e){b.textContent='Update not available here'}}
+(function(){var h=document.querySelector('#hm > div'),g=h&&h.querySelector('.ib');if(!h||!g||$('mc2'))return;var m=document.createElement('button');m.id='mc2';m.setAttribute('onclick','chatOpen()');m.innerHTML=MC;var w=document.createElement('div');w.style.cssText='display:flex;gap:6px;align-items:center';h.replaceChild(w,g);w.appendChild(m);w.appendChild(g)})();
 </script></body></html>

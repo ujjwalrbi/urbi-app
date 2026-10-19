@@ -174,6 +174,7 @@ public class MainActivity extends Activity {
             } catch (Exception e) { }
         }
         @JavascriptInterface public String act(String t, String a) {
+            if (!BuildConfig.EDITION.equals("mine") && (!t.equals("set") || a.equals("access"))) return "err:This works only in the Owner app";
             try {
                 Intent i = null;
                 if (t.equals("torch")) {
