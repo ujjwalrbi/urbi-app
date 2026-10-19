@@ -223,7 +223,7 @@ public class MainActivity extends Activity {
             } catch (Exception e) { return "{}"; }
         }
         @JavascriptInterface public void http(final String url, final String body, final String cb) {
-            if (!(url.startsWith("https://generativelanguage.googleapis.com/") || url.startsWith("https://en.wikipedia.org/") || url.startsWith("https://raw.githubusercontent.com/ujjwalrbi/"))) return;
+            if (!(url.startsWith("https://generativelanguage.googleapis.com/") || url.startsWith("https://en.wikipedia.org/") || url.startsWith("https://raw.githubusercontent.com/ujjwalrbi/") || url.startsWith("https://text.pollinations.ai/"))) return;
             new Thread(new Runnable() { public void run() {
                 String out;
                 try {
