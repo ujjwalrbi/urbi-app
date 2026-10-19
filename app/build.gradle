@@ -2,6 +2,21 @@ plugins { id 'com.android.application' }
 android {
     namespace 'com.urbi.app'
     compileSdk 34
+    signingConfigs {
+        rel {
+            if (System.getenv("KS_FILE")) {
+                storeFile file(System.getenv("KS_FILE"))
+                storePassword System.getenv("KS_PASS")
+                keyAlias 'urbi'
+                keyPassword System.getenv("KS_PASS")
+            }
+        }
+    }
+    buildTypes {
+        debug {
+            if (System.getenv("KS_FILE")) { signingConfig signingConfigs.rel }
+        }
+    }
     buildFeatures { buildConfig true }
     flavorDimensions 'ed'
     productFlavors {

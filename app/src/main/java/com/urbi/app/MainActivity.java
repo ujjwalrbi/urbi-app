@@ -28,6 +28,17 @@ public class MainActivity extends Activity {
     WebView w;
     TextToSpeech tts;
     long lastBack = 0;
+    void upd(final String cb, final String js) { runOnUiThread(new Runnable() { public void run() { w.evaluateJavascript(cb + "(" + js + ")", null); } }); }
+    @Override protected void onNewIntent(Intent i) {
+        super.onNewIntent(i);
+        try {
+            if ("urp.INSTALL_STATUS".equals(i.getAction())) {
+                int st = i.getIntExtra(android.content.pm.PackageInstaller.EXTRA_STATUS, -1);
+                if (st == android.content.pm.PackageInstaller.STATUS_PENDING_USER_ACTION) { Intent c = (Intent) i.getParcelableExtra(Intent.EXTRA_INTENT); if (c != null) startActivity(c); }
+                else if (st != android.content.pm.PackageInstaller.STATUS_SUCCESS) { String m = i.getStringExtra(android.content.pm.PackageInstaller.EXTRA_STATUS_MESSAGE); w.evaluateJavascript("toast(" + JSONObject.quote("Update failed: " + m) + ")", null); }
+            }
+        } catch (Exception e) { }
+    }
     void sysVoice() { try { Intent i = new Intent(android.speech.RecognizerIntent.ACTION_RECOGNIZE_SPEECH); i.putExtra(android.speech.RecognizerIntent.EXTRA_LANGUAGE_MODEL, android.speech.RecognizerIntent.LANGUAGE_MODEL_FREE_FORM); startActivityForResult(i, 5); } catch (Exception e) { w.evaluateJavascript("onVoiceErr('No voice service on this phone. Please type.')", null); } }
     @Override protected void onActivityResult(int rq, int rs, Intent d) { super.onActivityResult(rq, rs, d); if (rq == 5) { String t = ""; if (rs == RESULT_OK && d != null) { java.util.ArrayList<String> l = d.getStringArrayListExtra(android.speech.RecognizerIntent.EXTRA_RESULTS); if (l != null && l.size() > 0) t = l.get(0); } w.evaluateJavascript("onVoice(" + JSONObject.quote(t) + ")", null); } }
     android.media.MediaPlayer bgm; boolean musicWanted = false; android.media.SoundPool sp; int clickId;
@@ -246,6 +257,35 @@ public class MainActivity extends Activity {
             new Thread(new Runnable() { public void run() {
                 final String r = storageUse();
                 runOnUiThread(new Runnable() { public void run() { w.evaluateJavascript(cb + "(" + r + ")", null); } });
+            } }).start();
+        }
+        @JavascriptInterface public void installUpdate(final String url, final String cb) {
+            if (!url.startsWith("https://github.com/ujjwalrbi/urbi-app/releases/download/")) return;
+            new Thread(new Runnable() { public void run() {
+                try {
+                    java.net.HttpURLConnection c = (java.net.HttpURLConnection) new java.net.URL(url).openConnection();
+                    c.setInstanceFollowRedirects(true); c.setConnectTimeout(20000); c.setReadTimeout(60000);
+                    int code = c.getResponseCode();
+                    if (code != 200) { upd(cb, "{\"p\":-1,\"e\":\"HTTP " + code + "\"}"); return; }
+                    long total = c.getContentLength();
+                    java.io.File f = new java.io.File(getCacheDir(), "update.apk");
+                    java.io.InputStream is = c.getInputStream();
+                    java.io.FileOutputStream fo = new java.io.FileOutputStream(f);
+                    byte[] b = new byte[16384]; int n; long got = 0; int last = -1;
+                    while ((n = is.read(b)) > 0) { fo.write(b, 0, n); got += n; int p = total > 0 ? (int) (got * 99 / total) : 0; if (p != last) { last = p; upd(cb, "{\"p\":" + p + "}"); } }
+                    fo.close(); is.close();
+                    android.content.pm.PackageInstaller pi = getPackageManager().getPackageInstaller();
+                    int sid = pi.createSession(new android.content.pm.PackageInstaller.SessionParams(android.content.pm.PackageInstaller.SessionParams.MODE_FULL_INSTALL));
+                    android.content.pm.PackageInstaller.Session s = pi.openSession(sid);
+                    java.io.OutputStream os = s.openWrite("urp", 0, f.length());
+                    java.io.FileInputStream fi = new java.io.FileInputStream(f);
+                    while ((n = fi.read(b)) > 0) os.write(b, 0, n);
+                    s.fsync(os); os.close(); fi.close();
+                    Intent it = new Intent(MainActivity.this, MainActivity.class).setAction("urp.INSTALL_STATUS");
+                    android.app.PendingIntent pe = android.app.PendingIntent.getActivity(MainActivity.this, sid, it, android.app.PendingIntent.FLAG_UPDATE_CURRENT | (Build.VERSION.SDK_INT >= 31 ? android.app.PendingIntent.FLAG_MUTABLE : 0));
+                    upd(cb, "{\"p\":100}");
+                    s.commit(pe.getIntentSender());
+                } catch (Exception e) { upd(cb, "{\"p\":-1,\"e\":" + JSONObject.quote(String.valueOf(e.getMessage())) + "}"); }
             } }).start();
         }
         @JavascriptInterface public String openByName(String q) {

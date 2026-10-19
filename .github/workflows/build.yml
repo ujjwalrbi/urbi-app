@@ -16,6 +16,16 @@ jobs:
       - uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: '8.9'
+      - name: Prepare signing key
+        env:
+          B64: ${{ secrets.KEYSTORE_B64 }}
+          KP: ${{ secrets.KEYSTORE_PASS }}
+        run: |
+          if [ -n "$B64" ]; then
+            echo "$B64" | base64 -d > "$RUNNER_TEMP/release.jks"
+            echo "KS_FILE=$RUNNER_TEMP/release.jks" >> "$GITHUB_ENV"
+            echo "KS_PASS=$KP" >> "$GITHUB_ENV"
+          fi
       - run: gradle assembleDebug --no-daemon
       - uses: actions/upload-artifact@v4
         with:

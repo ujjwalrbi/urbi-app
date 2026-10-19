@@ -121,7 +121,7 @@ input::placeholder{color:#1c7a0c}
 body.talk .mcs .mo{animation:mt .25s infinite alternate}
 </style></head>
 <body>
-<div id="sp" class="s on c1"><div class="stg"><canvas class="gl" width="320" height="320"></canvas><img src="logo.jpg" alt=""></div><h1 class="neon" style="font-size:30px;margin:4px 0">URPHONSCOP</h1><div>Scan. Understand. Keep your phone healthy.</div><div class="on2" style="margin-top:14px">SYSTEM STARTING</div><div class="neon" style="font-size:18px;margin-top:8px">Powered by Ujjwal Raj</div><div class="sm">v5.2</div></div>
+<div id="sp" class="s on c1"><div class="stg"><canvas class="gl" width="320" height="320"></canvas><img src="logo.jpg" alt=""></div><h1 class="neon" style="font-size:30px;margin:4px 0">URPHONSCOP</h1><div>Scan. Understand. Keep your phone healthy.</div><div class="on2" style="margin-top:14px">SYSTEM STARTING</div><div class="neon" style="font-size:18px;margin-top:8px">Powered by Ujjwal Raj</div><div class="sm">v5.3</div></div>
 <div id="wl" class="s c1"><h1 class="neon" style="margin:6px 0 0;font-size:24px">Welcome to<br>URPHONSCOP</h1><div class="stg mn"><canvas class="gl" width="320" height="320"></canvas><img src="logo.jpg" alt=""></div><div class="hud" style="margin:10px 0"><div style="font-size:18px">What is your name?</div><input type="text" id="nm" placeholder="Enter your name..." maxlength="24"></div><button class="btn" onclick="go()">Continue &gt;</button><div class="sm">This helps us give you a personal greeting.</div><div class="neon" style="font-size:16px;margin-top:18px">Powered by Ujjwal Raj</div></div>
 <div id="hm" class="s"><div style="display:flex;justify-content:space-between;align-items:center"><div><div id="gt" style="font-size:16px"></div><div class="neon" id="gn" style="font-size:22px"></div><div class="on2">ALL SYSTEMS ONLINE</div></div><button class="ib" onclick="show('st')"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2"/></svg></button></div>
 <div class="rg"><canvas class="gl gb" width="300" height="300"></canvas><div class="orb"></div><svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="52" fill="none" stroke="#0e3a08" stroke-width="9"/><circle id="rc" cx="60" cy="60" r="52" fill="none" stroke="#39ff14" stroke-width="9" stroke-linecap="round" style="transition:stroke-dashoffset 1.2s"/></svg><div class="c"><span class="sm">Status score</span><b id="sc">--</b><span class="sm">/ 100</span></div></div>
@@ -136,7 +136,7 @@ body.talk .mcs .mo{animation:mt .25s infinite alternate}
 <div class="sm" style="margin:8px 0 14px">Alerts work while the app is open or was used recently. Turning Alerts on asks for notification permission.</div>
 <button class="btn" onclick="chg()">Change my name</button>
 <div class="hud" style="margin-top:18px"><b class="neon">Privacy first</b><div class="sm">The app itself never sends your data anywhere. Voice commands use the Android speech service, which may use the internet. URAI online answers, photos and AI images use the internet only when you ask.</div></div>
-<div class="sm c1" style="margin-top:14px">URPHONSCOP v5.2</div></div>
+<div class="sm c1" style="margin-top:14px">URPHONSCOP v5.3</div></div>
 <div id="sn" class="s c1"><h2 class="neon" style="margin:6px 0 0">Scanning...</h2><div class="sm">Checking your phone</div><div class="stg mn"><canvas class="gl" width="320" height="320"></canvas><img src="logo.jpg" alt=""></div><div class="hud" style="text-align:left" id="sl"></div><div style="height:10px;border:1px solid var(--g);margin:14px 0 6px;border-radius:6px;overflow:hidden"><i id="sbr" style="display:block;height:100%;width:0;background:var(--g);box-shadow:0 0 10px var(--g);transition:width .5s"></i></div><div class="sm" id="spc"></div></div>
 <div id="rs" class="s"><h2 class="neon" style="margin:0">Scan Results</h2><div class="on2">COMPLETED</div><div id="rb"></div><button class="btn" onclick="detail(firstBad())">View Details</button></div>
 <div id="dt" class="s"><button class="pill" onclick="goBack()">&lt; Back</button><h2 class="neon" id="dh" style="margin:0 0 6px"></h2><div id="db"></div></div>
@@ -445,8 +445,8 @@ function aiErr(a){var c=+a.slice(4,7);return (c===429?'AI ka quota abhi nahi mil
 (function(){var b=$('kb');if(!b||$('kt'))return;var t=document.createElement('button');t.className='btn';t.id='kt';t.textContent='Test AI';t.onclick=function(){$('km').textContent='Testing...';aiAsk('Say hello in one short sentence.',function(a){$('km').textContent=a.indexOf('ERR:')===0?'Failed: '+a.slice(4):'Working with '+MODEL+': '+clean(a)})};b.parentNode.insertBefore(t,$('km'))})();
 var ED='pub';try{ED=URP.edition()}catch(e){}
 if(ED!=='mine'){var po=document.querySelector('#hm .ob');if(po)po.remove();var kk=$('ky');if(kk)kk.parentNode.remove()}
-document.querySelectorAll('.sm').forEach(function(e){if(e.textContent.indexOf('v5.2')>=0)e.textContent+=(ED==='mine'?' • Owner':' • Public')});
-var VN=5.2;
+document.querySelectorAll('.sm').forEach(function(e){if(e.textContent.indexOf('v5.3')>=0)e.textContent+=(ED==='mine'?' • Owner':' • Public')});
+var VN=5.3;
 function hex2rgb(h){var n=parseInt(h.replace('#',''),16);return [n>>16&255,n>>8&255,n&255]}
 var CF={acc:'#39ff14',hide:[]};try{var _c=JSON.parse(ls('urp_cfg')||'null');if(_c)CF=_c}catch(e){}
 var FT=[['urai','URAI baby and chat','#mc'],['ctl','Controller orbs','#hm .ob'],['prf','Proof and Why buttons','#hm button.pill'],['mus','Music and Apps check buttons','#st .btn']];
@@ -469,8 +469,8 @@ if(!ok){box.innerHTML='<div class="hud" style="margin-top:14px"><b class="neon">
 if(SC&&Date.now()-SC.t<60000){renderSt(box,SC.d);return}
 box.innerHTML='<div class="hud" style="margin-top:14px"><b class="neon">Reading your storage...</b><div style="height:10px;border:1px solid var(--g);margin:10px 0;overflow:hidden"><i class="ld"></i></div><div class="sm">Android is counting every app. The first time takes a few seconds.</div></div>';
 var id='s'+Date.now();window[id]=function(d){delete window[id];SC={t:Date.now(),d:d};if(box.isConnected)renderSt(box,d)};try{URP.storageAsync(id)}catch(e){box.innerHTML='<div class="hud">Could not read storage.</div>'}}
-function banner(c){var d=document.createElement('div');d.className='hud';d.style.margin='10px 0';d.innerHTML='<b class="neon">Update available: v'+c.version+'</b><div class="sm">'+(c.note||'New features are ready.')+'</div><button class="btn" id="ub">Download update</button>';var h=$('hm');h.insertBefore(d,h.firstChild);$('ub').onclick=function(){location.href=c.apk||'https://github.com/ujjwalrbi/urbi-app/releases/tag/latest'}}
-function remote(){var id='r'+Date.now();window[id]=function(r){delete window[id];if(r.code!==200)return;try{var c=JSON.parse(r.body);if(ED!=='mine'){applyAll(c);ls('urp_rc',r.body)}if(c.version&&+c.version>VN)banner(c)}catch(e){}};try{URP.http('https://raw.githubusercontent.com/ujjwalrbi/urbi-app/main/config.json','',id)}catch(e){}}
+function banner(c){var d=document.createElement('div');d.className='hud';d.style.margin='10px 0';d.innerHTML='<b class="neon">Update available: v'+c.version+'</b><div class="sm">'+(c.note||'New features are ready.')+'</div><button class="btn" id="ub">Download update</button>';var h=$('hm');h.insertBefore(d,h.firstChild);$('ub').onclick=function(){doUpdate(c)}}
+function remote(){var id='r'+Date.now();window[id]=function(r){delete window[id];if(r.code!==200)return;try{var c=JSON.parse(r.body);ls('urp_rc',r.body);if(ED!=='mine')applyAll(c);if(ED!=='mine'&&c.version&&+c.version>VN)banner(c)}catch(e){}};try{URP.http('https://raw.githubusercontent.com/ujjwalrbi/urbi-app/main/config.json','',id)}catch(e){}}
 if(ED!=='mine'){try{applyAll(JSON.parse(ls('urp_rc')))}catch(e){}}else applyAll(CF);
 setTimeout(remote,2500);
 setTimeout(function(){try{if(URP.hasPerm('usage')){var id='s'+Date.now();window[id]=function(d){delete window[id];SC={t:Date.now(),d:d}};URP.storageAsync(id)}}catch(e){}},4000);
@@ -493,8 +493,35 @@ if(/solar system|saur mandal|planets/.test(q)){cbot('Yeh raha apna solar system.
 if(/video/.test(q)){var v=topic(q);cbot('YouTube par '+(v||'video')+' khol raha hoon.');setTimeout(function(){location.href='https://www.youtube.com/results?search_query='+encodeURIComponent(v||t)},1500);return}
 if(/\b(imagine|generate|draw|banao|bana|create)\b/.test(q)&&/\b(image|picture|photo|tasveer|art|logo|drawing)\b/.test(q)){var g=topic(q.replace(/\b(imagine|generate|draw|banao|bana|create|image|picture|photo|tasveer|art|logo|drawing|ek|a|of|ki|ka)\b/g,' '));genImg(g||t);return}
 if(/\b(show|image|photo|picture|tasveer|dikhao|dikha)\b/.test(q)){var p=topic(q);if(p){wiki(p);return}}
-var a=brain(t);if(a.indexOf('bina internet')<0){cbot(a);return}
+var kb=kbAsk(q);if(kb){cbot(kb);return}var a=brain(t);if(a.indexOf('bina internet')<0){cbot(a);return}
 if(navigator.onLine===false){cbot(a+' Internet on karo to main har sawal ka jawab dunga.');return}
 if(!ls('urp_aic')){dlg('To answer general questions, URAI sends your question text to a free online AI service (Pollinations). Your phone data stays on the phone. Continue?',function(){ls('urp_aic','1');reply(t)});return}
 $('cvs').textContent='Thinking...';aiAny(t,function(x){$('cvs').textContent=CH?'Listening...':'Tap to talk';if(x.indexOf('ERR:')===0){cbot('AI abhi busy hai, thodi der baad dobara try karo.');return}cbot(clean(x))})}
+var KB=[
+['app kya hai about urphonscop purpose batao','URPHONSCOP ek free phone-health app hai. Ye tumhare phone ki battery, garmi, storage, RAM aur apps ko asli readings se dekhta hai aur saaf salah deta hai, saboot ke saath. Na ads, na paid version.'],
+['kisne banaya creator maker founder developer ujjwal owner','Banane wala? Ujjwal Raj, URBI ka founder. Apne phone par Termux me apna idea, apni zid aur apna design lekar isko khada kiya. Aur main URAI hoon, uska dost. Zyada kundli kholne ka mann hai? Dekhte raho, abhi to shuruaat hai.',1],
+['kyun banaya why reason idea maksad','Kyunki phone ki sehat samajhna boring aur mushkil hota hai. Ujjwal ka idea tha: ek hi app me phone ka haal, saboot, music aur ek dost jo baat kare, free me, sabke bhale ke liye.'],
+['features kaam kya kar sakta options list','Phone health score, battery, storage aur RAM ke detail, Proof, apps check, music player, URAI se baat aur photos, aur alerts. Sab phone ke andar se asli reading par chalta hai.'],
+['kaise use karna how start shuru','Home par Scan dabao, phir Results me har cheez dekho. Kisi card par tap karke detail aur salah dekho. Proof me asli numbers milao. URAI se kuch bhi pucho.'],
+['score health status kaise nikalta','Status score 100 se shuru hota hai aur garmi, storage, RAM, battery aur battery health ki jaanch ke hisaab se points kat-te hain. Why this score me dikhta hai kaunsi jaanch pass hui. 100 ka matlab ye jaanchein pass hui, ye nahi ki kuch galat ho hi nahi sakta.'],
+['battery cycles cycle count','Cycles batate hain ki battery kitni baar poori charge-discharge hui. Ye sirf naye phones (Android 14 aur upar) me aur agar phone de to dikhta hai, warna Not available likha aata hai.'],
+['battery bachao tips charge kaise lagana kitna','Battery ki umar ke liye 20 se 80 percent ke beech rakho, bahut garam hone par charging band karo, aur raat bhar charger lagakar mat chhodo. Ye aam salah hai.'],
+['garam hot heating temperature phone','Yaha garmi battery sensor se aati hai, processor ki nahi. 40 degree ke upar phone ko charging se hatao, cover nikalo aur bhaari apps band karo.'],
+['storage jagah bhar full khali clean saaf','Storage me dekho kaun si cheez kitni jagah le rahi hai. Bade videos, purani files aur kam use ki apps hatao. Android doosri app ka data khud clear nahi karne deta, wo tum app ki settings me Clear data se karte ho.'],
+['usage access permission kyun maang','Usage access isliye maangta hai taaki Android batae ki kaun si app kitni jagah leti hai. App sirf size padhti hai, tumhari files ya data nahi.'],
+['permission mic audio notification kyun','Mic sirf tab jab tum bolte ho. Audio permission sirf gaane list karne ke liye. Notification sirf garmi, kam battery aur storage full ki chetavni ke liye. Har permission se pehle app wajah batati hai.'],
+['privacy safe data internet kahan jata','App tumhara data kahin nahi bhejti. Phone ki readings phone me hi rehti hain. Internet tabhi use hota hai jab tum URAI se online jawab, photo ya tasveer maangte ho. Tab sirf tumhara sawal ka text bhejta hai.',1],
+['free paisa price ads cost','Ye bilkul free hai. Koi paid version nahi, koi ads nahi.'],
+['virus malware antivirus hack hacker safe','Mere paas virus database nahi, isliye main pakka nahi bol sakta. Apps check saboot ke saath shak wali apps dikhata hai (kaun si permission, kahan se install hui). Ye review hai, antivirus nahi.',1],
+['apps check risk tag high medium suspicious','Apps check har app ki permissions aur install source dekhta hai. Suspicious, not confirmed ka matlab hai dekho aur sochho, ye nahi ki wo virus hai. Uninstall tumhari confirm tap se hi hota hai.'],
+['proof asli real sach saboot','Proof screen me har number ke saath Android ka kaccha value aur uska source dikhta hai, aur graph live chalte hain. Settings se milaakar dekh sakte ho.'],
+['update naya version latest','Naya version aane par Home par Update available ka banner aata hai. Download dabao, app ke andar download hoga, phir Android ek Update ki tap maangega.'],
+['voice bol mic kaam sunai','Orb ya URAI par tap karke bolo. Pehli baar mic ki permission aati hai. Awaaz na samjhe to likh ke bhi pooch sakte ho.'],
+['music gaana player','Settings me Music on ya off karo. Music player me tumhare phone ke gaane list me aate hain aur online search YouTube kholta hai.'],
+['photo image video tasveer dikhao','URAI se bolo mars ki photo dikhao, ya ek cute dragon ki image banao. Video ke liye YouTube khulta hai.'],
+['controller orb urapp urphon','URAPP CONTROLR app ke andar ke kaam karta hai, jaise scan karo ya battery dikhao. Kisi bhi tarah bolo, exact line zaroori nahi.'],
+['kya nahi kar sakta limit kamzori','Main doosri app ka data khud clear nahi kar sakta, virus pakka nahi bata sakta, aur silent me message nahi bhej sakta. Jo nahi aata wo saaf bol deta hoon.']];
+function kbAll(){var x=[];try{x=JSON.parse(ls('urp_rc')||'{}').kb||[]}catch(e){}return KB.concat(x.map(function(e){return [e.k,e.a,e.s]}))}
+function kbAsk(q){var t=nrm(q).split(' '),best=null,bs=0;kbAll().forEach(function(e){var s=0;e[0].split(' ').forEach(function(k){if(k&&has(t,[k]))s++});if(s>bs){bs=s;best=e}});return best&&(bs>=2||(bs>=1&&best[2]))?best[1]:''}
+function doUpdate(c){var u=c.apk||'https://github.com/ujjwalrbi/urbi-app/releases/download/latest/app-pub-debug.apk',b=$('ub'),id='u'+Date.now();window[id]=function(r){if(r.p>=0&&r.p<100)b.textContent='Downloading '+r.p+'%';else if(r.p===100)b.textContent='Opening installer...';else b.textContent='Failed: '+(r.e||'try again')};b.textContent='Starting...';try{URP.installUpdate(u,id)}catch(e){b.textContent='Update not available here'}}
 </script></body></html>
