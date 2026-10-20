@@ -289,6 +289,7 @@ public class MainActivity extends Activity {
                 } catch (Exception e) { upd(cb, "{\"p\":-1,\"e\":" + JSONObject.quote(String.valueOf(e.getMessage())) + "}"); }
             } }).start();
         }
+        @JavascriptInterface public void zoom(final boolean on) { runOnUiThread(new Runnable() { public void run() { android.webkit.WebSettings z = w.getSettings(); z.setSupportZoom(on); z.setBuiltInZoomControls(on); z.setDisplayZoomControls(false); } }); }
         @JavascriptInterface public String openByName(String q) {
             try {
                 PackageManager pm = getPackageManager();
@@ -414,6 +415,7 @@ public class MainActivity extends Activity {
         s.setJavaScriptEnabled(true);
         s.setDomStorageEnabled(true);
         s.setMediaPlaybackRequiresUserGesture(false);
+        s.setSupportZoom(false); s.setBuiltInZoomControls(false); s.setDisplayZoomControls(false);
         w.addJavascriptInterface(new Bridge(), "URP");
         w.setOnApplyWindowInsetsListener(new android.view.View.OnApplyWindowInsetsListener() {
             public android.view.WindowInsets onApplyWindowInsets(android.view.View v, android.view.WindowInsets in) {
