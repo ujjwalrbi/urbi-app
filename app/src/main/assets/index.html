@@ -137,9 +137,26 @@ html{touch-action:pan-x pan-y}
 @keyframes sw{0%,100%{transform:translateX(-28px)}50%{transform:translateX(28px)}}
 #cap{position:relative;margin:0 auto 14px;max-width:270px;padding:8px 12px;border:1px solid var(--g);border-radius:14px;background:#031203;font-size:13px;text-align:left;display:none}
 #cap:after{content:"";position:absolute;bottom:-7px;left:50%;margin-left:-5px;width:10px;height:10px;background:#031203;border-right:1px solid var(--g);border-bottom:1px solid var(--g);transform:rotate(45deg)}
+body{background:radial-gradient(circle at 50% 0,var(--bgA,#0b4a16) 0,var(--bgB,#000) 62%) no-repeat!important}
+.s{position:relative;z-index:1}
+#nv{z-index:5}
+.pill.act2{background:var(--g);color:#000!important}
+#fxbg{position:fixed;inset:-25%;z-index:0;pointer-events:none;background:radial-gradient(circle at 20% 30%,rgba(var(--gr,57,255,20),.22),transparent 42%),radial-gradient(circle at 80% 70%,rgba(var(--gr,57,255,20),.16),transparent 46%);animation:dr 16s ease-in-out infinite alternate}
+@keyframes dr{to{transform:translate(7%,-5%) scale(1.18)}}
+body.fx .cd{animation:ci .6s ease both}
+@keyframes ci{from{opacity:0;transform:translateY(14px) scale(.97)}}
+body.fx .cd:nth-child(2){animation-delay:.08s}
+body.fx .cd:nth-child(3){animation-delay:.16s}
+body.fx .cd:nth-child(4){animation-delay:.24s}
+body.fx .btn{position:relative;overflow:hidden}
+body.fx .btn:after{content:"";position:absolute;top:0;left:-60%;width:40%;height:100%;background:linear-gradient(100deg,transparent,rgba(var(--gr,57,255,20),.3),transparent);transform:skewX(-20deg);animation:sh 4s ease-in-out infinite;pointer-events:none}
+@keyframes sh{0%,65%{left:-60%}100%{left:130%}}
+body.fx .orb3{animation:ob 2.6s ease-in-out infinite}
+@keyframes ob{50%{transform:scale(1.07)}}
+@media (prefers-reduced-motion:reduce){body.fx *{animation:none!important}}
 </style></head>
 <body>
-<div id="sp" class="s on c1"><div class="stg"><canvas class="gl" width="320" height="320"></canvas><img src="logo.jpg" alt=""></div><h1 class="neon" style="font-size:30px;margin:4px 0">URPHONSCOP</h1><div>Scan. Understand. Keep your phone healthy.</div><div class="on2" style="margin-top:14px">SYSTEM STARTING</div><div class="neon" style="font-size:18px;margin-top:8px">Powered by Ujjwal Raj</div><div class="sm">v5.7</div></div>
+<div id="sp" class="s on c1"><div class="stg"><canvas class="gl" width="320" height="320"></canvas><img src="logo.jpg" alt=""></div><h1 class="neon" style="font-size:30px;margin:4px 0">URPHONSCOP</h1><div>Scan. Understand. Keep your phone healthy.</div><div class="on2" style="margin-top:14px">SYSTEM STARTING</div><div class="neon" style="font-size:18px;margin-top:8px">Powered by Ujjwal Raj</div><div class="sm">v5.8</div></div>
 <div id="wl" class="s c1"><h1 class="neon" style="margin:6px 0 0;font-size:24px">Welcome to<br>URPHONSCOP</h1><div class="stg mn"><canvas class="gl" width="320" height="320"></canvas><img src="logo.jpg" alt=""></div><div class="hud" style="margin:10px 0"><div style="font-size:18px">What is your name?</div><input type="text" id="nm" placeholder="Enter your name..." maxlength="24"></div><button class="btn" onclick="go()">Continue &gt;</button><div class="sm">This helps us give you a personal greeting.</div><div class="neon" style="font-size:16px;margin-top:18px">Powered by Ujjwal Raj</div></div>
 <div id="hm" class="s"><div style="display:flex;justify-content:space-between;align-items:center"><div><div id="gt" style="font-size:16px"></div><div class="neon" id="gn" style="font-size:22px"></div><div class="on2">ALL SYSTEMS ONLINE</div></div><button class="ib" onclick="show('st')"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2"/></svg></button></div>
 <div class="rg"><canvas class="gl gb" width="300" height="300"></canvas><div class="orb"></div><svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="52" fill="none" stroke="#0e3a08" stroke-width="9"/><circle id="rc" cx="60" cy="60" r="52" fill="none" stroke="#39ff14" stroke-width="9" stroke-linecap="round" style="transition:stroke-dashoffset 1.2s"/></svg><div class="c"><span class="sm">Status score</span><b id="sc">--</b><span class="sm">/ 100</span></div></div>
@@ -154,7 +171,7 @@ html{touch-action:pan-x pan-y}
 <div class="sm" style="margin:8px 0 14px">Alerts work while the app is open or was used recently. Turning Alerts on asks for notification permission.</div>
 <button class="btn" onclick="chg()">Change my name</button>
 <div class="hud" style="margin-top:18px"><b class="neon">Privacy first</b><div class="sm">The app itself never sends your data anywhere. Voice commands use the Android speech service, which may use the internet. URAI online answers, photos and AI images use the internet only when you ask.</div></div>
-<div class="sm c1" style="margin-top:14px">URPHONSCOP v5.7</div></div>
+<div class="sm c1" style="margin-top:14px">URPHONSCOP v5.8</div></div>
 <div id="sn" class="s c1"><h2 class="neon" style="margin:6px 0 0">Scanning...</h2><div class="sm">Checking your phone</div><div class="stg mn"><canvas class="gl" width="320" height="320"></canvas><img src="logo.jpg" alt=""></div><div class="hud" style="text-align:left" id="sl"></div><div style="height:10px;border:1px solid var(--g);margin:14px 0 6px;border-radius:6px;overflow:hidden"><i id="sbr" style="display:block;height:100%;width:0;background:var(--g);box-shadow:0 0 10px var(--g);transition:width .5s"></i></div><div class="sm" id="spc"></div></div>
 <div id="rs" class="s"><h2 class="neon" style="margin:0">Scan Results</h2><div class="on2">COMPLETED</div><div id="rb"></div><button class="btn" onclick="detail(firstBad())">View Details</button></div>
 <div id="dt" class="s"><button class="pill" onclick="goBack()">&lt; Back</button><h2 class="neon" id="dh" style="margin:0 0 6px"></h2><div id="db"></div></div>
@@ -176,6 +193,7 @@ html{touch-action:pan-x pan-y}
 <button id="mc" onclick="chatOpen()"></button><div id="mb"></div>
 <div id="cu" class="s"><button class="pill" onclick="goBack()">&lt; Back</button><h2 class="neon" style="margin:0 0 8px">Customize</h2><div class="hud" style="margin-bottom:12px"><b>Accent color</b><div id="cs" style="display:flex;flex-wrap:wrap;gap:8px;margin:8px 0"></div><input type="text" id="cx" placeholder="#39ff14"><button class="btn" onclick="cxSet()">Apply color</button></div><div class="hud" style="margin-bottom:12px"><b>Show or hide</b><div id="cf"></div></div><div class="hud"><b>Share with the Public app</b><div class="sm">Copy this and paste it into config.json on GitHub. The Public app reads it and changes without a new APK.</div><textarea id="cj" rows="6" style="width:100%;background:#000;color:#39ff14;border:1px solid var(--ln)"></textarea><button class="btn" onclick="cxCopy()">Copy config</button></div></div>
 <div id="wm"><div id="wb"></div><button id="wmb" onclick="chatOpen()"></button></div>
+<div id="ab" class="s"><button class="pill" onclick="goBack()">&lt; Back</button><h2 class="neon" style="margin:0 0 8px">Ujjwal Raj</h2><div class="hud" style="margin-bottom:12px"><b class="neon">Founder, URBI</b><div class="sm">Ujjwal Raj Beyond Infinity</div></div><div class="hud"><div>URPHONSCOP was built on a phone, with Termux, one idea at a time. Free, no ads, made for people who want to understand their phone.</div><div class="sm" style="margin-top:8px">Small steps. Big dreams. Learn. Build. Repeat.</div></div></div>
 <div id="nv"><button onclick="show('hm')"><svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8M5 10v10h5v-6h4v6h5V10"/></svg>Home</button><button onclick="scan()"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M16 16l5 5"/></svg>Scan</button><button onclick="show('rs')"><svg viewBox="0 0 24 24"><path d="M5 4h14v16H5zM9 9h6M9 13h6M9 17h3"/></svg>Results</button><button onclick="show('st')"><svg viewBox="0 0 24 24"><circle cx="5" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="19" cy="12" r="1.6"/></svg>More</button></div>
 <div id="ts"></div>
 <script>
@@ -464,7 +482,7 @@ function aiErr(a){var c=+a.slice(4,7);return (c===429?'AI ka quota abhi nahi mil
 (function(){var b=$('kb');if(!b||$('kt'))return;var t=document.createElement('button');t.className='btn';t.id='kt';t.textContent='Test AI';t.onclick=function(){$('km').textContent='Testing...';aiAsk('Say hello in one short sentence.',function(a){$('km').textContent=a.indexOf('ERR:')===0?'Failed: '+a.slice(4):'Working with '+MODEL+': '+clean(a)})};b.parentNode.insertBefore(t,$('km'))})();
 var ED='pub';try{ED=URP.edition()}catch(e){}
 if(ED!=='mine'){var po=document.querySelector('#hm .ob');var kk=$('ky');if(kk)kk.parentNode.remove()}
-document.querySelectorAll('.sm').forEach(function(e){if(e.textContent.indexOf('v5.7')>=0)e.textContent+=(ED==='mine'?' • Owner':' • Public')});
+document.querySelectorAll('.sm').forEach(function(e){if(e.textContent.indexOf('v5.8')>=0)e.textContent+=(ED==='mine'?' • Owner':' • Public')});
 var VN=5.3;
 function hex2rgb(h){var n=parseInt(h.replace('#',''),16);return [n>>16&255,n>>8&255,n&255]}
 var CF={acc:'#39ff14',hide:[]};try{var _c=JSON.parse(ls('urp_cfg')||'null');if(_c)CF=_c}catch(e){}
@@ -558,4 +576,28 @@ function zoomApply(on){try{URP.zoom(!!on)}catch(e){}var m=document.querySelector
 function zoomSet(on){CF.zoom=on;cxSave();zoomApply(on)}
 (function(){var cu=$('cu');if(!cu||ED!=='mine')return;var d=document.createElement('div');d.className='hud';d.style.marginTop='12px';d.innerHTML='<div class="row" style="border:0"><span>Allow pinch zoom (Owner only)</span><label class="sw"><input type="checkbox" id="zm" onchange="zoomSet(this.checked)"><i></i></label></div>';cu.appendChild(d);$('zm').checked=!!CF.zoom})();
 if(ED==='mine'&&CF.zoom)zoomApply(true);
+</script>
+<script>try{
+var TH={green:['#0b4a16','#000'],black:['#141914','#000'],blue:['#0a2a5a','#000a1a'],aurora:['#2e0b5c','#08001a']};
+function curTheme(){var u=ls('urp_th');if(u&&TH[u])return u;var rc={};try{rc=JSON.parse(ls('urp_rc')||'{}')}catch(e){}if(rc.theme&&TH[rc.theme])return rc.theme;return ED==='mine'?'green':'black'}
+function applyTheme(){var t=TH[curTheme()],s=document.documentElement.style;s.setProperty('--bgA',t[0]);s.setProperty('--bgB',t[1])}
+function thUI(){document.querySelectorAll('#thb button').forEach(function(b){b.classList.toggle('act2',b.getAttribute('data-t')===curTheme())})}
+window.setTheme=function(n){ls('urp_th',n);applyTheme();thUI()};
+(function(){var s=$('st'),b=s.querySelector('.btn'),d=document.createElement('div');d.className='hud';d.style.margin='12px 0';d.innerHTML='<b class="neon">Theme</b><div id="thb" style="display:flex;flex-wrap:wrap;gap:8px;margin-top:8px">'+Object.keys(TH).map(function(k){return '<button class="pill" data-t="'+k+'" onclick="setTheme(\''+k+'\')" style="margin:0;text-transform:capitalize">'+k+'</button>'}).join('')+'</div>';s.insertBefore(d,b);thUI()})();
+applyTheme();setInterval(applyTheme,5000);
+}catch(e){}
+try{
+var LI=0;
+function inviteSay(){if(ls('urp_v')==='0'||SPK||CH||!$('hm').classList.contains('on')||Date.now()-LI<45000)return;LI=Date.now();var L=['Mujhe tap karo aur kuch bhi pucho.','Main URAI hoon. Phone ke baare me ya kuch bhi pucho.','Bore ho rahe ho? Mujhse baat karo.','Photo, solar system ya chutkula, kuch bhi maang lo.'];sayUI(L[Math.floor(Math.random()*L.length)])}
+setInterval(inviteSay,22000);
+setTimeout(function(){LI=0;inviteSay()},9000);
+}catch(e){}
+try{
+(function(){var s=$('st'),b=s.querySelector('.btn'),x=document.createElement('button');x.className='btn';x.textContent='Test URAI voice';var r=document.createElement('div');r.className='sm';r.id='vt';x.onclick=function(){var v='';try{v=URP.voiceTest()}catch(e){v='not available'}r.textContent=v};s.insertBefore(x,b);s.insertBefore(r,b);var a=document.createElement('button');a.className='btn';a.textContent='About Ujjwal Raj';a.onclick=function(){show('ab')};s.insertBefore(a,b)})();
+}catch(e){}
+try{
+if(ED==='mine'){document.body.classList.add('fx');var f=document.createElement('div');f.id='fxbg';document.body.insertBefore(f,document.body.firstChild)}
+var _h4=home;home=function(){_h4();var e=document.querySelector('#hm .on2');if(e){var t=e.textContent.replace('OWNER • ','OWNER • UJJWAL RAJ • ');e.innerHTML='ALL SYSTEMS ACTIVATED<br><span style="font-size:10px">'+t.replace(/</g,'')+'</span>';e.style.borderRadius='14px';e.style.textAlign='left'}};
+if($('hm').classList.contains('on'))home();
+}catch(e){}
 </script></body></html>

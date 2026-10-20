@@ -28,6 +28,7 @@ public class MainActivity extends Activity {
     WebView w;
     TextToSpeech tts;
     long lastBack = 0;
+    boolean ttsOk = false;
     void upd(final String cb, final String js) { runOnUiThread(new Runnable() { public void run() { w.evaluateJavascript(cb + "(" + js + ")", null); } }); }
     @Override protected void onNewIntent(Intent i) {
         super.onNewIntent(i);
@@ -51,7 +52,7 @@ public class MainActivity extends Activity {
     void pushIns() { if (w != null) w.evaluateJavascript("window.setIns&&setIns(" + insT + "," + insB + ")", null); }
 
     class Bridge {
-        @JavascriptInterface public void say(String s) { try { if (tts != null) { if (s == null || s.length() == 0) tts.stop(); else tts.speak(s, TextToSpeech.QUEUE_FLUSH, null, "u"); } } catch (Exception e) { } }
+        @JavascriptInterface public void say(String s) { try { if (tts != null) { if (s == null || s.length() == 0) tts.stop(); else { int r = tts.speak(s, TextToSpeech.QUEUE_FLUSH, null, "u"); if (r != TextToSpeech.SUCCESS) { try { tts.setVoice(tts.getDefaultVoice()); tts.speak(s, TextToSpeech.QUEUE_FLUSH, null, "u"); } catch (Exception e) { } } } } } catch (Exception e) { } }
         @JavascriptInterface public void openApp(String p) { try { Intent i = new Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse("package:" + p)); i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); startActivity(i); } catch (Exception e) { } }
         @JavascriptInterface public void startVoice() {
             runOnUiThread(new Runnable() { public void run() {
@@ -290,6 +291,15 @@ public class MainActivity extends Activity {
             } }).start();
         }
         @JavascriptInterface public void zoom(final boolean on) { runOnUiThread(new Runnable() { public void run() { android.webkit.WebSettings z = w.getSettings(); z.setSupportZoom(on); z.setBuiltInZoomControls(on); z.setDisplayZoomControls(false); } }); }
+        @JavascriptInterface public String voiceTest() {
+            try {
+                if (tts == null) return "Voice engine object missing";
+                String l = String.valueOf(tts.getLanguage());
+                int r = tts.speak("Namaste. Main URAI hoon.", TextToSpeech.QUEUE_FLUSH, null, "t");
+                if (r != TextToSpeech.SUCCESS) { try { tts.setVoice(tts.getDefaultVoice()); r = tts.speak("Namaste. Main URAI hoon.", TextToSpeech.QUEUE_FLUSH, null, "t"); } catch (Exception e) { } }
+                return "Engine ready: " + ttsOk + " | speak result: " + r + " (0 is good) | language: " + l;
+            } catch (Exception e) { return "Error: " + e.getMessage(); }
+        }
         @JavascriptInterface public String openByName(String q) {
             try {
                 PackageManager pm = getPackageManager();
@@ -394,7 +404,7 @@ public class MainActivity extends Activity {
         sp = new android.media.SoundPool.Builder().setMaxStreams(4).build();
         clickId = sp.load(this, R.raw.click, 1);
         w = new WebView(this);
-        tts = new TextToSpeech(this, new TextToSpeech.OnInitListener() { public void onInit(int st) { if (st == TextToSpeech.SUCCESS) {
+        tts = new TextToSpeech(this, new TextToSpeech.OnInitListener() { public void onInit(int st) { ttsOk = (st == TextToSpeech.SUCCESS); if (st == TextToSpeech.SUCCESS) {
             int lr = tts.setLanguage(new java.util.Locale("en", "IN"));
             if (lr == TextToSpeech.LANG_MISSING_DATA || lr == TextToSpeech.LANG_NOT_SUPPORTED) tts.setLanguage(java.util.Locale.getDefault());
             tts.setSpeechRate(0.92f);
