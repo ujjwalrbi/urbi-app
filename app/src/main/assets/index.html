@@ -159,9 +159,14 @@ body.fx .stg:before{content:"";position:absolute;inset:6%;border:2px solid rgba(
 @keyframes rp2{from{transform:scale(.7);opacity:.8}to{transform:scale(1.28);opacity:0}}
 body.fx #sn .stg:after{content:"";position:absolute;left:8%;right:8%;height:3px;background:linear-gradient(90deg,transparent,var(--g),transparent);box-shadow:0 0 14px var(--g);animation:bm 2.2s ease-in-out infinite;pointer-events:none}
 @keyframes bm{0%,100%{top:10%}50%{top:88%}}
+.ai{width:34px;height:34px;border-radius:8px;filter:grayscale(1) sepia(1) hue-rotate(55deg) saturate(5) brightness(.95)}
+.rorb{display:block;margin:0 auto 4px;width:54px;height:54px;border-radius:50%;border:2px solid var(--g);background:#031203;position:relative;overflow:hidden;padding:0;box-shadow:0 0 14px rgba(var(--gr,57,255,20),.6)}
+.rorb i{position:absolute;inset:0;border-radius:50%;background:conic-gradient(from 0deg,rgba(var(--gr,57,255,20),.7),transparent 35%);animation:rsp 2.4s linear infinite}
+.rorb:after{content:"";position:absolute;inset:14px;border:1px solid var(--g);border-radius:50%}
+@keyframes rsp{to{transform:rotate(360deg)}}
 </style></head>
 <body><script>window.__E=[];try{window.__E=JSON.parse(localStorage.getItem('urp_err')||'[]')}catch(e){}window.addEventListener('error',function(e){try{window.__E.push(new Date().toLocaleTimeString()+' '+(e.message||'error')+' @'+(e.lineno||0));window.__E=window.__E.slice(-8);localStorage.setItem('urp_err',JSON.stringify(window.__E))}catch(x){}})</script>
-<div id="sp" class="s on c1"><div class="stg"><canvas class="gl" width="320" height="320"></canvas><img src="logo.png" alt=""></div><h1 class="neon" style="font-size:30px;margin:4px 0">URPHONSCOP</h1><div>Scan. Understand. Keep your phone healthy.</div><div class="on2" style="margin-top:14px">SYSTEM STARTING</div><div class="neon" style="font-size:18px;margin-top:8px">Powered by Ujjwal Raj</div><div class="sm">v6.3</div></div>
+<div id="sp" class="s on c1"><div class="stg"><canvas class="gl" width="320" height="320"></canvas><img src="logo.png" alt=""></div><h1 class="neon" style="font-size:30px;margin:4px 0">URPHONSCOP</h1><div>Scan. Understand. Keep your phone healthy.</div><div class="on2" style="margin-top:14px">SYSTEM STARTING</div><div class="neon" style="font-size:18px;margin-top:8px">Powered by Ujjwal Raj</div><div class="sm">v7.0</div></div>
 <div id="wl" class="s c1"><h1 class="neon" style="margin:6px 0 0;font-size:24px">Welcome to<br>URPHONSCOP</h1><div class="stg mn"><canvas class="gl" width="320" height="320"></canvas><img src="logo.png" alt=""></div><div class="hud" style="margin:10px 0"><div style="font-size:18px">What is your name?</div><input type="text" id="nm" placeholder="Enter your name..." maxlength="24"></div><button class="btn" onclick="go()">Continue &gt;</button><div class="sm">This helps us give you a personal greeting.</div><div class="neon" style="font-size:16px;margin-top:18px">Powered by Ujjwal Raj</div></div>
 <div id="hm" class="s"><div style="display:flex;justify-content:space-between;align-items:center"><div><div id="gt" style="font-size:16px"></div><div class="neon" id="gn" style="font-size:22px"></div><div class="on2">ALL SYSTEMS ONLINE</div></div><button class="ib" onclick="show('st')"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2"/></svg></button></div>
 <div class="rg"><canvas class="gl gb" width="300" height="300"></canvas><div class="orb"></div><svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="52" fill="none" stroke="#0e3a08" stroke-width="9"/><circle id="rc" cx="60" cy="60" r="52" fill="none" stroke="#39ff14" stroke-width="9" stroke-linecap="round" style="transition:stroke-dashoffset 1.2s"/></svg><div class="c"><span class="sm">Status score</span><b id="sc">--</b><span class="sm">/ 100</span></div></div>
@@ -176,7 +181,7 @@ body.fx #sn .stg:after{content:"";position:absolute;left:8%;right:8%;height:3px;
 <div class="sm" style="margin:8px 0 14px">Alerts work while the app is open or was used recently. Turning Alerts on asks for notification permission.</div>
 <button class="btn" onclick="chg()">Change my name</button>
 <div class="hud" style="margin-top:18px"><b class="neon">Privacy first</b><div class="sm">The app itself never sends your data anywhere. Voice commands use the Android speech service, which may use the internet. URAI online answers, photos and AI images use the internet only when you ask.</div></div>
-<div class="sm c1" style="margin-top:14px">URPHONSCOP v6.3</div></div>
+<div class="sm c1" style="margin-top:14px">URPHONSCOP v7.0</div></div>
 <div id="sn" class="s c1"><h2 class="neon" style="margin:6px 0 0">Scanning...</h2><div class="sm">Checking your phone</div><div class="stg mn"><canvas class="gl" width="320" height="320"></canvas><img src="logo.png" alt=""></div><div class="hud" style="text-align:left" id="sl"></div><div style="height:10px;border:1px solid var(--g);margin:14px 0 6px;border-radius:6px;overflow:hidden"><i id="sbr" style="display:block;height:100%;width:0;background:var(--g);box-shadow:0 0 10px var(--g);transition:width .5s"></i></div><div class="sm" id="spc"></div></div>
 <div id="rs" class="s"><h2 class="neon" style="margin:0">Scan Results</h2><div class="on2">COMPLETED</div><div id="rb"></div><button class="btn" onclick="detail(firstBad())">View Details</button></div>
 <div id="dt" class="s"><button class="pill" onclick="goBack()">&lt; Back</button><h2 class="neon" id="dh" style="margin:0 0 6px"></h2><div id="db"></div></div>
@@ -200,6 +205,7 @@ body.fx #sn .stg:after{content:"";position:absolute;left:8%;right:8%;height:3px;
 <div id="wm"><div id="wbub"></div><button id="wmb" onclick="chatOpen()"></button></div>
 <div id="ab" class="s"><button class="pill" onclick="goBack()">&lt; Back</button><h2 class="neon" style="margin:0 0 8px">Ujjwal Raj</h2><div class="hud" style="margin-bottom:12px"><b class="neon">Founder, URBI</b><div class="sm">Ujjwal Raj Beyond Infinity</div></div><div class="hud"><div>URPHONSCOP was created by Ujjwal Raj. Free, no ads, made for people who want to understand their phone.</div><div class="sm" style="margin-top:8px">Small steps. Big dreams. Learn. Build. Repeat.</div></div></div>
 <div id="dg" class="s"><button class="pill" onclick="goBack()">&lt; Back</button><h2 class="neon" style="margin:0 0 8px">Diagnostics</h2><div id="dgb"></div><button class="btn" onclick="dgCopy()">Copy report</button></div>
+<div id="rd" class="s c1"><button class="pill" onclick="goBack()" style="float:left">&lt; Back</button><h2 class="neon" style="margin:0;clear:both">Security Radar</h2><div class="sm">13 checks. Tap a dot for proof.</div><canvas id="rdc" width="320" height="320" style="width:min(92vw,360px);height:auto;max-width:100%"></canvas><div id="rds" style="margin-bottom:10px"></div><div id="rdp" style="text-align:left"></div><div class="sm" style="margin-top:12px">Signs found are not confirmed problems. This review is not a guarantee of safety.</div></div>
 <div id="nv"><button onclick="show('hm')"><svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8M5 10v10h5v-6h4v6h5V10"/></svg>Home</button><button onclick="scan()"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M16 16l5 5"/></svg>Scan</button><button onclick="show('rs')"><svg viewBox="0 0 24 24"><path d="M5 4h14v16H5zM9 9h6M9 13h6M9 17h3"/></svg>Results</button><button onclick="show('st')"><svg viewBox="0 0 24 24"><circle cx="5" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="19" cy="12" r="1.6"/></svg>More</button></div>
 <div id="ts"></div>
 <script>
@@ -346,6 +352,7 @@ function appCmd(raw,t){var h=function(w){return has(t,w)},ok=function(m,f){say2(
 var off=h(['off','band','stop','mute','chup','pause']),on=h(['on','chalu','start','play','chalao','shuru']);
 if(h(['music','gaana','gana','song','songs','dhun'])){if(off){sv('m',false);$('s1').checked=false;return say2('Music off')}if(h(['player','list','gaane','playlist'])&&!on)return ok('Music player',musicOpen);sv('m',true);$('s1').checked=true;return say2('Music on')}
 if(h(['chat','baat','urai','talk','bolo']))return ok('URAI',chatOpen);
+if(h(['radar','security','surakshit','suraksha','malware']))return ok('Security Radar',rdOpen);
 if(h(['proof','saboot','sabut','verify']))return ok('Proof',proof);
 if(h(['why','kyun','reason']))return ok('Why this score',why);
 if(h(['battery','charge','charging','bijli']))return ok('Battery',function(){detail('b')});
@@ -394,7 +401,7 @@ if(s>=3)R.push({a:a,s:s,ev:ev})});
 R.sort(function(x,y){return y.s-x.s});
 var h='<button class="pill" onclick="goBack()">&lt; Back</button><h2 class="neon" style="margin:0 0 6px">Apps check</h2><div class="hud" style="margin-bottom:12px"><div class="sm">Checked '+L.length+' apps. This is a review based on evidence, not a virus scan: there is no virus database here. A flag means "look at this", not "this is malware".</div></div>';
 if(!R.length)h+='<div class="hud">No risky signals found in these '+L.length+' apps. This means no signals in these checks, not a guarantee.</div>';
-R.forEach(function(r){var t=r.s>=6?['Suspicious, not confirmed','r']:['Review','y'],n=r.a.n.replace(/</g,'&lt;');h+='<div class="hud" style="margin-bottom:12px"><span class="tg '+t[1]+'" style="float:right">'+t[0]+'</span><b>'+n+'</b><div class="sm">'+r.a.p+'</div><div style="margin-top:6px"><b>Evidence:</b></div>'+r.ev.map(function(e){return '<div class="ev">- '+e+'</div>'}).join('')+'<div class="sm" style="margin-top:6px">Why it matters: these abilities together can be misused. Keep this app only if you know it and trust it.</div><div style="display:flex;gap:8px;margin-top:8px"><button class="pill" style="flex:1;margin:0" onclick="URP.openApp(\''+r.a.p+'\')">Open settings</button><button class="pill" style="flex:1;margin:0" onclick="URP.uninstall(\''+r.a.p+'\')">Uninstall</button></div></div>'});
+R.forEach(function(r){var t=r.s>=6?['Suspicious, not confirmed','r']:['Review','y'],n=r.a.n.replace(/</g,'&lt;');h+='<div class="hud" style="margin-bottom:12px"><span class="tg '+t[1]+'" style="float:right">'+t[0]+'</span><img class="ai" style="float:left;margin-right:10px" src="'+aIc(r.a.p)+'"><b>'+n+'</b><div class="sm">'+r.a.p+'</div><div style="margin-top:6px"><b>Evidence:</b></div>'+r.ev.map(function(e){return '<div class="ev">- '+e+'</div>'}).join('')+'<div class="sm" style="margin-top:6px">Why it matters: these abilities together can be misused. Keep this app only if you know it and trust it.</div><div style="display:flex;gap:8px;margin-top:8px"><button class="pill" style="flex:1;margin:0" onclick="URP.openApp(\''+r.a.p+'\')">Open settings</button><button class="pill" style="flex:1;margin:0" onclick="URP.uninstall(\''+r.a.p+'\')">Uninstall</button></div></div>'});
 $('al').parentNode.innerHTML=h}
 (function(){var w=document.querySelector('#hm button.pill');if(!w)return;var p=document.createElement('button');p.className='pill';p.textContent='Proof >';p.setAttribute('onclick','proof()');p.style.cssText='display:block;margin:0 auto 10px';w.parentNode.insertBefore(p,w.nextSibling)})();
 var PH={t:[],r:[],v:[],c:[]},PT=null;
@@ -410,7 +417,7 @@ if(!ok){box.innerHTML='<div class="hud" style="margin-top:14px"><b class="neon">
 var d={};try{d=JSON.parse(URP.storageUse())}catch(e){}
 var T=(d.img||0)+(d.vid||0)+(d.aud||0)+(d.app||0),C=[['Photos',d.img],['Videos',d.vid],['Audio',d.aud],['Apps',d.app]],h='<div class="hud" style="margin-top:14px"><b class="neon">Where your storage went</b>'+C.map(function(c){var p=T?Math.round((c[1]||0)*100/T):0;return '<div style="margin-top:8px">'+c[0]+': '+fmt(c[1]||0)+'<div style="height:8px;border:1px solid var(--ln);margin-top:3px"><i style="display:block;height:100%;width:'+p+'%;background:var(--g)"></i></div></div>'}).join('')+'</div>';
 var A=(d.apps||[]).sort(function(a,b){return b.b-a.b}).slice(0,8);
-h+='<div class="hud" style="margin-top:14px"><b class="neon">Biggest apps</b>'+A.map(function(a){return '<div class="row" style="padding:8px 2px"><span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:65%">'+a.n.replace(/</g,'&lt;')+'</span><b>'+fmt(a.b)+'</b></div>'}).join('')+'<div class="sm" style="margin-top:6px">Sizes come from Android StorageStatsManager (app, data and cache).</div></div>';box.innerHTML=h}
+h+='<div class="hud" style="margin-top:14px"><b class="neon">Biggest apps</b>'+A.map(function(a){return '<div class="row" style="padding:8px 2px"><span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:65%"><img class="ai" style="width:26px;height:26px;vertical-align:middle;margin-right:8px" src="'+aIc(a.p)+'">'+a.n.replace(/</g,'&lt;')+'</span><b>'+fmt(a.b)+'</b></div>'}).join('')+'<div class="sm" style="margin-top:6px">Sizes come from Android StorageStatsManager (app, data and cache).</div></div>';box.innerHTML=h}
 var _detail=detail;detail=function(k){_detail(k);if(k==='s')storageMore()};
 var CH=false,CHR=0;
 function cbub(t,me){var d=document.createElement('div');d.className='hud';d.style.cssText='margin-bottom:8px;'+(me?'margin-left:30px;text-align:right':'margin-right:30px');d.innerHTML='<div class="sm">'+(me?'You':'URAI')+'</div>'+String(t).replace(/</g,'&lt;');$('cvl').appendChild(d);d.scrollIntoView()}
@@ -488,7 +495,7 @@ function aiErr(a){var c=+a.slice(4,7);return (c===429?'AI ka quota abhi nahi mil
 (function(){var b=$('kb');if(!b||$('kt'))return;var t=document.createElement('button');t.className='btn';t.id='kt';t.textContent='Test AI';t.onclick=function(){$('km').textContent='Testing...';aiAsk('Say hello in one short sentence.',function(a){$('km').textContent=a.indexOf('ERR:')===0?'Failed: '+a.slice(4):'Working with '+MODEL+': '+clean(a)})};b.parentNode.insertBefore(t,$('km'))})();
 var ED='pub';try{ED=URP.edition()}catch(e){}
 if(ED!=='mine'){var po=document.querySelector('#hm .ob');var kk=$('ky');if(kk)kk.parentNode.remove()}
-document.querySelectorAll('.sm').forEach(function(e){if(e.textContent.indexOf('v6.3')>=0)e.textContent+=(ED==='mine'?' • Owner':' • Public')});
+document.querySelectorAll('.sm').forEach(function(e){if(e.textContent.indexOf('v7.0')>=0)e.textContent+=(ED==='mine'?' • Owner':' • Public')});
 var VN=5.3;
 function hex2rgb(h){var n=parseInt(h.replace('#',''),16);return [n>>16&255,n>>8&255,n&255]}
 var CF={acc:'#39ff14',hide:[]};try{var _c=JSON.parse(ls('urp_cfg')||'null');if(_c)CF=_c}catch(e){}
@@ -607,7 +614,7 @@ var _h4=home;home=function(){_h4();var e=document.querySelector('#hm .on2');if(e
 if($('hm').classList.contains('on'))home();
 }catch(e){}
 </script>
-<script>var APPV='v6.3',ERR=window.__E||[];
+<script>var APPV='v7.0',ERR=window.__E||[];
 function diagRun(){var hm=$('hm'),tx=function(r){return [].some.call(hm.querySelectorAll('button.pill'),function(b){return r.test(b.textContent)})},d=null;try{d=get()}catch(e){}
 return [['Version',APPV],['Edition',ED],['Bridge',typeof URP!=='undefined'?'OK':'MISSING'],['Battery reading',d&&d.bat>=0?'OK '+d.bat+'%':'FAIL'],['Why this score button',tx(/Why/)?'OK':'MISSING'],['Proof button',tx(/Proof/)?'OK':'MISSING'],['URAI roaming',$('wm')?'OK':'MISSING'],['Chat screen',$('cht')?'OK':'MISSING'],['Online',navigator.onLine?'yes':'no'],['Errors since install',String(ERR.length)]].concat(ERR.slice(-6).map(function(e,i){return ['Error '+(i+1),e]}))}
 function diagOpen(){var R=diagRun();$('dgb').innerHTML=R.map(function(r){var bad=/MISSING|FAIL/.test(r[1]);return '<div class="row" style="padding:8px 2px"><span>'+r[0]+'</span><b style="color:'+(bad?'#ff3b30':'#39ff14')+'">'+String(r[1]).replace(/</g,'&lt;')+'</b></div>'}).join('')+'<textarea id="dgt" rows="6" style="width:100%;background:#000;color:#39ff14;border:1px solid var(--ln);margin-top:10px">'+R.map(function(r){return r[0]+': '+r[1]}).join('\n')+'</textarea>';show('dg')}
@@ -615,4 +622,37 @@ function dgCopy(){var t=$('dgt');if(!t)return;t.select();try{document.execComman
 function fixPills(){try{var hm=$('hm'),ps=[].slice.call(hm.querySelectorAll('button.pill')),hW=ps.some(function(b){return /Why/.test(b.textContent)}),hP=ps.some(function(b){return /Proof/.test(b.textContent)});if(hW&&hP)return;var hd=[];try{hd=(ED==='mine'?CF.hide:JSON.parse(ls('urp_rc')||'{}').hide)||[]}catch(e){}if(hd.indexOf('prf')>=0)return;var an=hm.querySelector('.hrow')||hm.querySelector('.rg');if(!an)return;var ref=an.nextSibling;[[!hW,'Why this score >','why()'],[!hP,'Proof >','proof()']].forEach(function(x){if(!x[0])return;var b=document.createElement('button');b.className='pill';b.textContent=x[1];b.setAttribute('onclick',x[2]);b.style.cssText='display:block;margin:0 auto 10px';an.parentNode.insertBefore(b,ref)})}catch(e){}}
 setTimeout(fixPills,1500);setInterval(fixPills,8000);
 (function(){var s=$('st'),b=s.querySelector('.btn'),x=document.createElement('button');x.className='btn';x.textContent='Diagnostics (help report)';x.onclick=diagOpen;s.insertBefore(x,b)})();
-</script></body></html>
+</script>
+<script>try{var RD={on:false,ang:0,list:[],sel:0};
+function aIc(p){try{return URP.icon(p)}catch(e){return ''}}
+function rdChecks(){var s={},A=[];try{s=JSON.parse(URP.secInfo())}catch(e){}try{A=JSON.parse(URP.apps())}catch(e){}
+function pkgs(x){return String(x||'').split(':').filter(Boolean).map(function(v){return v.split('/')[0]}).filter(function(v,i,a){return a.indexOf(v)===i})}
+var acc=pkgs(s.acc),nl=pkgs(s.nl),adm=s.adm||[],hid=s.hid||[],all=s.all||[],old=[];try{old=JSON.parse(ls('urp_pk')||'[]')}catch(e){}
+var nw=old.length?all.filter(function(p){return old.indexOf(p)<0}):[];ls('urp_pk',JSON.stringify(all));
+var out=A.filter(function(a){return !a.i||a.i.indexOf('packageinstaller')>=0}).map(function(a){return a.p}),age=-1;
+if(s.patch){var d=new Date(s.patch);if(!isNaN(d))age=Math.floor((Date.now()-d)/864e5)}
+function C(n,st,val,why,pk){return {n:n,st:st,val:val,why:why,pk:pk||[]}}
+return [C('Screen lock',s.lock?'ok':'rev',s.lock?'A lock is set':'No screen lock','Without a lock, anyone holding the phone can open it.'),
+C('Security patch',age<0?'na':age<365?'ok':'rev',s.patch?s.patch+(age>=0?' ('+age+' days old)':''):'Not reported','Old patches miss fixes for known weaknesses.'),
+C('App verification',s.pv===1?'ok':s.pv===0?'rev':'na',s.pv===1?'On':s.pv===0?'Off':'Not reported by this phone','This setting checks apps for known harm when they are installed.'),
+C('USB debugging',s.adb?'rev':'ok',s.adb?'On':'Off','USB debugging lets a computer control the phone.'),
+C('Developer options',s.dev?'rev':'ok',s.dev?'On':'Off','Developer options relax some safety limits.'),
+C('Root signs',s.root?'rev':'ok',s.root?'Signs found (not confirmed)':'None found','Root removes Android safety walls. This is a sign check, not proof.'),
+C('Accessibility access',acc.length?'rev':'ok',acc.length+' app(s)','Apps with this access can read the screen and act on it. Malware often misuses it.',acc),
+C('Device admin apps',adm.length?'rev':'ok',adm.length+' app(s)','Device admin apps can resist being uninstalled.',adm),
+C('Notification access',nl.length?'rev':'ok',nl.length+' app(s)','These apps can read your notifications, including codes.',nl),
+C('VPN',s.vpn?'rev':'ok',s.vpn?'A VPN is active':'No VPN','A VPN sees your traffic. It may be yours.'),
+C('Hidden apps',hid.length?'rev':'ok',hid.length+' app(s) with no launcher icon','Some malware hides its icon. Many safe helper apps do too.',hid.map(function(h){return h.p})),
+C('Apps outside Play Store',out.length?'rev':'ok',out.length+' app(s)','Apps from outside a store skip its checks.',out),
+C('New apps since last review',old.length?(nw.length?'rev':'ok'):'na',old.length?nw.length+' new':'First review saved','New apps are shown once so you can check them.',nw)]}
+function rdSum(){var L=RD.list,ok=L.filter(function(c){return c.st==='ok'}).length,rv=L.filter(function(c){return c.st==='rev'}).length;$('rds').innerHTML='<div class="neon" style="font-size:16px">'+ok+' of '+(ok+rv)+' checks OK</div><div style="color:'+(rv?'#ffd60a':'#39ff14')+';font-size:13px">'+(rv?rv+' signs found, not confirmed':'No signs found in these checks')+'</div>'}
+function rdCard(){var k=RD.list[RD.sel];if(!k)return;var t=k.st==='rev'?['Review','y']:k.st==='na'?['Not available','g']:['OK','g'];
+$('rdp').innerHTML='<div class="hud"><span class="tg '+t[1]+'" style="float:right">'+t[0]+'</span><b class="neon">'+k.n+'</b><div style="margin-top:6px">'+esc(k.val)+'</div><div class="sm" style="margin-top:6px">Why it matters: '+k.why+'</div>'+k.pk.map(function(p){return '<div class="row" style="padding:8px 2px"><span style="display:flex;align-items:center;gap:8px;overflow:hidden"><img class="ai" style="width:28px;height:28px" src="'+aIc(p)+'"><span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+esc(p)+'</span></span><span style="display:flex;gap:6px"><button class="pill" style="margin:0;padding:4px 10px" onclick="URP.openApp(\''+p+'\')">Settings</button><button class="pill" style="margin:0;padding:4px 10px" onclick="URP.uninstall(\''+p+'\')">Uninstall</button></span></div>'}).join('')+'</div>'}
+function rdDraw(){var c=$('rdc'),x=c.getContext('2d'),cx=160,R=140;x.clearRect(0,0,320,320);x.lineWidth=1;x.strokeStyle='rgba(57,255,20,.35)';[.33,.66,1].forEach(function(k){x.beginPath();x.arc(cx,cx,R*k,0,7);x.stroke()});x.beginPath();x.moveTo(cx-R,cx);x.lineTo(cx+R,cx);x.moveTo(cx,cx-R);x.lineTo(cx,cx+R);x.stroke();
+RD.ang+=.045;x.fillStyle='rgba(57,255,20,.18)';x.beginPath();x.moveTo(cx,cx);x.arc(cx,cx,R,RD.ang-.7,RD.ang);x.closePath();x.fill();x.strokeStyle='#39ff14';x.lineWidth=3;x.beginPath();x.moveTo(cx,cx);x.lineTo(cx+R*Math.cos(RD.ang),cx+R*Math.sin(RD.ang));x.stroke();x.lineWidth=1;
+RD.list.forEach(function(k,i){var a=-Math.PI/2+i*2*Math.PI/13,r=[.36,.66,.9][i%3]*R,px=cx+r*Math.cos(a),py=cx+r*Math.sin(a),d=((RD.ang-a)%(2*Math.PI)+2*Math.PI)%(2*Math.PI);d=Math.min(d,2*Math.PI-d);var pl=d<.5?(1-d/.5)*4:0;k.x=px;k.y=py;x.fillStyle=k.st==='rev'?'#ffd60a':k.st==='na'?'#6b8f6b':'#39ff14';x.beginPath();x.arc(px,py,(k.st==='rev'?6:4.5)+pl,0,7);x.fill();if(i===RD.sel){x.strokeStyle='#fff';x.beginPath();x.arc(px,py,11,0,7);x.stroke()}})}
+function rdOpen(){RD.list=rdChecks();var f=RD.list.findIndex(function(c){return c.st==='rev'});RD.sel=f<0?0:f;show('rd');rdSum();rdCard();RD.on=true}
+setInterval(function(){if(RD.on&&$('rd').classList.contains('on'))rdDraw();else RD.on=false},45);
+$('rdc').addEventListener('click',function(e){var r=this.getBoundingClientRect(),s=320/r.width,px=(e.clientX-r.left)*s,py=(e.clientY-r.top)*s,best=-1,bd=900;RD.list.forEach(function(k,i){var d=(k.x-px)*(k.x-px)+(k.y-py)*(k.y-py);if(d<bd){bd=d;best=i}});if(best>=0){RD.sel=best;rdCard();clk()}});
+(function(){var c=$('cd');if(!c||$('rorb'))return;var d=document.createElement('div'),b=document.createElement('button');b.id='rorb';b.className='rorb';b.setAttribute('onclick','rdOpen()');b.innerHTML='<i></i>';d.appendChild(b);var l=document.createElement('div');l.className='sm';l.style.cssText='text-align:center;margin:0 0 12px';l.textContent='Security Radar';d.appendChild(l);c.parentNode.insertBefore(d,c)})();
+}catch(e){window.__E&&window.__E.push('radar: '+e.message)}</script></body></html>

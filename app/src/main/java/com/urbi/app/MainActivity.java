@@ -300,6 +300,57 @@ public class MainActivity extends Activity {
                 return "Engine ready: " + ttsOk + " | speak result: " + r + " (0 is good) | language: " + l;
             } catch (Exception e) { return "Error: " + e.getMessage(); }
         }
+        @JavascriptInterface public String secInfo() {
+            JSONObject o = new JSONObject();
+            try {
+                android.app.KeyguardManager km = (android.app.KeyguardManager) getSystemService(Context.KEYGUARD_SERVICE);
+                o.put("lock", km.isDeviceSecure());
+                o.put("patch", Build.VERSION.SECURITY_PATCH);
+                android.content.ContentResolver cr = getContentResolver();
+                o.put("adb", android.provider.Settings.Global.getInt(cr, android.provider.Settings.Global.ADB_ENABLED, 0));
+                o.put("dev", android.provider.Settings.Global.getInt(cr, android.provider.Settings.Global.DEVELOPMENT_SETTINGS_ENABLED, 0));
+                o.put("pv", android.provider.Settings.Global.getInt(cr, "package_verifier_enable", -1));
+                String acc = android.provider.Settings.Secure.getString(cr, android.provider.Settings.Secure.ENABLED_ACCESSIBILITY_SERVICES);
+                o.put("acc", acc == null ? "" : acc);
+                String nl = android.provider.Settings.Secure.getString(cr, "enabled_notification_listeners");
+                o.put("nl", nl == null ? "" : nl);
+                android.app.admin.DevicePolicyManager dp = (android.app.admin.DevicePolicyManager) getSystemService(Context.DEVICE_POLICY_SERVICE);
+                java.util.List<android.content.ComponentName> ad = dp.getActiveAdmins();
+                JSONArray aa = new JSONArray();
+                if (ad != null) for (android.content.ComponentName c : ad) aa.put(c.getPackageName());
+                o.put("adm", aa);
+                android.net.ConnectivityManager cm = (android.net.ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+                android.net.Network nw = cm.getActiveNetwork();
+                android.net.NetworkCapabilities nc = nw == null ? null : cm.getNetworkCapabilities(nw);
+                o.put("vpn", nc != null && nc.hasTransport(android.net.NetworkCapabilities.TRANSPORT_VPN));
+                boolean r = Build.TAGS != null && Build.TAGS.contains("test-keys");
+                for (String p : new String[]{"/system/bin/su", "/system/xbin/su", "/sbin/su", "/system/app/Superuser.apk", "/data/local/bin/su"}) if (new java.io.File(p).exists()) r = true;
+                o.put("root", r);
+                PackageManager pm = getPackageManager();
+                JSONArray hid = new JSONArray(), all = new JSONArray();
+                for (PackageInfo p : pm.getInstalledPackages(0)) {
+                    ApplicationInfo a = p.applicationInfo;
+                    if (a == null || (a.flags & ApplicationInfo.FLAG_SYSTEM) != 0) continue;
+                    all.put(p.packageName);
+                    if (pm.getLaunchIntentForPackage(p.packageName) == null) { JSONObject h = new JSONObject(); h.put("n", pm.getApplicationLabel(a).toString()); h.put("p", p.packageName); hid.put(h); }
+                }
+                o.put("hid", hid);
+                o.put("all", all);
+            } catch (Exception e) { }
+            return o.toString();
+        }
+        @JavascriptInterface public String icon(String p) {
+            try {
+                android.graphics.drawable.Drawable d = getPackageManager().getApplicationIcon(p);
+                android.graphics.Bitmap b = android.graphics.Bitmap.createBitmap(64, 64, android.graphics.Bitmap.Config.ARGB_8888);
+                android.graphics.Canvas c = new android.graphics.Canvas(b);
+                d.setBounds(0, 0, 64, 64);
+                d.draw(c);
+                java.io.ByteArrayOutputStream bo = new java.io.ByteArrayOutputStream();
+                b.compress(android.graphics.Bitmap.CompressFormat.PNG, 90, bo);
+                return "data:image/png;base64," + android.util.Base64.encodeToString(bo.toByteArray(), android.util.Base64.NO_WRAP);
+            } catch (Exception e) { return ""; }
+        }
         @JavascriptInterface public String openByName(String q) {
             try {
                 PackageManager pm = getPackageManager();
