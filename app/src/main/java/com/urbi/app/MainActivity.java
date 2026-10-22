@@ -151,6 +151,7 @@ public class MainActivity extends Activity {
         @JavascriptInterface public boolean hasPerm(String k) {
             try {
                 if (k.equals("usage")) return ((android.app.AppOpsManager) getSystemService(Context.APP_OPS_SERVICE)).checkOpNoThrow("android:get_usage_stats", android.os.Process.myUid(), getPackageName()) == android.app.AppOpsManager.MODE_ALLOWED;
+                if (k.equals("contacts")) return checkSelfPermission(android.Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED;
                 if (k.equals("mic")) return checkSelfPermission(android.Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED;
                 if (k.equals("audio")) return checkSelfPermission(Build.VERSION.SDK_INT >= 33 ? android.Manifest.permission.READ_MEDIA_AUDIO : android.Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
                 if (k.equals("notif")) return Build.VERSION.SDK_INT < 33 || checkSelfPermission("android.permission.POST_NOTIFICATIONS") == PackageManager.PERMISSION_GRANTED;
@@ -159,7 +160,7 @@ public class MainActivity extends Activity {
         }
         @JavascriptInterface public void askPerm(final String k) {
             runOnUiThread(new Runnable() { public void run() { try {
-                if (k.equals("usage")) { Intent u = new Intent(android.provider.Settings.ACTION_USAGE_ACCESS_SETTINGS); u.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); startActivity(u); } else if (k.equals("mic")) requestPermissions(new String[]{android.Manifest.permission.RECORD_AUDIO}, 7);
+                if (k.equals("usage")) { Intent u = new Intent(android.provider.Settings.ACTION_USAGE_ACCESS_SETTINGS); u.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); startActivity(u); } else if (k.equals("contacts")) requestPermissions(new String[]{android.Manifest.permission.READ_CONTACTS}, 11); else if (k.equals("mic")) requestPermissions(new String[]{android.Manifest.permission.RECORD_AUDIO}, 7);
                 else if (k.equals("audio")) requestPermissions(new String[]{Build.VERSION.SDK_INT >= 33 ? android.Manifest.permission.READ_MEDIA_AUDIO : android.Manifest.permission.READ_EXTERNAL_STORAGE}, 8);
                 else if (k.equals("notif") && Build.VERSION.SDK_INT >= 33) requestPermissions(new String[]{"android.permission.POST_NOTIFICATIONS"}, 9);
             } catch (Exception e) { } } });
@@ -175,7 +176,7 @@ public class MainActivity extends Activity {
             } catch (Exception e) { }
         }
         @JavascriptInterface public String act(String t, String a) {
-            if (!BuildConfig.EDITION.equals("mine") && (!t.equals("set") || a.equals("access"))) return "err:This works only in the Owner app";
+            if (!BuildConfig.EDITION.equals("mine") && (t.equals("set") && a.equals("access"))) return "err:This works only in the Owner app";
             try {
                 Intent i = null;
                 if (t.equals("torch")) {
@@ -350,6 +351,32 @@ public class MainActivity extends Activity {
                 b.compress(android.graphics.Bitmap.CompressFormat.PNG, 90, bo);
                 return "data:image/png;base64," + android.util.Base64.encodeToString(bo.toByteArray(), android.util.Base64.NO_WRAP);
             } catch (Exception e) { return ""; }
+        }
+        @JavascriptInterface public String findContact(String q) {
+            JSONArray r = new JSONArray();
+            try {
+                if (checkSelfPermission(android.Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) return "NOPERM";
+                android.database.Cursor c = getContentResolver().query(android.provider.ContactsContract.CommonDataKinds.Phone.CONTENT_URI, new String[]{android.provider.ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME, android.provider.ContactsContract.CommonDataKinds.Phone.NUMBER}, android.provider.ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME + " LIKE ?", new String[]{"%" + q + "%"}, android.provider.ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME + " ASC");
+                if (c != null) {
+                    int n = 0;
+                    while (c.moveToNext() && n < 6) { JSONObject o = new JSONObject(); o.put("n", c.getString(0)); o.put("p", c.getString(1)); r.put(o); n++; }
+                    c.close();
+                }
+            } catch (Exception e) { }
+            return r.toString();
+        }
+        @JavascriptInterface public String launchables() {
+            JSONArray r = new JSONArray();
+            try {
+                PackageManager pm = getPackageManager();
+                Intent main = new Intent(Intent.ACTION_MAIN);
+                main.addCategory(Intent.CATEGORY_LAUNCHER);
+                for (android.content.pm.ResolveInfo ri : pm.queryIntentActivities(main, 0)) { JSONObject o = new JSONObject(); o.put("n", ri.loadLabel(pm).toString()); o.put("p", ri.activityInfo.packageName); r.put(o); }
+            } catch (Exception e) { }
+            return r.toString();
+        }
+        @JavascriptInterface public boolean launchPkg(String p) {
+            try { Intent i = getPackageManager().getLaunchIntentForPackage(p); if (i == null) return false; i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); startActivity(i); return true; } catch (Exception e) { return false; }
         }
         @JavascriptInterface public String openByName(String q) {
             try {

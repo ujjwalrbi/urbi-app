@@ -164,9 +164,24 @@ body.fx #sn .stg:after{content:"";position:absolute;left:8%;right:8%;height:3px;
 .rorb i{position:absolute;inset:0;border-radius:50%;background:conic-gradient(from 0deg,rgba(var(--gr,57,255,20),.7),transparent 35%);animation:rsp 2.4s linear infinite}
 .rorb:after{content:"";position:absolute;inset:14px;border:1px solid var(--g);border-radius:50%}
 @keyframes rsp{to{transform:rotate(360deg)}}
+#ua{position:fixed;inset:0;z-index:50;background:#000;display:none;opacity:0;transition:opacity .7s}
+#ua.on{display:block}
+#ua.show{opacity:1}
+#uac{position:absolute;inset:0;width:100%;height:100%}
+#uat{position:absolute;left:0;right:0;top:calc(var(--st,0px) + 18px);text-align:center;font:bold 22px monospace;letter-spacing:6px;color:var(--g)}
+#uas{position:absolute;left:16px;right:16px;bottom:calc(150px + var(--sb,0px));text-align:center;font-size:15px;min-height:44px}
+#uaL{position:absolute;left:16px;right:16px;bottom:calc(215px + var(--sb,0px));text-align:center}
+.uabar{position:absolute;left:12px;right:12px;bottom:calc(20px + var(--sb,0px));display:flex;gap:8px;align-items:center}
+.uabar input{flex:1;margin:0}
+.ob{transition:opacity .7s,transform .7s}
+body.uaon .ob{opacity:0;transform:scale(.2);pointer-events:none}
+body.uaon #wm{display:none!important}
+#hg{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:10px}
+.hb{display:flex;flex-direction:column;align-items:center;gap:4px;background:none;border:1px solid var(--ln);border-radius:12px;padding:8px 2px;font-size:11px;color:var(--g);min-width:0}
+.hb span{max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 </style></head>
 <body><script>window.__E=[];try{window.__E=JSON.parse(localStorage.getItem('urp_err')||'[]')}catch(e){}window.addEventListener('error',function(e){try{window.__E.push(new Date().toLocaleTimeString()+' '+(e.message||'error')+' @'+(e.lineno||0));window.__E=window.__E.slice(-8);localStorage.setItem('urp_err',JSON.stringify(window.__E))}catch(x){}})</script>
-<div id="sp" class="s on c1"><div class="stg"><canvas class="gl" width="320" height="320"></canvas><img src="logo.png" alt=""></div><h1 class="neon" style="font-size:30px;margin:4px 0">URPHONSCOP</h1><div>Scan. Understand. Keep your phone healthy.</div><div class="on2" style="margin-top:14px">SYSTEM STARTING</div><div class="neon" style="font-size:18px;margin-top:8px">Powered by Ujjwal Raj</div><div class="sm">v7.0</div></div>
+<div id="sp" class="s on c1"><div class="stg"><canvas class="gl" width="320" height="320"></canvas><img src="logo.png" alt=""></div><h1 class="neon" style="font-size:30px;margin:4px 0">URPHONSCOP</h1><div>Scan. Understand. Keep your phone healthy.</div><div class="on2" style="margin-top:14px">SYSTEM STARTING</div><div class="neon" style="font-size:18px;margin-top:8px">Powered by Ujjwal Raj</div><div class="sm">v7.1</div></div>
 <div id="wl" class="s c1"><h1 class="neon" style="margin:6px 0 0;font-size:24px">Welcome to<br>URPHONSCOP</h1><div class="stg mn"><canvas class="gl" width="320" height="320"></canvas><img src="logo.png" alt=""></div><div class="hud" style="margin:10px 0"><div style="font-size:18px">What is your name?</div><input type="text" id="nm" placeholder="Enter your name..." maxlength="24"></div><button class="btn" onclick="go()">Continue &gt;</button><div class="sm">This helps us give you a personal greeting.</div><div class="neon" style="font-size:16px;margin-top:18px">Powered by Ujjwal Raj</div></div>
 <div id="hm" class="s"><div style="display:flex;justify-content:space-between;align-items:center"><div><div id="gt" style="font-size:16px"></div><div class="neon" id="gn" style="font-size:22px"></div><div class="on2">ALL SYSTEMS ONLINE</div></div><button class="ib" onclick="show('st')"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2"/></svg></button></div>
 <div class="rg"><canvas class="gl gb" width="300" height="300"></canvas><div class="orb"></div><svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="52" fill="none" stroke="#0e3a08" stroke-width="9"/><circle id="rc" cx="60" cy="60" r="52" fill="none" stroke="#39ff14" stroke-width="9" stroke-linecap="round" style="transition:stroke-dashoffset 1.2s"/></svg><div class="c"><span class="sm">Status score</span><b id="sc">--</b><span class="sm">/ 100</span></div></div>
@@ -181,7 +196,7 @@ body.fx #sn .stg:after{content:"";position:absolute;left:8%;right:8%;height:3px;
 <div class="sm" style="margin:8px 0 14px">Alerts work while the app is open or was used recently. Turning Alerts on asks for notification permission.</div>
 <button class="btn" onclick="chg()">Change my name</button>
 <div class="hud" style="margin-top:18px"><b class="neon">Privacy first</b><div class="sm">The app itself never sends your data anywhere. Voice commands use the Android speech service, which may use the internet. URAI online answers, photos and AI images use the internet only when you ask.</div></div>
-<div class="sm c1" style="margin-top:14px">URPHONSCOP v7.0</div></div>
+<div class="sm c1" style="margin-top:14px">URPHONSCOP v7.1</div></div>
 <div id="sn" class="s c1"><h2 class="neon" style="margin:6px 0 0">Scanning...</h2><div class="sm">Checking your phone</div><div class="stg mn"><canvas class="gl" width="320" height="320"></canvas><img src="logo.png" alt=""></div><div class="hud" style="text-align:left" id="sl"></div><div style="height:10px;border:1px solid var(--g);margin:14px 0 6px;border-radius:6px;overflow:hidden"><i id="sbr" style="display:block;height:100%;width:0;background:var(--g);box-shadow:0 0 10px var(--g);transition:width .5s"></i></div><div class="sm" id="spc"></div></div>
 <div id="rs" class="s"><h2 class="neon" style="margin:0">Scan Results</h2><div class="on2">COMPLETED</div><div id="rb"></div><button class="btn" onclick="detail(firstBad())">View Details</button></div>
 <div id="dt" class="s"><button class="pill" onclick="goBack()">&lt; Back</button><h2 class="neon" id="dh" style="margin:0 0 6px"></h2><div id="db"></div></div>
@@ -206,6 +221,8 @@ body.fx #sn .stg:after{content:"";position:absolute;left:8%;right:8%;height:3px;
 <div id="ab" class="s"><button class="pill" onclick="goBack()">&lt; Back</button><h2 class="neon" style="margin:0 0 8px">Ujjwal Raj</h2><div class="hud" style="margin-bottom:12px"><b class="neon">Founder, URBI</b><div class="sm">Ujjwal Raj Beyond Infinity</div></div><div class="hud"><div>URPHONSCOP was created by Ujjwal Raj. Free, no ads, made for people who want to understand their phone.</div><div class="sm" style="margin-top:8px">Small steps. Big dreams. Learn. Build. Repeat.</div></div></div>
 <div id="dg" class="s"><button class="pill" onclick="goBack()">&lt; Back</button><h2 class="neon" style="margin:0 0 8px">Diagnostics</h2><div id="dgb"></div><button class="btn" onclick="dgCopy()">Copy report</button></div>
 <div id="rd" class="s c1"><button class="pill" onclick="goBack()" style="float:left">&lt; Back</button><h2 class="neon" style="margin:0;clear:both">Security Radar</h2><div class="sm">13 checks. Tap a dot for proof.</div><canvas id="rdc" width="320" height="320" style="width:min(92vw,360px);height:auto;max-width:100%"></canvas><div id="rds" style="margin-bottom:10px"></div><div id="rdp" style="text-align:left"></div><div class="sm" style="margin-top:12px">Signs found are not confirmed problems. This review is not a guarantee of safety.</div></div>
+<div id="ua"><canvas id="uac" width="360" height="640"></canvas><div id="uat">UA</div><div id="uaL"></div><div id="uas"></div><div class="uabar"><input type="text" id="uai" placeholder="Tell UA..." autocomplete="off"><button class="ib" id="uam" onclick="uaMic()"><svg viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0014 0M12 18v3"/></svg></button><button class="pill" style="margin:0" onclick="uaClose()">UA bye</button></div></div>
+<div id="hub" class="s"><button class="pill" onclick="goBack()">&lt; Back</button><h2 class="neon" style="margin:0 0 8px">My Apps</h2><input type="text" id="hq" placeholder="Search apps..." oninput="hubRender(this.value)" autocomplete="off"><div id="hg"></div></div>
 <div id="nv"><button onclick="show('hm')"><svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8M5 10v10h5v-6h4v6h5V10"/></svg>Home</button><button onclick="scan()"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M16 16l5 5"/></svg>Scan</button><button onclick="show('rs')"><svg viewBox="0 0 24 24"><path d="M5 4h14v16H5zM9 9h6M9 13h6M9 17h3"/></svg>Results</button><button onclick="show('st')"><svg viewBox="0 0 24 24"><circle cx="5" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="19" cy="12" r="1.6"/></svg>More</button></div>
 <div id="ts"></div>
 <script>
@@ -366,7 +383,7 @@ if(h(['scan','jaanch','janch','check','test']))return ok('Scan',scan);
 if(h(['home','main','wapas','back']))return ok('Home',function(){show('hm')});
 say2('I did not get that. Try: scan, battery, storage, music on, settings, why score.','#ffd60a')}
 function phoneCmd(raw,t){var h=function(w){return has(t,w)},q=nrm(raw),off=h(['off','band','bujhao','stop']);
-function run(ty,a,m){if(ED!=='mine'&&(ty!=='set'||a==='access')){say2('This command works only in the Owner app. Public can open apps and settings screens.','#ffd60a');return}var r='';try{r=URP.act(ty,a||'')}catch(e){r='err:Not available'}var g=r.indexOf('ok:')===0;say2(g?(r.slice(3)||m):r.slice(4),g?'':'#ffd60a')}
+function run(ty,a,m){if(ED!=='mine'&&ty==='set'&&a==='access'){say2('This command works only in the Owner app. Public can open apps and settings screens.','#ffd60a');return}var r='';try{r=URP.act(ty,a||'')}catch(e){r='err:Not available'}var g=r.indexOf('ok:')===0;say2(g?(r.slice(3)||m):r.slice(4),g?'':'#ffd60a')}
 function net(){if(navigator.onLine===false){say2('This needs internet. Please turn on Wi-Fi or mobile data.','#ffd60a');return false}return true}
 var dg=q.replace(/ /g,'').match(/\d{6,}/);
 if(h(['torch','flashlight','flash','tourch','batti']))return run('torch',off?'off':'on');
@@ -495,7 +512,7 @@ function aiErr(a){var c=+a.slice(4,7);return (c===429?'AI ka quota abhi nahi mil
 (function(){var b=$('kb');if(!b||$('kt'))return;var t=document.createElement('button');t.className='btn';t.id='kt';t.textContent='Test AI';t.onclick=function(){$('km').textContent='Testing...';aiAsk('Say hello in one short sentence.',function(a){$('km').textContent=a.indexOf('ERR:')===0?'Failed: '+a.slice(4):'Working with '+MODEL+': '+clean(a)})};b.parentNode.insertBefore(t,$('km'))})();
 var ED='pub';try{ED=URP.edition()}catch(e){}
 if(ED!=='mine'){var po=document.querySelector('#hm .ob');var kk=$('ky');if(kk)kk.parentNode.remove()}
-document.querySelectorAll('.sm').forEach(function(e){if(e.textContent.indexOf('v7.0')>=0)e.textContent+=(ED==='mine'?' • Owner':' • Public')});
+document.querySelectorAll('.sm').forEach(function(e){if(e.textContent.indexOf('v7.1')>=0)e.textContent+=(ED==='mine'?' • Owner':' • Public')});
 var VN=5.3;
 function hex2rgb(h){var n=parseInt(h.replace('#',''),16);return [n>>16&255,n>>8&255,n&255]}
 var CF={acc:'#39ff14',hide:[]};try{var _c=JSON.parse(ls('urp_cfg')||'null');if(_c)CF=_c}catch(e){}
@@ -592,7 +609,7 @@ if(ED==='mine'&&CF.zoom)zoomApply(true);
 </script>
 <script>try{
 var TH={green:['#0b4a16','#000'],black:['#141914','#000'],blue:['#0a2a5a','#000a1a'],aurora:['#2e0b5c','#08001a']};
-function curTheme(){var u=ls('urp_th');if(u&&TH[u])return u;var rc={};try{rc=JSON.parse(ls('urp_rc')||'{}')}catch(e){}if(rc.theme&&TH[rc.theme])return rc.theme;return ED==='mine'?'green':'black'}
+function curTheme(){var u=ls('urp_th');if(u&&TH[u])return u;var rc={};try{rc=JSON.parse(ls('urp_rc')||'{}')}catch(e){}if(rc.theme&&TH[rc.theme])return rc.theme;return 'green'}
 function applyTheme(){var t=TH[curTheme()],s=document.documentElement.style;s.setProperty('--bgA',t[0]);s.setProperty('--bgB',t[1])}
 function thUI(){document.querySelectorAll('#thb button').forEach(function(b){b.classList.toggle('act2',b.getAttribute('data-t')===curTheme())})}
 window.setTheme=function(n){ls('urp_th',n);applyTheme();thUI()};
@@ -609,12 +626,12 @@ try{
 (function(){var s=$('st'),b=s.querySelector('.btn'),x=document.createElement('button');x.className='btn';x.textContent='Test URAI voice';var r=document.createElement('div');r.className='sm';r.id='vt';x.onclick=function(){var v='';try{v=URP.voiceTest()}catch(e){v='not available'}r.textContent=v};s.insertBefore(x,b);s.insertBefore(r,b);var a=document.createElement('button');a.className='btn';a.textContent='About Ujjwal Raj';a.onclick=function(){show('ab')};s.insertBefore(a,b)})();
 }catch(e){}
 try{
-if(ED==='mine'){document.body.classList.add('fx');var f=document.createElement('div');f.id='fxbg';document.body.insertBefore(f,document.body.firstChild)}
+if(true){document.body.classList.add('fx');var f=document.createElement('div');f.id='fxbg';document.body.insertBefore(f,document.body.firstChild)}
 var _h4=home;home=function(){_h4();var e=document.querySelector('#hm .on2');if(e){var t=e.textContent.replace('OWNER • ','OWNER • UJJWAL RAJ • ');e.innerHTML='ALL SYSTEMS ACTIVATED<br><span style="font-size:10px">'+t.replace(/</g,'')+'</span>';e.style.borderRadius='14px';e.style.textAlign='left'}};
 if($('hm').classList.contains('on'))home();
 }catch(e){}
 </script>
-<script>var APPV='v7.0',ERR=window.__E||[];
+<script>var APPV='v7.1',ERR=window.__E||[];
 function diagRun(){var hm=$('hm'),tx=function(r){return [].some.call(hm.querySelectorAll('button.pill'),function(b){return r.test(b.textContent)})},d=null;try{d=get()}catch(e){}
 return [['Version',APPV],['Edition',ED],['Bridge',typeof URP!=='undefined'?'OK':'MISSING'],['Battery reading',d&&d.bat>=0?'OK '+d.bat+'%':'FAIL'],['Why this score button',tx(/Why/)?'OK':'MISSING'],['Proof button',tx(/Proof/)?'OK':'MISSING'],['URAI roaming',$('wm')?'OK':'MISSING'],['Chat screen',$('cht')?'OK':'MISSING'],['Online',navigator.onLine?'yes':'no'],['Errors since install',String(ERR.length)]].concat(ERR.slice(-6).map(function(e,i){return ['Error '+(i+1),e]}))}
 function diagOpen(){var R=diagRun();$('dgb').innerHTML=R.map(function(r){var bad=/MISSING|FAIL/.test(r[1]);return '<div class="row" style="padding:8px 2px"><span>'+r[0]+'</span><b style="color:'+(bad?'#ff3b30':'#39ff14')+'">'+String(r[1]).replace(/</g,'&lt;')+'</b></div>'}).join('')+'<textarea id="dgt" rows="6" style="width:100%;background:#000;color:#39ff14;border:1px solid var(--ln);margin-top:10px">'+R.map(function(r){return r[0]+': '+r[1]}).join('\n')+'</textarea>';show('dg')}
@@ -655,4 +672,52 @@ function rdOpen(){RD.list=rdChecks();var f=RD.list.findIndex(function(c){return 
 setInterval(function(){if(RD.on&&$('rd').classList.contains('on'))rdDraw();else RD.on=false},45);
 $('rdc').addEventListener('click',function(e){var r=this.getBoundingClientRect(),s=320/r.width,px=(e.clientX-r.left)*s,py=(e.clientY-r.top)*s,best=-1,bd=900;RD.list.forEach(function(k,i){var d=(k.x-px)*(k.x-px)+(k.y-py)*(k.y-py);if(d<bd){bd=d;best=i}});if(best>=0){RD.sel=best;rdCard();clk()}});
 (function(){var c=$('cd');if(!c||$('rorb'))return;var d=document.createElement('div'),b=document.createElement('button');b.id='rorb';b.className='rorb';b.setAttribute('onclick','rdOpen()');b.innerHTML='<i></i>';d.appendChild(b);var l=document.createElement('div');l.className='sm';l.style.cssText='text-align:center;margin:0 0 12px';l.textContent='Security Radar';d.appendChild(l);c.parentNode.insertBefore(d,c)})();
-}catch(e){window.__E&&window.__E.push('radar: '+e.message)}</script></body></html>
+}catch(e){window.__E&&window.__E.push('radar: '+e.message)}</script>
+<script>var UAON=false,UAF=0,UAS=[],HUB=[],TM=null;
+for(var ui=0;ui<230;ui++)UAS.push({a:Math.random()*6.28,r:Math.pow(Math.random(),.6),s:Math.random(),z:Math.random()*2+.5});
+function msg(t){if(UAON)uaSay(t);else say2(t)}
+function uaSay(t){var e=$('uas');if(e)e.textContent=t;try{URP.say(t)}catch(x){}}
+function uaDraw(){var c=$('uac'),x=c.getContext('2d'),W=c.width,H2=c.height,cx=W/2,cy=H2*.4,R=W*.46,G=(getComputedStyle(document.documentElement).getPropertyValue('--gr')||'57,255,20').trim();UAF++;
+x.fillStyle='rgba(0,5,2,.3)';x.fillRect(0,0,W,H2);
+UAS.forEach(function(p,i){var ang=p.a+p.r*5+(i%3)*2.094+UAF*.004*(1.5-p.r),rr=p.r*R,px=cx+rr*Math.cos(ang),py=cy+rr*Math.sin(ang)*.6,al=.2+.6*Math.abs(Math.sin(UAF*.02+p.s*9));x.fillStyle='rgba('+(i%7==0?'232,255,232':G)+','+al.toFixed(2)+')';x.fillRect(px,py,p.z,p.z)});
+[.35,.55,.78,.98].forEach(function(k,i){x.strokeStyle='rgba('+G+',.22)';x.lineWidth=1;x.beginPath();x.ellipse(cx,cy,R*k,R*k*.6,0,0,7);x.stroke();var a=UAF*(.012-.002*i)+i*1.9;x.fillStyle=i==2?'#e8ffe8':'rgb('+G+')';x.beginPath();x.arc(cx+R*k*Math.cos(a),cy+R*k*.6*Math.sin(a),3+i,0,7);x.fill()});
+var g=x.createRadialGradient(cx,cy,2,cx,cy,50);g.addColorStop(0,'rgba(232,255,232,.95)');g.addColorStop(.35,'rgba('+G+',.6)');g.addColorStop(1,'rgba('+G+',0)');x.fillStyle=g;x.beginPath();x.arc(cx,cy,50,0,7);x.fill()}
+function uaOpen(){if(UAON)return;UAON=true;$('uaL').innerHTML='';$('ua').classList.add('on');document.body.classList.add('uaon');setTimeout(function(){$('ua').classList.add('show')},30);TM=setInterval(uaDraw,40);uaSay('UA is here. Tell me anything.');clk()}
+function uaClose(){if(!UAON)return;UAON=false;clearInterval(TM);try{URP.say('')}catch(e){}$('ua').classList.remove('show');setTimeout(function(){$('ua').classList.remove('on')},700);document.body.classList.remove('uaon')}
+function uaMic(){need('mic','The microphone is used only to hear your command while UA is open. This app does not save your voice.',function(){try{URP.startVoice();$('uas').textContent='Listening...'}catch(e){uaSay('Voice is not available here.')}})}
+function uaIn(t){t=String(t||'').trim();if(!t)return;$('uai').value='';$('uaL').innerHTML='';var q=nrm(t);if(/\b(bye|close|exit)\b/.test(q)||/^ua (band|wapas)/.test(q)){uaSay('Theek hai. Phir milte hain.');setTimeout(uaClose,1100);return}uaRoute(t,q)}
+function uaRoute(t,q){var tk=q.split(' ');
+if(callIntent(t))return;
+if(styleCmd(q))return;
+if(/\b(my apps|launcher|all apps|sab apps|apps list)\b/.test(q)){uaClose();setTimeout(hubOpen,500);return}
+if(/\b(wifi|bluetooth|display|brightness|location|gps|airplane|accessibility|torch|flashlight|flash|volume|awaz|alarm|timer|dial|search|open|launch|kholo|khol|chalao)\b/.test(q)){phoneCmd(t,tk);return}
+uaClose();setTimeout(function(){appCmd(t,tk)},600)}
+function setAccent(h){if(!/^#[0-9a-f]{6}$/i.test(h))return;var r=hex2rgb(h),s=document.documentElement.style;s.setProperty('--g',h);s.setProperty('--gr',r.join(','));s.setProperty('--ln','rgb('+r.map(function(x){return Math.round(x*.7)}).join(',')+')');s.setProperty('--dg','rgb('+r.map(function(x){return Math.round(x*.45)}).join(',')+')');ls('urp_acc',h);if(ED==='mine'){CF.acc=h;try{cxSave()}catch(e){}}}
+var CLR={green:'#39ff14',hara:'#39ff14',blue:'#4da3ff',neela:'#4da3ff',nila:'#4da3ff',cyan:'#00e5ff',aasmani:'#00e5ff',purple:'#b46cff',baingani:'#b46cff',violet:'#b46cff',pink:'#ff4fd8',gulabi:'#ff4fd8',red:'#ff5a4d',laal:'#ff5a4d',orange:'#ffb020',narangi:'#ffb020',yellow:'#ffd60a',peela:'#ffd60a',white:'#ffffff',safed:'#ffffff'};
+function styleCmd(q){var tk=q.split(' '),col=null,th=null;tk.forEach(function(w){if(CLR[w])col=w});['aurora','black','blue','green'].forEach(function(n){if(tk.indexOf(n)>=0)th=n});
+if(/\b(theme|background|bg|wallpaper)\b/.test(q)&&(th||col)){var n=th||({neela:'blue',nila:'blue',baingani:'aurora',purple:'aurora',violet:'aurora',hara:'green'}[col])||'green';setTheme(n);msg('Theme '+n+' set.');return true}
+if(col&&/\b(color|colour|rang|karo|kar do|change|badlo|make|banao)\b/.test(q)){setAccent(CLR[col]);msg('Done. The color is now '+col+'.');return true}
+return false}
+function callIntent(raw){var q=nrm(raw),m=q.match(/(?:call|dial|phone)\s+(?:to\s+)?(.+)$/)||q.match(/^(.+?)\s+ko\s+(?:call|phone|dial)/)||q.match(/^(.+?)\s+(?:call|phone)\s+(?:karo|kar do|lagao|laga do)/);if(!m)return false;var nm=m[1].replace(/\b(karo|kar do|lagao|laga do|lagana|please|to|ko|me|mujhe)\b/g,' ').replace(/\s+/g,' ').trim();if(!nm)return false;callName(nm);return true}
+function callName(nm){var dg=nm.replace(/[\s-]/g,'');if(/^\+?\d{6,}$/.test(dg)){try{URP.act('dial',dg)}catch(e){}return}
+need('contacts','To call a person by name, URPHONSCOP reads your contact names and numbers only to find the one you ask for. Nothing is saved or sent. It then opens the dialer and you press call.',function(){var r='[]';try{r=URP.findContact(nm)}catch(e){}if(r==='NOPERM'){msg('Please allow contacts, then ask again.');return}var L=[];try{L=JSON.parse(r)}catch(e){}if(!L.length){msg('I could not find '+nm+' in your contacts.');return}if(L.length===1){msg('Opening the dialer for '+L[0].n+'. Press call.');setTimeout(function(){URP.act('dial',L[0].p.replace(/[^+0-9]/g,''))},900);return}$('uaL').innerHTML=L.map(function(c){return '<button class="pill" style="display:block;margin:6px auto" onclick="URP.act(\'dial\',\''+c.p.replace(/[^+0-9]/g,'')+'\')">'+esc(c.n)+' '+esc(c.p)+'</button>'}).join('');msg('Which one?')})}
+function aIc2(p){try{return URP.icon(p)}catch(e){return ''}}
+function hubOpen(){show('hub');var L=[];try{L=JSON.parse(URP.launchables())}catch(e){}L.sort(function(a,b){return a.n.toLowerCase()<b.n.toLowerCase()?-1:1});HUB=L;$('hq').value='';hubRender('')}
+function hubRender(q){var l=HUB.filter(function(a){return a.n.toLowerCase().indexOf(String(q).toLowerCase())>=0});$('hg').innerHTML=l.map(function(a){return '<button class="hb" onclick="URP.launchPkg(\''+a.p+'\')"><img class="ai" data-p="'+a.p+'" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="><span>'+esc(a.n)+'</span></button>'}).join('');hubLazy()}
+function hubLazy(){var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){var im=e.target;if(!im.getAttribute('data-ld')){im.setAttribute('data-ld','1');im.src=aIc2(im.getAttribute('data-p'))}io.unobserve(im)}})});document.querySelectorAll('#hg img').forEach(function(i){io.observe(i)})}
+var _sy2=say2;say2=function(t,c){_sy2(t,c);if(UAON)uaSay(String(t).replace(/<[^>]+>/g,''))};
+var _pc=phoneCmd;phoneCmd=function(raw,t){if(callIntent(raw))return;_pc(raw,t)};
+var _ak=ask;ask=function(){var v=($('ai').value||'').trim().toLowerCase();if(/^(ua|brahmand)$/.test(v)){$('ai').value='';uaOpen();return}if(/^(my apps|launcher|all apps)$/.test(v)){$('ai').value='';hubOpen();return}_ak()};
+var _ov3=window.onVoice;window.onVoice=function(t){if(UAON)uaIn(t);else _ov3(t)};
+var _oe3=window.onVoiceErr;window.onVoiceErr=function(m){if(UAON){if(!/system voice/.test(m))uaSay(m)}else _oe3(m)};
+try{$('uai').addEventListener('keydown',function(e){if(e.key==='Enter')uaIn(this.value)})}catch(e){}
+try{var obs=[].slice.call(document.querySelectorAll('#hm .ob')),dr=null,dd=false;if(obs.length>1)obs.forEach(function(o){var b=o.querySelector('.orb3');if(!b)return;b.style.touchAction='none';
+b.addEventListener('click',function(e){if(dd){e.stopImmediatePropagation();e.preventDefault();dd=false}},true);
+b.addEventListener('pointerdown',function(e){dr={o:o,x:e.clientX,y:e.clientY,m:false};dd=false;try{b.setPointerCapture(e.pointerId)}catch(x){}});
+b.addEventListener('pointermove',function(e){if(!dr||dr.o!==o)return;var dx=e.clientX-dr.x,dy=e.clientY-dr.y;if(Math.abs(dx)+Math.abs(dy)>12)dr.m=true;if(dr.m){dd=true;o.style.transition='none';o.style.transform='translate('+dx+'px,'+dy+'px)'}});
+b.addEventListener('pointerup',function(e){if(!dr||dr.o!==o)return;var mv=dr.m,ot=obs.filter(function(z){return z!==o})[0],r1=o.getBoundingClientRect(),r2=ot.getBoundingClientRect(),ds=Math.hypot(r1.left+r1.width/2-r2.left-r2.width/2,r1.top+r1.height/2-r2.top-r2.height/2);o.style.transition='transform .5s';o.style.transform='';dr=null;if(mv&&ds<90)uaOpen()})})}catch(e){}
+try{var sw=['#39ff14','#00e5ff','#4da3ff','#b46cff','#ff4fd8','#ff5a4d','#ffb020','#ffffff'],s=$('st'),b0=s.querySelector('.btn'),d=document.createElement('div');d.className='hud';d.style.margin='12px 0';d.innerHTML='<b class="neon">Accent color</b><div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:8px">'+sw.map(function(c){return '<button onclick="setAccent(\''+c+'\')" style="width:36px;height:36px;border-radius:50%;background:'+c+';border:2px solid #fff;padding:0"></button>'}).join('')+'</div><div class="sm" style="margin-top:6px">You can also say: make it blue.</div>';s.insertBefore(d,b0)}catch(e){}
+try{var bs=[].slice.call(document.querySelectorAll('#hm .btn')),ac=bs.filter(function(x){return x.textContent==='Apps check'})[0];if(ac){var mb=document.createElement('button');mb.className='btn';mb.textContent='My Apps';mb.onclick=hubOpen;ac.parentNode.insertBefore(mb,ac.nextSibling)}}catch(e){}
+try{var u0=ls('urp_acc');if(u0)setAccent(u0);setInterval(function(){var u=ls('urp_acc');if(u)setAccent(u)},10000)}catch(e){}
+try{setTimeout(function(){if(!ls('urp_uah')&&$('hm').classList.contains('on')){ls('urp_uah','1');toast('Tip: drag one orb onto the other')}},9000)}catch(e){}
+</script></body></html>
